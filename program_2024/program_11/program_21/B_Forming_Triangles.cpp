@@ -18,7 +18,7 @@ void solve()
     {
         if (val >= 3)
             ans += val * (val - 1) * (val - 2) / 6;
-        else if (val >= 2)
+        if (val >= 2)
             ans += val * (val - 1) / 2 * sum;
         sum += val;
     }
