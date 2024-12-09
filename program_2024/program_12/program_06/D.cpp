@@ -9,29 +9,34 @@ void solve()
     cin >> n >> k >> a >> b >> x >> y;
     a--, b--;
 
-    vector<int> need(n, 1e9);
-    unordered_set<int> vis;
-    queue<pair<int, int>> q;
-    q.push({a, 0});
+    vector<int> vis(n), dist(n, 1e9);
+    queue<int> q;
+    q.push(a);
+    dist[a] = 0;
     while (!q.empty())
     {
-        auto [pos, time] = q.front();
+        int top = q.front();
         q.pop();
-        if (vis.find(pos) != vis.end())
+
+        if (vis[top])
             continue;
-        need[pos] = min(need[pos], time);
+        vis[top] = 1;
 
-        int ne = (pos + x) % n;
-        q.push({ne, time + 1});
-        vis.insert(ne);
-
-        int prev = (pos - y + n) % n;
-        q.push({prev, time + 1});
-        vis.insert(prev);
+        int next = (top + x) % n;
+        dist[next] = min(dist[next], dist[top] + 1);
+        q.push(next);
+        next = (top - y + n) % n;
+        dist[next] = min(dist[next], dist[top] + 1);
+        q.push(next);
     }
+
     int ans = 1e9;
     for (int i = 0; i < n; i++)
-        ans = min({ans, need[i], need[(i + n / 2) % n] + 1});
+    {
+        if (k >= 1 && (i + n / 2) % n == b)
+            ans = min(ans, dist[i] + 1);
+    }
+    ans = min(ans, dist[b]);
     cout << (ans == 1e9 ? -1 : ans) << "\n";
 }
 
