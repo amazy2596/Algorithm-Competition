@@ -44,6 +44,7 @@ class Fenwick
             return query(r) - query(l - 1);
         }
 };
+
 void solve()
 {
     
