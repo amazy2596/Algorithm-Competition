@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
+#define uint uint64_t
 #define int long long
 using namespace std;
 
-class SegmentTree
+class SegmentTree_mn
 {
     public:
         vector<int> data, tree, lazy, has_lazy;
         vector<pair<int, int>> ranges;
         int n;
 
-        SegmentTree(vector<int> &input)
+        SegmentTree_mn(vector<int> &input)
         {
             n = input.size();
             data = input;
@@ -107,7 +108,7 @@ class SegmentTree
 void solve()
 {
     vector<int> a = {1, 2, 3};
-    SegmentTree tree(a);
+    SegmentTree_mn tree(a);
 
     cout << tree.query(0, 3) << "\n";
 

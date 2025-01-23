@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define uint uint64_t
 #define int long long
 using namespace std;
 
