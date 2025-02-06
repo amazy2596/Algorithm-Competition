@@ -53,7 +53,53 @@ int A(int n, int m)
 
 void solve()
 {
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    if (n == 1)
+    {
+        if (s[0] == '?')
+            cout << 2 << "\n";
+        else 
+            cout << 1 << "\n";
+        return;
+    }
+    int ans = 0;
+    int cnt = 0;
+    for (int i = 1; i < s.length() - 1; i++)
+        cnt += (s[i] == '?');
+    vector<int> a, b;
+    if (s[0] == '1')
+        a = {1};
+    else if (s[0] == '0')
+        a = {0};
+    else 
+        a = {1, 0};
     
+    if (s[n - 1] == '1')
+        b = {1};
+    else if (s[n - 1] == '0')
+        b = {0};
+    else 
+        b = {1, 0};
+
+    int same_1 = 0, same_0 = 0;
+    for (auto aa : a)
+    {
+        for (auto bb : b)
+        {
+            if (aa + bb == 1)
+                same_1++;
+            else 
+                same_0++;
+        }
+    }
+
+    ans = (ans + p[cnt] * same_1 * 2) % mod;
+    ans = (ans + p[cnt] * same_0 * (n - 2)) % mod;
+
+    cout << ans << "\n";
 }
 
 signed main()
@@ -62,7 +108,8 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    init();
+    cin >> T;
     while (T--)
         solve();
     return 0;
