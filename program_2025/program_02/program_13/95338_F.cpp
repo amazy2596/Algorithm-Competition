@@ -23,7 +23,7 @@ void solve()
     for (int i = 1; i <= n; i++)
     {
         if (dp[i - 1] >= a[i].first)
-            dp[i] = max(dp[i - 1], sum[i]);
+            dp[i] = max(dp[i - 1], mx[i]);
         else 
             dp[i] = max({dp[i - 1], a[i].first, mx[i - 1]});
     }
