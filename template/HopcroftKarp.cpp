@@ -13,10 +13,10 @@ class HopcroftKarp
         {
             n = size_u;
             m = size_v;
-            pair_u.resize(n + 1, 0);
-            pair_v.resize(m + 1, 0);
-            dist.resize(n + 1, 0);
-            adj.resize(n + 1, vector<int>());
+            pair_u.resize(n, 0);
+            pair_v.resize(m, 0);
+            dist.resize(n, 0);
+            adj.resize(n, vector<int>());
         }
 
         void add(int u, int v)

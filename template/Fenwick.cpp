@@ -12,7 +12,7 @@ class Fenwick
         Fenwick(int size)
         {
             n = size;
-            a.resize(n + 1, 0);
+            a.resize(n, 0);
         }
 
         int lowbit(int x)

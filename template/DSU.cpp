@@ -10,9 +10,9 @@ class DSU
 
         DSU(int n)
         {
-            parent.resize(n + 1);
+            parent.resize(n);
             iota(parent.begin(), parent.end(), 0);
-            rank.resize(n + 1, 1);
+            rank.resize(n, 1);
         }
 
         int find(int x)
@@ -33,7 +33,7 @@ class DSU
             }
         }
 
-        bool connected(int x, int y)
+        bool query(int x, int y)
         {
             return find(x) == find(y);
         }
