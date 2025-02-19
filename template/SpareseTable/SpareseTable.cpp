@@ -3,44 +3,50 @@
 #define int long long
 using namespace std;
 
-class SparseTable 
-{
+class SparseTable {
     public:
         int n;
-        vector<vector<pair<int,int>>> st;
+        vector<vector<int>> st_min;  
+        vector<vector<int>> st_max;  
         vector<int> log_table;
 
-        SparseTable(vector<int>& input) 
-        {
-            n = input.size() - 1;
-            log_table.resize(n + 2, 0);
+        SparseTable(vector<int>& input) {
+            n = input.size();
+            log_table.resize(n, 0);
 
             for (int i = 2; i <= n + 1; i++)
                 log_table[i] = log_table[i / 2] + 1;
 
             int max_log = log_table[n] + 1;
-            st.assign(n + 1, vector<pair<int,int>>(max_log, {0, 0}));
+            st_min.assign(n, vector<int>(max_log, 0));
+            st_max.assign(n, vector<int>(max_log, 0));
 
             for (int i = 1; i <= n; i++) 
-                st[i][0] = {input[i], input[i]};
+            {
+                st_min[i][0] = input[i];
+                st_max[i][0] = input[i];
+            }
 
-            for (int j = 1; j < max_log; j++) {
-                for (int i = 1; i + (1 << j) - 1 <= n; i++) {
-                    pair<int,int> left = st[i][j - 1];
-                    pair<int,int> right = st[i + (1 << (j - 1))][j - 1];
-                    st[i][j] = {min(left.first, right.first), max(left.second, right.second)};
+            for (int j = 1; j < max_log; j++) 
+            {
+                for (int i = 1; i + (1 << j) - 1 <= n; i++) 
+                {
+                    st_min[i][j] = min(st_min[i][j - 1], st_min[i + (1 << (j - 1))][j - 1]);
+                    st_max[i][j] = max(st_max[i][j - 1], st_max[i + (1 << (j - 1))][j - 1]);
                 }
             }
         }
-        int query_mn(int L, int R) 
+
+        int query_mn(int l, int r) 
         {
-            int j = log_table[R - L + 1];
-            return min(st[L][j].first, st[R - (1 << j) + 1][j].first);
+            int j = log_table[r - l + 1];
+            return min(st_min[l][j], st_min[r - (1 << j) + 1][j]);
         }
-        int query_mx(int L, int R) 
+
+        int query_mx(int l, int r) 
         {
-            int j = log_table[R - L + 1];
-            return max(st[L][j].second, st[R - (1 << j) + 1][j].second);
+            int j = log_table[r - l + 1];
+            return max(st_max[l][j], st_max[r - (1 << j) + 1][j]);
         }
 };
 
