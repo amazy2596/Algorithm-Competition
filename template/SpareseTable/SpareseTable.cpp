@@ -31,6 +31,7 @@ class SparseTable {
             {
                 for (int i = 1; i + (1 << j) - 1 <= n; i++) 
                 {
+                    // [i + 2 ^ (j - 1) - 1, i + 2 ^ j - 1], [i + 2 ^ (j - 1), i + 2 ^ j - 1];
                     st_min[i][j] = min(st_min[i][j - 1], st_min[i + (1 << (j - 1))][j - 1]);
                     st_max[i][j] = max(st_max[i][j - 1], st_max[i + (1 << (j - 1))][j - 1]);
                 }
@@ -40,6 +41,7 @@ class SparseTable {
         int query_mn(int l, int r) 
         {
             int j = log_table[r - l + 1];
+            // [l, l + 2 ^ j - 1], [r - 2 ^ j + 1, r];
             return min(st_min[l][j], st_min[r - (1 << j) + 1][j]);
         }
 
