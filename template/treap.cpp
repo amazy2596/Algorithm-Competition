@@ -5,27 +5,27 @@ using namespace std;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
-struct node
+struct Node
 {
-    node *left = nullptr, *right = nullptr;
+    Node *left = nullptr, *right = nullptr;
     pair<int, int> key;
     int priority;
     int min_left = INT32_MAX;
-    node(pair<int, int> key) : key(key), priority(rng()), min_left(key.second) {}
+    Node(pair<int, int> key) : key(key), priority(rng()), min_left(key.second) {}
 };
 
-int get_left_min(node *cur)
+int get_left_min(Node *cur)
 {
     return cur == nullptr ? INT32_MAX : cur->min_left;
 }
 
-void update(node *cur)
+void update(Node *cur)
 {
     if (cur != nullptr)
         cur->min_left = min(cur->key.second, min(get_left_min(cur->left), get_left_min(cur->right)));
 }
 
-node* merge(node *left_tree, node *right_tree)
+Node* merge(Node *left_tree, Node *right_tree)
 {
     if (left_tree == nullptr)   
         return right_tree;
@@ -46,7 +46,7 @@ node* merge(node *left_tree, node *right_tree)
     }
 }
 
-pair<node*, node*> split(node *cur, pair<int, int> key)
+pair<Node*, Node*> split(Node *cur, pair<int, int> key)
 {
     if (cur == nullptr)
         return {nullptr, nullptr};
@@ -67,7 +67,7 @@ pair<node*, node*> split(node *cur, pair<int, int> key)
     }
 }
 
-void remove_node(node *&cur, pair<int, int> key)
+void remove_node(Node *&cur, pair<int, int> key)
 {
     if (cur == nullptr)
         return;

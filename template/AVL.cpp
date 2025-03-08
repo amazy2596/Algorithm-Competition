@@ -1,33 +1,33 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct node
+struct Node
 {
     int key, height;
-    node *left;
-    node *right;
-    node(int k) : key(k), height(1), left(nullptr), right(nullptr) {}
+    Node *left;
+    Node *right;
+    Node(int k) : key(k), height(1), left(nullptr), right(nullptr) {}
 };
 
-int getHeight(node *root)
+int getHeight(Node *root)
 {
     return root == nullptr ? 0 : root->height;
 }
 
-int calcBF(node *root)
+int calcBF(Node *root)
 {
     return root == nullptr ? 0 : getHeight(root->left) - getHeight(root->right);
 }
 
-void update(node *root)
+void update(Node *root)
 {
     if (root != nullptr)
         root->height = max(getHeight(root->left), getHeight(root->right)) + 1;
 }
 
-node* rightRotate(node *root)
+Node* rightRotate(Node *root)
 {
-    node *temp = root->left;
+    Node *temp = root->left;
     root->left = temp->right;
     temp->right = root;
     root = temp;
@@ -37,9 +37,9 @@ node* rightRotate(node *root)
     return root;
 }
 
-node* leftRotate(node *root)
+Node* leftRotate(Node *root)
 {
-    node *temp = root->right;
+    Node *temp = root->right;
     root->right = temp->left;
     temp->left = root;
     root = temp;
@@ -49,7 +49,7 @@ node* leftRotate(node *root)
     return root;
 }
 
-node* balance(node *root)
+Node* balance(Node *root)
 {
     int bf = calcBF(root);
     int left_bf = calcBF(root->left);
@@ -75,10 +75,10 @@ node* balance(node *root)
     return root;
 }
 
-node* insert(node *root, int key)
+Node* insert(Node *root, int key)
 {
     if (root == nullptr)
-        return new node(key);
+        return new Node(key);
     
     if (key < root->key)
         root->left = insert(root->left, key);
@@ -92,12 +92,12 @@ node* insert(node *root, int key)
     return balance(root);
 }
 
-node* minValue(node *root)
+Node* minValue(Node *root)
 {
     return root->left == nullptr ? root : minValue(root->left);
 }
 
-node* erase(node *root, int key)
+Node* erase(Node *root, int key)
 {
     if (root == nullptr)
         return root;
@@ -110,7 +110,7 @@ node* erase(node *root, int key)
     {
         if (root->left == nullptr || root->right == nullptr)
         {
-            node *temp = root->left == nullptr ? root->right : root->left;
+            Node *temp = root->left == nullptr ? root->right : root->left;
             if (temp == nullptr)
                 root = nullptr;
             else
@@ -119,7 +119,7 @@ node* erase(node *root, int key)
         }
         else
         {
-            node *temp = minValue(root->right);
+            Node *temp = minValue(root->right);
             root->key = temp->key;
             root->right = erase(root->right, temp->key);
         }
@@ -134,7 +134,7 @@ node* erase(node *root, int key)
 }
 
 // 中序遍历，保存节点的key
-void inorderTraversal(node* root, vector<int>& result) {
+void inorderTraversal(Node* root, vector<int>& result) {
     if (root == nullptr)
         return;
     inorderTraversal(root->left, result);
@@ -143,7 +143,7 @@ void inorderTraversal(node* root, vector<int>& result) {
 }
 
 // 检查中序遍历是否有序
-bool isInorderSorted(node* root) {
+bool isInorderSorted(Node* root) {
     vector<int> result;
     inorderTraversal(root, result);
     for (size_t i = 1; i < result.size(); i++) {
@@ -155,7 +155,7 @@ bool isInorderSorted(node* root) {
 }
 
 // 递归检查平衡因子是否满足条件
-bool checkBalanceFactor(node* root) {
+bool checkBalanceFactor(Node* root) {
     if (root == nullptr)
         return true;
 
@@ -172,7 +172,7 @@ bool checkBalanceFactor(node* root) {
 }
 
 // 递归检查节点高度是否正确
-bool checkHeight(node* root) {
+bool checkHeight(Node* root) {
     if (root == nullptr)
         return true;
 
@@ -189,12 +189,12 @@ bool checkHeight(node* root) {
 }
 
 // 检查整个AVL树是否平衡且满足二叉查找树的性质
-bool isAVL(node* root) {
+bool isAVL(Node* root) {
     return isInorderSorted(root) && checkBalanceFactor(root) && checkHeight(root);
 }
 
 int main() {
-    node* tree = nullptr;
+    Node* tree = nullptr;
 
     // 示例插入和删除操作
     tree = insert(tree, 10);
