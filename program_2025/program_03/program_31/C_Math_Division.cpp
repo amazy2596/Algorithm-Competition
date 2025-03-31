@@ -56,8 +56,15 @@ void solve()
     int n;
     string s;
     cin >> n >> s;
+    reverse(s.begin(), s.end());
+    s = " " + s;
 
-    
+    vector<int> f(n + 1);
+    for (int i = 1; i <= n; i++)
+        f[i] = (s[i] == '1' ? (f[i - 1] + fast_pow(2, mod - 2) * ((1 - f[i - 1] + mod) % mod)) % mod 
+        : (fast_pow(2, mod - 2) * f[i - 1]) % mod);
+
+    cout << (n - 1 + f[n - 1]) % mod << "\n";
 }
 
 signed main()
