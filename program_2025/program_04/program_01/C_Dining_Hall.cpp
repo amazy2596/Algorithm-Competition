@@ -26,16 +26,49 @@ void solve()
         cin >> a[i];
 
     priority_queue<node> q1;
-    for (int x = 0; x <= 1000 && q1.size() < 4 * n; x++)
+    queue<array<int, 3>> q;
+    q.push({0, 0, 0});
+    int mx = -1;
+
+    map<pair<int, int>, int> vis_path;
+    map<pair<int, int>, int> vis_desk;
+    while (!q.empty())
     {
-        for (int y = 0; y <= 1000 && q1.size() < 4 * n; y++)
+        auto [x, y, dist] = q.front();
+        q.pop();
+
+        if (vis_path[{x, y}])
+            continue;
+        vis_path[{x, y}]++;
+
+        if (vis_desk[{x, y}])
+            continue;
+        vis_desk[{x, y}]++;
+
+        if (x % 3 == 1 && y % 3 == 1)
+            q1.push({dist, (x - 1) / 3, (y - 1) / 3, x, y});
+        else if (x % 3 == 1 && y % 3 == 2)
+            q1.push({dist, (x - 1) / 3, (y - 2) / 3, x, y});
+        else if (x % 3 == 2 && y % 3 == 1)
+            q1.push({dist, (x - 2) / 3, (y - 1) / 3, x, y});
+        else if (x % 3 == 2 && y % 3 == 2)
+            q1.push({dist, (x - 2) / 3, (y - 2) / 3, x, y});
+        else
         {
-            int tx = 3 * x + 1, ty = 3 * y + 1;
-            q1.push({tx + ty, x, y, tx, ty});
-            q1.push({tx + ty + 1, x, y, tx + 1, ty});
-            q1.push({tx + ty + 1, x, y, tx, ty + 1});
-            q1.push({tx + ty + 2, x, y, tx + 1, ty + 1});
+            for (auto [dx, dy] : vector<pair<int, int>> {{0, 1}, {1, 0}, {0, -1}, {-1, 0}})
+            {
+                int nx = x + dx, ny = y + dy;
+                if (nx < 0 || ny < 0)
+                    continue;
+                q.push({nx, ny, dist + 1});
+            }
         }
+
+        if (q1.size() >= 4 * n && mx == -1)
+            mx = dist;
+
+        if (mx != -1 && !q.empty() && q.front()[2] > mx)
+            break;
     }
 
     priority_queue<node> q2 = q1;
