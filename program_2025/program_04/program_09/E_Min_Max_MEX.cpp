@@ -14,14 +14,14 @@ void solve()
     auto check = [&](int x)
     {
         int res = 0;
-        set<int> s;
+        unordered_map<int, int> mp;
         for (int i = 0; i < n; i++)
         {
             if (a[i] < x)
-                s.insert(a[i]);
-            if (s.size() == x)
+                mp[a[i]]++;
+            if (mp.size() == x)
             {
-                s.clear();
+                mp.clear();
                 res++;
             }
         }

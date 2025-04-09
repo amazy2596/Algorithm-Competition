@@ -3,7 +3,7 @@
 #define int long long
 using namespace std;
 
-const int N = 2e5 + 5;
+const int N = 2e5 * 31;
 int trie[N][2], cnt[N], tot = 0;
 
 int newNode()
