@@ -3,47 +3,46 @@
 #define int long long
 using namespace std;
 
-class Fenwick
+struct Fenwick
 {
-    public:
-        int n;
-        vector<int> a;
+    int n;
+    vector<int> a;
 
-        Fenwick(int size)
-        {
-            n = size;
-            a.resize(n, 0);
-        }
+    Fenwick(int size)
+    {
+        n = size;
+        a.resize(n, 0);
+    }
 
-        int lowbit(int x)
-        {
-            return x & -x;
-        }
+    int lowbit(int x)
+    {
+        return x & -x;
+    }
 
-        void update(int x, int k)
+    void update(int x, int k)
+    {
+        while (x > 0 && x <= n)
         {
-            while (x > 0 && x <= n)
-            {
-                a[x] += k;
-                x += lowbit(x);
-            }
+            a[x] += k;
+            x += lowbit(x);
         }
+    }
 
-        int query(int r)
+    int query(int r)
+    {
+        int res = 0;
+        while (r > 0)
         {
-            int res = 0;
-            while (r > 0)
-            {
-                res += a[r];
-                r -= lowbit(r);
-            }
-            return res;
+            res += a[r];
+            r -= lowbit(r);
         }
+        return res;
+    }
 
-        int query(int l, int r)
-        {
-            return query(r) - query(l - 1);
-        }
+    int query(int l, int r)
+    {
+        return query(r) - query(l - 1);
+    }
 };
 
 void solve()
