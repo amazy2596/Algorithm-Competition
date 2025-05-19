@@ -1,16 +1,8 @@
 #include <bits/stdc++.h>
-using uint = uint64_t;
+#define uint uint64_t
 #define int long long
+#define inf 1e18l
 using namespace std;
-
-const int inf = 4e18;
-int dx8[8] = {1, 1, 0, -1, -1, -1,  0, 1};
-int dy8[8] = {0, 1, 1,  1,  0, -1, -1, -1};
-int dx4[4] = {1, 0, -1,  0};
-int dy4[4] = {0, 1,  0, -1};
-
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [&](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
 struct info
 {
@@ -19,14 +11,9 @@ struct info
 	info () : mx(-inf), mn(inf), sum(0), ssum(0) {};
 	info (int mx, int mn, int sum, int ssum) : mx(mx), mn(mn), sum(sum), ssum(ssum) {};
 	
-	info operator+(const info &o)
+	info operator+(info other)
 	{
-		return info(
-			max(mx, o.mx), 
-			min(mn, o.mn), 
-			sum + o.sum, 
-			ssum + o.ssum
-		);
+		return info(max(mx, other.mx), min(mn, other.mn), sum + other.sum, ssum + other.ssum);
 	}
 };
 
@@ -34,19 +21,20 @@ struct SegmentTree
 {
 	int n;
 	vector<info> tree;
-	// vector<int> lazy;
-    // vector<bool> has_lazy;
+	vector<int> data, has_lazy, lazy;
 	
 	SegmentTree(vector<int> &input)
 	{
-		n = input.size() - 1;
+		data = input;
+		n = data.size() - 1;
 		tree.resize(4 * n + 5, info());
-		// lazy.resize(4 * n + 5, 0);
-		// has_lazy.resize(4 * n + 5, false);
-		build(1, 1, n, input);
+		lazy.resize(4 * n + 5);
+		has_lazy.resize(4 * n + 5);
+
+		build(1, 1, n);
 	}
 	
-	void build(int node, int start, int end, vector<int> &data)
+	void build(int node, int start, int end)
 	{
 		if (start == end)
 		{
@@ -55,8 +43,8 @@ struct SegmentTree
 		else 
 		{
 			int mid = (start + end) / 2;
-			build(node * 2, start, mid, data);
-			build(node * 2 + 1, mid + 1, end, data);
+			build(node * 2, start, mid);
+			build(node * 2 + 1, mid + 1, end);
 			tree[node] = tree[node * 2] + tree[node * 2 + 1];
 		}
 	}
@@ -85,6 +73,7 @@ struct SegmentTree
 			return tree[node];
 			
 		int mid = (start + end) / 2;
+		
 		return query(node * 2, start, mid, l, r) + query(node * 2 + 1, mid + 1, end, l, r);
 	}
 	
@@ -103,16 +92,53 @@ struct SegmentTree
 
 void solve()
 {
-    
+	int n, q;
+	cin >> n >> q;
+	vector<int> a(n + 1);
+	for (int i = 1; i <= n; i++)
+		cin >> a[i];
+		
+	SegmentTree tree(a);
+	
+	int id = 0;
+	while (q--)
+	{
+		int op;
+		cin >> op;
+		if (op == 1)
+		{
+			int x, y;
+			cin >> x >> y;
+			tree.update(x, y);
+		}
+		else if (op == 2)
+		{
+			int l, r;
+			cin >> l >> r;
+			info t = tree.query(l, r);
+			// cout << ++id << " " << t.mn << " " << t.mx << " " << t.sum << "\n";
+			int len = r - l + 1;
+
+            auto S = [&](int n)
+            {
+                return n * (2 * n + 1) * (n + 1) / 6;
+            };
+
+			if (len - 1 == t.mx - t.mn && t.sum == len * (t.mx + t.mn) / 2 && t.ssum == S(t.mx) - S(t.mn - 1))
+				cout << "YES\n";
+			else 
+				cout << "NO\n";
+		}
+	}
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

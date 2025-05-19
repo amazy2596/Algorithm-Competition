@@ -5,15 +5,14 @@ using namespace std;
 
 void solve()
 {
-    int n, k;
-    cin >> n >> k;
-    vector<int> a(n + 1);
-    for (int i = 1; i <= n; i++)
-        cin >> a[i];
-
-    sort(a.begin() + 1, a.end());
-
-    cout << a[(n + k + 2) / 2] - a[(n + 1 - k) / 2] + 1 << "\n";
+    int x, y, z;
+    cin >> x >> y >> z;
+    string a, b, c;
+    cin >> a >> b >> c;
+    if (a[0] == 'M' && b[0] == 'S' && c[0] == 'T')
+        cout << "YES\n";
+    else 
+        cout << "NO\n";
 }
 
 signed main()
