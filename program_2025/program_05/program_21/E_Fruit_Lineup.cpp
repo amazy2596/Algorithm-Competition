@@ -11,8 +11,8 @@ int dy4[4] = {0, 1,  0, -1};
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
-const int N = 1e6 + 5;
-const int mod = 1e9 + 7;
+const int N = 1e7 + 5;
+const int mod = 998244353;
 int fact[N], ifact[N], p[N];
 
 int fast_pow(int a, int b)
@@ -61,7 +61,13 @@ int A(int n, int m)
 
 void solve()
 {
-    
+    int a, b, c, d;
+    cin >> a >> b >> c >> d;
+    int ans = 0;
+    for (int i = 0; i <= c; i++)
+        ans = (ans + C(a + b + i, b) * C(c - i + d - 1, d - 1)) % mod;
+
+    cout << ans % mod << "\n";
 }
 
 signed main()
