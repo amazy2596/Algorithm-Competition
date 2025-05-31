@@ -14,7 +14,7 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
 const uint mod = (1ull << 61) - 1;
 uniform_int_distribution<uint> dist(mod / 2, mod - 1);
-const uint base = dist(rnd);
+const uint base = dist(rng);
 const int N = 2e5 + 5;
 vector<uint> p(N);
 
@@ -55,7 +55,25 @@ vector<uint> build(vector<T> &s)
 
 void solve()
 {
-    
+    init();
+    vector<uint> a;
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+    {
+        vector<uint> temp(1, 0);
+        string s;
+        cin >> s;
+        for (int j = 0; j < s.length(); j++)
+            temp.push_back((int)(s[j]));
+        auto hashed = build(temp);
+        a.push_back(query(hashed, 1, s.length()));
+    }
+
+    sort(a.begin(), a.end());
+    a.erase(unique(a.begin(), a.end()), a.end());
+
+    cout << a.size() << "\n";
 }
 
 signed main()

@@ -14,7 +14,7 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
 const uint mod = (1ull << 61) - 1;
 uniform_int_distribution<uint> dist(mod / 2, mod - 1);
-const uint base = dist(rnd);
+const uint base = dist(rng);
 const int N = 2e5 + 5;
 vector<uint> p(N);
 
@@ -55,7 +55,11 @@ vector<uint> build(vector<T> &s)
 
 void solve()
 {
-    
+    init();
+    vector<uint> a;
+    int n;
+    cin >> n;
+       
 }
 
 signed main()
