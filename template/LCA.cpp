@@ -3,73 +3,72 @@
 #define int long long
 using namespace std;
 
-class LCA
+struct LCA
 {
-    public:
-        int n, max_log;
-        vector<vector<int>> adj, up;
-        vector<int> depth;
+    int n, max_log;
+    vector<vector<int>> adj, up;
+    vector<int> depth;
 
-        LCA(int n, int root, vector<vector<int>> &adj)
-        {
-            this->n = n;
-            this->adj = adj;
-            this->max_log = (int)log2(n) + 1;
+    LCA(int n, int root, vector<vector<int>> &adj)
+    {
+        this->n = n;
+        this->adj = adj;
+        this->max_log = (int)log2(n) + 1;
 
-            up.resize(n + 1, vector<int>(max_log, -1));
-            depth.resize(n + 1, 0);
+        up.resize(n + 1, vector<int>(max_log, -1));
+        depth.resize(n + 1, 0);
 
-            dfs(root, -1);
-        }
+        dfs(root, -1);
+    }
 
-        void dfs(int root, int p) 
-        {
-            stack<pair<int, int>> stk;
-            stk.push({root, p});
-            
-            while (!stk.empty()) 
-            {
-                auto [u, parent] = stk.top();
-                stk.pop();
-                
-                up[u][0] = parent; 
-                for (int i = 1; i < max_log; i++)
-                    if (up[u][i - 1] != -1)
-                        up[u][i] = up[up[u][i - 1]][i - 1];
+    void dfs(int root, int p) 
+    {
+        stack<pair<int, int>> stk;
+        stk.push({root, p});
         
-                for (int v : adj[u]) 
-                {
-                    if (v == parent) 
-                        continue;
-                    depth[v] = depth[u] + 1;
-                    stk.push({v, u});
-                }
-            }
-        }
-
-        int query(int u, int v)
+        while (!stk.empty()) 
         {
-            if (depth[u] < depth[v])
-                swap(u, v);
-
-            for (int i = max_log - 1; i >= 0; i--)
-                if (depth[u] - (1ll << i) >= depth[v])
-                    u = up[u][i];
-
-            if (u == v)
-                return u;
+            auto [u, parent] = stk.top();
+            stk.pop();
             
-            for (int i = max_log - 1; i >= 0; i--)
+            up[u][0] = parent; 
+            for (int i = 1; i < max_log; i++)
+                if (up[u][i - 1] != -1)
+                    up[u][i] = up[up[u][i - 1]][i - 1];
+    
+            for (int v : adj[u]) 
             {
-                if (up[u][i] != up[v][i])
-                {
-                    u = up[u][i];
-                    v = up[v][i];
-                }
+                if (v == parent) 
+                    continue;
+                depth[v] = depth[u] + 1;
+                stk.push({v, u});
             }
-
-            return up[u][0];
         }
+    }
+
+    int query(int u, int v)
+    {
+        if (depth[u] < depth[v])
+            swap(u, v);
+
+        for (int i = max_log - 1; i >= 0; i--)
+            if (depth[u] - (1ll << i) >= depth[v])
+                u = up[u][i];
+
+        if (u == v)
+            return u;
+        
+        for (int i = max_log - 1; i >= 0; i--)
+        {
+            if (up[u][i] != up[v][i])
+            {
+                u = up[u][i];
+                v = up[v][i];
+            }
+        }
+
+        return up[u][0];
+    }
 };
 
 void solve()
