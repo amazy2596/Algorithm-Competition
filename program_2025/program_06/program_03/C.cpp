@@ -22,13 +22,16 @@ struct Info
 	int sum = 0;
 	int ssum = 0;
 	int len = 0;
+
+    int idx = -1;
 	
 	Info () : mx(-inf), mn(inf), sum(0), ssum(0), len(0) {};
 	Info (int mx, int mn, int sum, int ssum, int len) : mx(mx), mn(mn), sum(sum), ssum(ssum), len(len) {};
 	
 	Info operator+(const Info &o) const
 	{
-		Info res = Info(
+		Info res = Info
+		(
 			max(mx, o.mx), 
 			min(mn, o.mn), 
 			sum + o.sum, 
@@ -36,7 +39,13 @@ struct Info
 			len + o.len
 		);
 
-		return res;
+        if (mx > o.mx)
+            res.idx = idx;
+        else if (mx < o.mx) 
+            res.idx = o.idx;
+        else 
+            res.idx = min(idx, o.idx);
+        return res;
 	}
 };
 
@@ -141,7 +150,8 @@ struct SegmentTree
 		{
 			int v = input[start];
 			tree[node] = Info(v, v, v, v * v, 1);
-		}
+            tree[node].idx = start;
+        }
 		else 
 		{
 			int mid = (start + end) / 2;
@@ -220,16 +230,98 @@ struct SegmentTree
 
 void solve()
 {
+	int n, m;
+    cin >> n >> m;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    
+    SegmentTree<Info, TagAdd> t(n << 1);
 
+    map<int, pair<int, int>> segment;
+
+    for (int i = 1; i <= n;)
+    {
+        int l = i;
+        int b = a[i];
+        int r = i;
+        while (r + 1 <= n && a[r] + 1 == a[r + 1])
+            r++;
+
+        t.update(b, b + r - l, 1);
+        segment[l] = {r, b};
+        i = r + 1;
+    }
+
+    auto split = [&](int pos)
+    {
+        if (pos < 1 || pos > n)
+            return ;
+
+        auto it = segment.lower_bound(pos);
+        if (it == segment.begin())
+            return;
+        it--;
+        
+        int L = (*it).first;
+        auto [R, b] = (*it).second;
+
+        if (L == pos)
+            return;
+
+        if (pos > R)
+            return;
+
+        int nb = b + (pos - L);
+        segment[L].first = pos - 1;
+        segment[pos] = make_pair(R, nb);
+    };
+
+    for (int i = 0; i < m; i++)
+    {
+        Info res = t.query(1, 2 * n);
+        cout << res.idx << " " << res.mx << "\n";
+
+        int l, r, b;
+        cin >> l >> r >> b;
+
+        split(l);
+        split(r + 1);
+
+
+        set<int> toerase;
+        auto it = segment.lower_bound(l);
+        while (it != segment.end())
+        {
+            int L = (*it).first;
+            auto [R, b] = (*it).second;
+
+            if (L > r)
+                break;
+            
+            t.update(b, b + R - L, -1);
+            toerase.insert(L);
+            it++;
+        }
+
+        for (auto L : toerase)
+            segment.erase(L);
+
+        t.update(b, b + r - l, 1);
+        segment[l] = make_pair(r, b);
+    }
+
+    Info res = t.query(1, 2 * n);
+    cout << res.idx << " " << res.mx << "\n";
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
+	ios::sync_with_stdio(false);
+	cout.tie(nullptr);
+	cin.tie(nullptr);
 	int T = 1;
-	// cin >> T;
+	cin >> T;
 	while (T--)
 		solve();
 	return 0;
