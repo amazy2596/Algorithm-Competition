@@ -13,7 +13,7 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
 const int N = 1e6 + 5;
-const int mod = 1e9 + 7;
+const int mod = 998244353;
 int fact[N], ifact[N], p[N];
 
 int fast_pow(int a, int b)
@@ -62,7 +62,59 @@ int A(int n, int m)
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n), b(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    for (int i = 0; i < n; i++)
+        cin >> b[i];
+
+    vector<int> mxp(n), mxq(n);
+    int mx1 = 0, mx2 = 0;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] > mx1)
+        {
+            mx1 = a[i];
+            mxp[i] = i;
+        }
+        else if (i)
+            mxp[i] = mxp[i - 1];
+
+        if (b[i] > mx2)
+        {
+            mx2 = b[i];
+            mxq[i] = i;
+        }
+        else if (i)
+            mxq[i] = mxq[i - 1];
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        int idx1 = mxp[i], idx2 = mxq[i];
+        if (a[idx1] == b[idx2])
+        {
+            if (b[i - idx1] > a[i - idx2])
+            {
+                cout << (p[a[idx1]] + p[b[i - idx1]]) % mod << " ";
+            }
+            else 
+            {
+                cout << (p[a[i - idx2]] + p[b[idx2]]) % mod << " ";
+            }
+        }
+        else if (a[idx1] > b[idx2])
+        {
+            cout << (p[a[idx1]] + p[b[i - idx1]]) % mod << " ";
+        }
+        else 
+        {
+            cout << (p[a[i - idx2]] + p[b[idx2]]) % mod << " ";
+        }
+    }
+    cout << "\n";
 }
 
 signed main()
@@ -70,8 +122,9 @@ signed main()
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);
     // cin.tie(nullptr);
+    init();
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;
