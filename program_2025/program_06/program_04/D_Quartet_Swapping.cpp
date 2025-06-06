@@ -5,6 +5,8 @@ using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+int dx4[4] = {1, 0, -1,  0};
+int dy4[4] = {0, 1,  0, -1};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -56,7 +58,53 @@ struct Fenwick
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a, b;
+
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        if (i % 2 == 1)
+            a.push_back(x);
+        else 
+            b.push_back(x);
+    }
+
+    auto f = [&](vector<int> &v)
+    {
+        Fenwick fw(n + 1);
+        int res = 0;
+        for (auto x : v)
+        {
+            res += fw.query(x + 1, n);
+            fw.update(x, 1);
+        }
+
+        return res;
+    };
+
+    int v = (f(a) % 2 != f(b) % 2);
+
+    ranges::sort(a), ranges::sort(b);
+
+    vector<int> ans(1);
+    int i = 0, j = 0;
+    for (int k = 1; k <= n; k++)
+    {
+        if (k % 2 == 1)
+            ans.push_back(a[i++]);
+        else 
+            ans.push_back(b[j++]);
+    }
+
+    if (v)
+        swap(ans[n], ans[n - 2]);
+
+    for (int k = 1; k <= n; k++)
+        cout << ans[k] << " ";
+    cout << "\n";
 }
 
 signed main()
@@ -64,8 +112,9 @@ signed main()
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);
     // cin.tie(nullptr);
+    // init()
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;
