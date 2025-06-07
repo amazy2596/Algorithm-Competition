@@ -8,11 +8,10 @@ vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const int inf = 1e18;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 const uint mod = (1ull << 61) - 1;
-uniform_int_distribution<uint> dist(mod / 2, mod - 1);
-const uint base = dist(rnd);
+const uint base = rnd(mod / 2, mod - 1);
 const int N = 2e5 + 5;
 vector<uint> p(N);
 
@@ -32,6 +31,8 @@ uint mul(uint a, uint b)
 
 uint query(const vector<uint> &h, int l, int r)
 {
+    if (r < l)
+        return 0ull;
     return add(h[r], mod - mul(h[l - 1], p[r - l + 1]));
 }
 

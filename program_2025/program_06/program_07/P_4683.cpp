@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define uint uint64_t
-#define int long long
+// #define int long long
 using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
@@ -10,7 +10,7 @@ int dy4[4] = {0, 1,  0, -1};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r){ return uniform_int_distribution<uint>(l, r)(rng); };
 
 template<size_t M>
 struct Trie 
@@ -18,7 +18,7 @@ struct Trie
     struct Node
     {
         array<int, M> nex;
-        int cnt = 0, end = 0;
+        int cnt = 0, end = 0, depth = 0;
 
         Node() { nex.fill(0); }
     };
@@ -106,14 +106,74 @@ struct Trie
 
 void solve()
 {
+    int n;
+    cin >> n;
+    Trie<26> t;
+    for (int i = 0; i < n; i++)
+    {
+        string s;
+        cin >> s;
+        t.insert(s);
+    }
+
+    auto dfs = [&](auto dfs, int u) -> int
+    {
+        int mx = 0;
+        for (int c = 0; c < 26; c++)
+        {
+            if (t.tree[u].nex[c] != 0)
+                mx = max(mx, dfs(dfs, t.tree[u].nex[c]));
+        }
+
+        t.tree[u].depth = max(t.tree[u].depth, mx);
+
+        return t.tree[u].depth;
+    };
+
+    dfs(dfs, 0);
+
+    vector<char> ans;
     
+    auto dfs1 = [&](auto dfs1, int u) -> void
+    {
+        vector<pair<int, int>> order;    
+        for (int c = 0; c < 26; c++)
+        {
+            if (t.tree[u].nex[c])
+            {
+                int p = t.tree[u].nex[c];
+                order.emplace_back(t.tree[p].depth, c);
+            }
+        }
+
+        sort(order.begin(), order.end());
+
+        for (auto [_, c] : order)
+        {
+            int p = t.tree[u].nex[c];
+            ans.push_back(c + 'a');
+            if (t.tree[p].end != 0)
+                ans.push_back('P');
+            dfs1(dfs1, p);
+            ans.push_back('-');
+        }
+    };
+
+    dfs1(dfs1, 0);
+
+    while (ans.back() == '-')
+        ans.pop_back();
+
+    cout << ans.size() << "\n";
+    for (int i = 0; i < ans.size(); i++)
+        cout << ans[i] << "\n";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     // init();
     int T = 1;
     // cin >> T;

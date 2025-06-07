@@ -12,28 +12,23 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
-template<size_t M>
 struct Trie 
 {
     struct Node
     {
-        array<int, M> nex;
+        vector<int> nex;
         int cnt = 0, end = 0;
 
-        Node() { nex.fill(0); }
+        Node(int m) : nex(m) {}
     };
 
-    int mx = 31;
+    int m, mx = 31;
     vector<Node> tree;
-    Trie(int n = 0)
-    {
-        tree.reserve(n);
-        tree.emplace_back();
-    } 
+    Trie(int _m) : m(_m), tree(1, Node(_m)) {}
 
     int newNode()
     {
-        tree.emplace_back(Node());
+        tree.emplace_back(Node(m));
         return tree.size() - 1;
     }
     
@@ -45,16 +40,15 @@ struct Trie
             int c = s[i] - 'a';
             if (!tree[p].nex[c])
                 tree[p].nex[c] = newNode();
-
+            
             p = tree[p].nex[c];
-            tree[p].depth = i + 1;
             tree[p].cnt++;
         }
 
         tree[p].end++;
     }
 
-    void insert(int x)
+    void insert(int x, int t = 1)
     {
         int p = 0;
         for (int k = mx; k >= 0; k--)
@@ -106,7 +100,44 @@ struct Trie
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector adj(n + 1, vector<int>());
+    map<pair<int, int>, int> mp;
+    for (int i = 0; i < n - 1; i++)
+    {
+        int u, v, w;
+        cin >> u >> v >> w;
+        mp[{u, v}] = w;
+        mp[{v, u}] = w;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    vector<int> val(n + 1);
+    auto dfs = [&](auto dfs, int u, int p) -> void
+    {
+        val[u] = val[p] ^ mp[{u, p}];
+        for (auto v : adj[u])
+        {
+            if (v == p)
+                continue;
+            
+            dfs(dfs, v, u);
+        }
+    };
+
+    dfs(dfs, 1, 0);
+
+    Trie t(2);
+    for (int i = 1; i <= n; i++)
+        t.insert(val[i], 1);
+
+    int ans = 0;
+    for (int i = 1; i <= n; i++)
+        ans = max(ans, t.query(val[i]));
+
+    cout << ans << "\n";
 }
 
 signed main()
