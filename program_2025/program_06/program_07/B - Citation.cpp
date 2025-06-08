@@ -5,57 +5,40 @@ using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+int dx4[4] = {1, 0, -1,  0};
+int dy4[4] = {0, 1,  0, -1};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-struct DSU
-{
-    vector<int> f, siz;
 
-    DSU(int n) : f(n + 1), siz(n + 1, 1)
-    {
-        iota(f.begin(), f.end(), 0);
-    }
-
-    int find(int x)
-    {
-        while (f[x] != x)
-            x = f[x] = f[f[x]];
-        return x;
-    }
-
-    bool merge(int x, int y)
-    {
-        x = find(x);
-        y = find(y);
-
-        if (x == y)
-            return false;
-
-        if (siz[x] < siz[y])
-            swap(x, y);
-
-        siz[x] += siz[y];
-        f[y] = x;
-        return true;
-    }
-
-    int size(int x)
-    {
-        return siz[find(x)];
-    }
-
-    bool same(int x, int y)
-    {
-        return find(x) == find(y);
-    }
-};
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> cnt(105);
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        if (x > 100)
+            cnt[101]++;
+        else 
+            cnt[x]++;
+    }
+
+    int sum = cnt[101];
+    for (int i = 100; i >= 0; i--)
+    {
+        sum += cnt[i];
+        if (sum >= i)
+        {
+            cout << i << "\n";
+            return;
+        }
+    }
 }
 
 signed main()
