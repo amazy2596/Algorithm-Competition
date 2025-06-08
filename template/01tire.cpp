@@ -16,12 +16,13 @@ struct Trie
 {
     struct Node
     {
-        array<int, 26> nex;
+        array<int, 2> nex;
         int cnt = 0, end = 0;
 
         Node() { nex.fill(0); }
     };
 
+    int mx = 31;
     vector<Node> tree;
     Trie(int n = 0)
     {
@@ -34,38 +35,40 @@ struct Trie
         tree.emplace_back(Node());
         return tree.size() - 1;
     }
-    
-    void insert(string s) 
+
+    void insert(int x)
     {
         int p = 0;
-        for (int i = 0; i < s.length(); i++) 
+        for (int k = mx; k >= 0; k--)
         {
-            int c = s[i] - 'a';
-            if (!tree[p].nex[c])
-                tree[p].nex[c] = newNode();
-
-            p = tree[p].nex[c];
+            int bit = (x >> k) & 1;
+            if (!tree[p].nex[bit])
+                tree[p].nex[bit] = newNode();
+            
+            p = tree[p].nex[bit];
             tree[p].cnt++;
         }
 
         tree[p].end++;
     }
 
-    int find(string s) 
+    int query(int x)
     {
-        int p = 0;
-        for (int i = 0; i < s.length(); i++) 
+        int p = 0, res = 0;
+        for (int k = mx; k >= 0; k--)
         {
-            int c = s[i] - 'a';
-            if (!tree[p].nex[c])
-                return 0;
-
-            p = tree[p].nex[c];
+            int bit = (x >> k) & 1;
+            if (tree[p].nex[bit ^ 1])
+            {
+                res |= (1ll << k);
+                p = tree[p].nex[bit ^ 1];
+            }
+            else 
+                p = tree[p].nex[bit];
         }
 
-        return tree[p].end;
+        return res;
     }
-
 };
 
 void solve()
