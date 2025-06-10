@@ -10,52 +10,38 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-struct DSU
-{
-    vector<int> f, siz;
 
-    DSU(int n) : f(n + 1), siz(n + 1, 1)
-    {
-        iota(f.begin(), f.end(), 0);
-    }
-
-    int find(int x)
-    {
-        while (f[x] != x)
-            x = f[x] = f[f[x]];
-        return x;
-    }
-
-    bool merge(int x, int y)
-    {
-        x = find(x);
-        y = find(y);
-
-        if (x == y)
-            return false;
-
-        if (siz[x] < siz[y])
-            swap(x, y);
-
-        siz[x] += siz[y];
-        f[y] = x;
-        return true;
-    }
-
-    int size(int x)
-    {
-        return siz[find(x)];
-    }
-
-    bool connected(int x, int y)
-    {
-        return find(x) == find(y);
-    }
-};
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), b(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    for (int i = 1; i <= n; i++)
+        cin >> b[i];
+
+    if (a.back() == b.back())
+    {
+        cout << n << "\n";
+        return;
+    }
+
+    unordered_set<int> s;
+    for (int i = n - 1; i >= 1; i--)
+    {
+        if (a[i] == b[i] || a[i] == a[i + 1] || b[i] == b[i + 1] || s.count(a[i]) || s.count(b[i]))
+        {
+            cout << i << "\n";
+            return;
+        }
+
+        s.insert(a[i + 1]);
+        s.insert(b[i + 1]);
+    }
+
+    cout << "0\n";
 }
 
 signed main()
@@ -65,7 +51,7 @@ signed main()
     // cin.tie(nullptr);
     // init();
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

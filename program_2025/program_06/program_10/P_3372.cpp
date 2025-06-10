@@ -8,7 +8,7 @@ vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 #define ls (node << 1)
 #define rs (node << 1 | 1)
@@ -78,7 +78,7 @@ struct tagAddMul
     tagAddMul() : add(0), mul(1) {}
     tagAddMul(int _add, int _mul) : add(_add), mul(_mul) {}
 
-    bool empty() const 
+    bool emtpy() const 
     {
         return mul == 1 && add == 0;
     }
@@ -245,18 +245,46 @@ struct SegmentTree
 
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vector<info> a(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        a[i] = info(x);
+    }
 
+    SegmentTree<info, tagAdd> t(a);
+    while (m--)
+    {
+        int op;
+        cin >> op;
+
+        if (op == 1)
+        {
+            int l, r, k;
+            cin >> l >> r >> k;
+            t.update(l, r, k);
+        }
+        else 
+        {
+            int l, r;
+            cin >> l >> r;
+            cout << t.query(l, r).sum << "\n";
+        }
+    }
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	// init();
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    // init();
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }

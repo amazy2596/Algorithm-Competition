@@ -14,7 +14,7 @@ struct AhoCorasick
 {
     struct Node
     {
-        array<int, 26> nex;
+        array<int, 27> nex;
         int cnt = 0;
         int end = 0;
         int fail = 0;
@@ -120,14 +120,34 @@ struct AhoCorasick
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    char ch = 'z';
+    ch++;
+    string t;
+    t += ch;
+    vector<string> s(n);
+    AhoCorasick ac(n);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> s[i];
+        ac.insert(s[i], i);
+        t += s[i] + ch;
+    }
+
+    ac.build();
+
+    ac.query(t);
+
+    for (int i = 0; i < n; i++)
+        cout << ac.tree[ac.endpos[i]].occ << "\n";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     // init();
     int T = 1;
     // cin >> T;

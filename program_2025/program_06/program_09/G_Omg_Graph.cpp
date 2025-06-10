@@ -55,7 +55,30 @@ struct DSU
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<array<int, 3>> edges(m);
+    for (auto &[u, v, w] : edges)
+        cin >> u >> v >> w;
+
+    sort(edges.begin(), edges.end());
+
+    vector<int> f(n + 1, inf);
+    DSU dsu(n + 1);
+    int ans = inf;
+    for (auto [u, v, w] : edges)
+    {
+        u = dsu.find(u);
+        v = dsu.find(v);
+
+        f[u] = min({f[u], f[v], w});
+        dsu.merge(u, v);
+
+        if (dsu.connected(1, n))
+            ans = min(ans, w + f[dsu.find(1)]);
+    }
+
+    cout << ans << "\n";
 }
 
 signed main()
@@ -65,7 +88,7 @@ signed main()
     // cin.tie(nullptr);
     // init();
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

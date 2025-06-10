@@ -8,12 +8,12 @@ vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 #define ls (node << 1)
 #define rs (node << 1 | 1)
 
-struct info
+struct Info
 {
 	int mx = -inf;
 	int mn = inf;
@@ -21,12 +21,12 @@ struct info
 	int ssum = 0;
 	int len = 0;
 	
-	info () : mx(-inf), mn(inf), sum(0), ssum(0), len(0) {};
-	info (int val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
+	Info () : mx(-inf), mn(inf), sum(0), ssum(0), len(0) {};
+	Info (int val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
 	
-	info operator+(const info &o) const
+	Info operator+(const Info &o) const
 	{
-		info res;
+		Info res;
 		res.mx = max(mx, o.mx);
 		res.mn = min(mn, o.mn);
 		res.sum = sum + o.sum;
@@ -38,19 +38,20 @@ struct info
 };
 
 // 区间加
-struct tagAdd
+struct TagAdd
 {
+	bool has = false;
 	int add = 0;
 
-	tagAdd() : add(0) {}
-	tagAdd(int _add) : add(_add) {}
+	TagAdd() : has(false), add(0) {}
+	TagAdd(int _add) : has(true), add(_add) {}
 
 	bool empty() const
 	{
-		return add == 0;
+		return !has;
 	}
 
-	void apply(info &a) const 
+	void apply(Info &a) const 
 	{
 		int old = a.sum;
 
@@ -60,63 +61,31 @@ struct tagAdd
 		a.ssum += 2 * add * old + add * add * a.len;
 	}
 
-	void merge(const tagAdd &o)
+	void merge(const TagAdd &o)
 	{
-		if (o.empty())
+		if (!o.has)
 			return;
 
+		has = true;
 		add += o.add;
 	}
 };
 
-// 区间加乘
-
-struct tagAddMul
-{
-    int add = 0, mul = 1;
-
-    tagAddMul() : add(0), mul(1) {}
-    tagAddMul(int _add, int _mul) : add(_add), mul(_mul) {}
-
-    bool empty() const 
-    {
-        return mul == 1 && add == 0;
-    }
-
-    void apply(info &o) const 
-    {
-        int old_sum = o.sum;
-        int old_ssum = o.ssum;
-
-        o.mx = o.mx * mul + add;
-        o.mn = o.mn * mul + add;
-
-        o.sum = old_sum * mul + add * o.len;
-        o.ssum = old_ssum * mul * mul + 2 * old_sum * mul * add + o.len * add * add;
-    }
-
-    void merge(const tagAddMul &o)
-    {
-        mul = mul * o.mul;
-        add = add * o.mul + o.add;
-    }
-};
-
 // 区间赋值
-struct tagAssign
+struct TagAssign
 {
 	bool has = false;
 	int val = 0;
 
-	tagAssign() : has(false), val(0) {};
-	tagAssign(int _val) : has(true), val(_val) {};
+	TagAssign() : has(false), val(0) {};
+	TagAssign(int _val) : has(true), val(_val) {};
 
 	bool empty() const 
 	{
 		return !has;
 	}
 
-	void apply(info &a) const
+	void apply(Info &a) const
 	{
 		a.mx = val;
 		a.mn = val;
@@ -124,7 +93,7 @@ struct tagAssign
 		a.ssum = val * val * a.len;
 	}
 
-	void merge(const tagAssign &o)
+	void merge(const TagAssign &o)
 	{
 		if (!o.has)
 			return;
@@ -134,34 +103,34 @@ struct tagAssign
 	}
 };
 
-template<typename Info, typename Tag>
+template<typename info, typename tag>
 struct SegmentTree
 {
 	int n;
-	vector<Info> tree;
-	vector<Tag> lazy;
+	vector<info> tree;
+	vector<tag> lazy;
 
 	SegmentTree(int _n)
 	{
 		n = _n;
-		vector<Info> input(n + 1, Info());
+		vector<info> input(n + 1, info());
 		init(input);
 	}
 
-	SegmentTree(const vector<Info> &input)
+	SegmentTree(const vector<info> &input)
 	{
 		n = input.size() - 1;
 		init(input);
 	}
 
-	void init(const vector<Info> &input)
+	void init(const vector<info> &input)
 	{
-		tree.resize(4 * n + 5, Info());
-		lazy.resize(4 * n + 5, Tag());
+		tree.resize(4 * n + 5, info());
+		lazy.resize(4 * n + 5, tag());
 		build(1, 1, n, input);
 	}
 	
-	void build(int node, int start, int end, const vector<Info> &input)
+	void build(int node, int start, int end, const vector<info> &input)
 	{
 		if (start == end)
 		{
@@ -186,11 +155,11 @@ struct SegmentTree
 			lazy[ls].merge(lazy[node]);
 			lazy[rs].merge(lazy[node]);
 
-			lazy[node] = Tag();
+			lazy[node] = tag();
 		}
 	}
 	
-	void update(int node, int start, int end, int l, int r, const Tag &val)
+	void update(int node, int start, int end, int l, int r, const tag &val)
 	{
 		if (end < l || start > r)
 			return ;
@@ -213,10 +182,10 @@ struct SegmentTree
 		tree[node] = tree[ls] + tree[rs];
 	}
 	
-	Info query(int node, int start, int end, int l, int r)
+	info query(int node, int start, int end, int l, int r)
 	{
 		if (l > end || r < start)
-			return Info();
+			return info();
 			
 		if (l <= start && end <= r)
 			return tree[node];
@@ -227,15 +196,15 @@ struct SegmentTree
 		return query(ls, start, mid, l, r) + query(rs, mid + 1, end, l, r);
 	}
 	
-	void update(int l, int r, const Tag &val)
+	void update(int l, int r, const tag &val)
 	{
 		update(1, 1, n, l, r, val);
 	}
 	
-	Info query(int l, int r)
+	info query(int l, int r)
 	{
 		if (l > r)
-			return Info();
+			return info();
 		return query(1, 1, n, l, r);
 	}
 };
@@ -245,18 +214,59 @@ struct SegmentTree
 
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<int> a(n + 1);
+    SegmentTree<Info, TagAssign> seg1(n + 1), seg2(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
 
+        seg1.update(i, i, a[i] * i);
+        seg2.update(i, i, a[i] * (n - i + 1));
+    }
+
+    int ans = inf;
+    int l = 0, r = 1;
+    map<int, int> mp;
+    while (r <= n)
+    {
+        if (!mp[a[r - 1]])
+        {
+            mp[a[r - 1]] = r - 1;
+            if (l == 0)
+                ans = min(ans, seg2.query(1, r).mn);
+            else 
+                ans = min(ans, seg1.query(l, n).mn + seg2.query(1, r).mn);
+        }
+        else 
+        {
+            l = max(l, mp[a[r - 1]]);
+            ans = min(ans, seg1.query(l, n).mn + seg2.query(1, r).mn);
+            mp[a[r - 1]] = r - 1;
+        }
+        r++;
+    }
+
+    if (mp[a[n]])
+        l = max(l, mp[a[n]]);
+    if (!l)
+        ans = 0;
+    else 
+        ans = min(ans, seg1.query(l, n).mn);
+
+    cout << ans << "\n";
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	// init();
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    // init();
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }

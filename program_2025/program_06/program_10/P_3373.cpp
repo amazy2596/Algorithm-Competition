@@ -8,7 +8,9 @@ vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+
+int mod;
 
 #define ls (node << 1)
 #define rs (node << 1 | 1)
@@ -29,8 +31,8 @@ struct info
 		info res;
 		res.mx = max(mx, o.mx);
 		res.mn = min(mn, o.mn);
-		res.sum = sum + o.sum;
-		res.ssum = ssum + o.ssum;
+		res.sum = (sum + o.sum) % mod;
+		res.ssum = (ssum + o.ssum) % mod;
 		res.len = len + o.len;
 
 		return res;
@@ -91,14 +93,13 @@ struct tagAddMul
         o.mx = o.mx * mul + add;
         o.mn = o.mn * mul + add;
 
-        o.sum = old_sum * mul + add * o.len;
-        o.ssum = old_ssum * mul * mul + 2 * old_sum * mul * add + o.len * add * add;
+        o.sum = ((old_sum * mul) % mod + (add * o.len) % mod) % mod;
     }
 
     void merge(const tagAddMul &o)
     {
-        mul = mul * o.mul;
-        add = add * o.mul + o.add;
+        mul = (mul * o.mul) % mod;
+        add = (add * o.mul + o.add) % mod;
     }
 };
 
@@ -245,18 +246,52 @@ struct SegmentTree
 
 void solve()
 {
+    int n, q;
+    cin >> n >> q >> mod;
+    vector<info> a(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        a[i] = info(x);
+    }
 
+    SegmentTree<info, tagAddMul> t(a);
+    while (q--)
+    {
+        int op;
+        cin >> op;
+
+        if (op == 1)
+        {
+            int l, r, k;
+            cin >> l >> r >> k;
+            t.update(l, r, tagAddMul(0, k));
+        }
+        else if (op == 2)
+        {
+            int l, r, k;
+            cin >> l >> r >> k;
+            t.update(l, r, tagAddMul(k, 1));
+        }
+        else 
+        {
+            int l, r;
+            cin >> l >> r;
+            cout << t.query(l, r).sum << "\n";
+        }
+    }
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	// init();
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    // init();
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }
