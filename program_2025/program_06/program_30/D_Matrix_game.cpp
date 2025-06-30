@@ -107,7 +107,11 @@ int A(int n, int m)
 
 void solve()
 {
-    
+    int a, b, k;
+    cin >> a >> b >> k;
+    int n = (k * (a - 1) + 1 + mod) % mod;
+    int m = ((C(n, a) * k) % mod * (b - 1) + 1) % mod;
+    cout << n << " " << m << "\n";
 }
 
 signed main()
@@ -117,7 +121,7 @@ signed main()
     // cin.tie(nullptr);
     init();
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;
