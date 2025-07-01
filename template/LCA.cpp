@@ -13,42 +13,42 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 struct LCA
 {
     int n, max_log;
-    vector<vector<int>> adj, up;
+    vector<vector<int>> up;
     vector<int> depth;
 
-    LCA(int n, int root, vector<vector<int>> &adj)
+    LCA(int _n)
     {
-        this->n = n;
-        this->adj = adj;
-        this->max_log = (int)log2(n) + 1;
-
-        up.resize(n + 1, vector<int>(max_log, -1));
-        depth.resize(n + 1, 0);
-
-        dfs(root, -1);
+        n = _n;
+        max_log = log2(n) + 1;
+        up.resize(n + 1, vector<int>(max_log + 1, 0));
+        depth.resize(n + 1);
     }
 
-    void dfs(int root, int p) 
+    void build(int root, vector<vector<int>> &adj)
     {
-        stack<pair<int, int>> stk;
-        stk.push({root, p});
-        
-        while (!stk.empty()) 
+        auto dfs = [&](auto dfs, int u, int p, int d) -> void
         {
-            auto [u, parent] = stk.top();
-            stk.pop();
-            
-            up[u][0] = parent; 
-            for (int i = 1; i < max_log; i++)
-                if (up[u][i - 1] != -1)
-                    up[u][i] = up[up[u][i - 1]][i - 1];
-    
-            for (int v : adj[u]) 
+            up[u][0] = p;
+            depth[u] = d;
+
+            for (int v : adj[u])
             {
-                if (v == parent) 
+                if (v == p)
                     continue;
-                depth[v] = depth[u] + 1;
-                stk.push({v, u});
+                dfs(dfs, v, u, d + 1);
+            }
+        };
+
+        dfs(dfs, root, 0, 0);
+
+        for (int j = 1; j < max_log; j++)
+        {
+            for (int i = 1; i <= n; i++)
+            {
+                if (up[i][j - 1] == 0)
+                    continue;
+
+                up[i][j] = up[up[i][j - 1]][j - 1];
             }
         }
     }
@@ -58,19 +58,21 @@ struct LCA
         if (depth[u] < depth[v])
             swap(u, v);
 
-        for (int i = max_log - 1; i >= 0; i--)
-            if (depth[u] - (1ll << i) >= depth[v])
-                u = up[u][i];
+        for (int j = max_log - 1; j >= 0; j--)
+        {
+            if (depth[u] - (1ll << j) >= depth[v])
+                u = up[u][j];
+        }
 
         if (u == v)
             return u;
-        
-        for (int i = max_log - 1; i >= 0; i--)
+
+        for (int j = max_log - 1; j >= 0; j--)
         {
-            if (up[u][i] != up[v][i])
+            if (up[u][j] != up[v][j])
             {
-                u = up[u][i];
-                v = up[v][i];
+                u = up[u][j];
+                v = up[v][j];
             }
         }
 

@@ -8,10 +8,10 @@ vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-#define ls (node * 2 + 1)
-#define rs (node * 2 + 2)
+#define ls (node << 1)
+#define rs (node << 1 | 1)
 
 struct info
 {
@@ -141,13 +141,16 @@ struct SegmentTree
 	vector<Info> tree;
 	vector<Tag> lazy;
 
-	SegmentTree(int _n) : n(_n)
+	SegmentTree(int _n)
 	{
-		init(vector<Info>(n, Info(0)));
+		n = _n;
+		vector<Info> input(n + 1, Info());
+		init(input);
 	}
 
-	SegmentTree(const vector<Info> &input) : n(input.size())
+	SegmentTree(const vector<Info> &input)
 	{
+		n = input.size() - 1;
 		init(input);
 	}
 
@@ -155,7 +158,7 @@ struct SegmentTree
 	{
 		tree.resize(4 * n + 5, Info());
 		lazy.resize(4 * n + 5, Tag());
-		build(0, 0, n - 1, input);
+		build(1, 1, n, input);
 	}
 	
 	void build(int node, int start, int end, const vector<Info> &input)
@@ -226,16 +229,14 @@ struct SegmentTree
 	
 	void update(int l, int r, const Tag &val)
 	{
-		if (l > r)
-			return;
-		update(0, 0, n - 1, l, r, val);
+		update(1, 1, n, l, r, val);
 	}
 	
 	Info query(int l, int r)
 	{
 		if (l > r)
 			return Info();
-		return query(0, 0, n - 1, l, r);
+		return query(1, 1, n, l, r);
 	}
 };
 
@@ -244,18 +245,64 @@ struct SegmentTree
 
 void solve()
 {
+    int n;
+    cin >> n;
+    vector<int> a, cnt(n + 1);
+    a.push_back(-1);
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        if (!cnt[x])
+            a.push_back(x);
+        cnt[x]++;
+    }
 
+    sort(a.begin(), a.end());
+
+    set<int> s;
+    // vector<int> pre(n + 1), suf(n + 2);
+    for (int i = 1; i < a.size(); i++)
+    {
+        if (a[i] <= s.size())
+            s.insert(a[i]);
+        // pre[i] = pre[i - 1] + cnt[a[i]];
+    }
+
+    // for (int i = a.size() - 1; i >= 1; i--)
+        // suf[i] = suf[i + 1] + cnt[a[i]];
+
+    vector<info> temp(n + 1, info(0));
+    SegmentTree<info, tagAdd> t(temp);
+
+    int mex = s.size();
+    for (int i = mex; i >= 1; i--)
+    {
+        int mn = cnt[a[i]], mx = n - i;
+        if (mn <= mx)
+            t.update(mn, mx, tagAdd(1));
+    }
+
+    vector<int> ans(n + 1, 1);
+    for (int i = 1; i < n; i++)
+    {
+        auto add = t.query(i, i).mx;
+        ans[i] += add;
+    }
+
+    for (int i = 0; i <= n; i++)
+        cout << ans[i] << " \n"[i == n];
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	// init();
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    // init();
+    int T = 1;
+    cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }
