@@ -5,7 +5,7 @@ using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const double eps = 1e-9;
+const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
@@ -56,7 +56,23 @@ struct LinearBasis
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    int siz = 0;
+    vector<int> a(n);
+    set<int> s;
+    LinearBasis lb(32);
+    for (int i = 0; i < n; i++)
+    {
+        cin >> a[i];
+        siz += lb.insert(a[i]);
+        s.insert(a[i]);
+    }
+
+    if ((1ll << siz) == s.size())
+        cout << "YES\n";
+    else 
+        cout << "NO\n";
 }
 
 signed main()

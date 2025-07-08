@@ -5,16 +5,16 @@ using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const double eps = 1e-9;
+const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 const int N = 1e6 + 5;
 const int mod1 = 1000000007; 
 const int mod2 = 998244353;
-const int mod = mod1;
+const int mod = mod2;
 int fact[N], ifact[N], p[N];
 
 int fast_pow(int a, int b)
@@ -110,17 +110,86 @@ int A(int n, int m)
 
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n + 1), b(m + 1), pos(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i], pos[a[i]] = i;
+
+    for (int i = 1; i <= m; i++)
+        cin >> b[i];
+
+    vector<int> p;
+    for (int i = 1; i <= m; i++)
+        p.push_back(pos[b[i]]);
+
+    if (!is_sorted(p.begin(), p.end()))
+    {
+        cout << "0\n";
+        return;
+    }
+
+    int mx = -inf;
+    for (int i = 1; i < pos[b[1]]; i++)
+        mx = max(mx, a[i]);
+
+    if (mx > b[1])
+    {
+        cout << "0\n";
+        return;
+    }
+
+    mx = -inf;
+    for (int i = n; i > pos[b[m]]; i--)
+        mx = max(mx, a[i]);
     
+    if (mx > b[m])
+    {
+        cout << "0\n";
+        return;
+    }
+
+    int ans = 1;
+    vector<int> pre(n + 1), suf(n + 2);
+    for (int i = 0; i < p.size() - 1; i++)
+    {
+        int l = p[i] + 1, r = p[i + 1] - 1;
+        if (l > r)
+            continue;
+
+        for (int j = l; j <= r; j++)
+            pre[j] = max(pre[j - 1], a[j]);
+
+        for (int j = r; j >= l; j--)
+            suf[j] = max(suf[j + 1], a[j]);
+
+        int cnt = 0;
+        for (int k = l - 1; k <= r; k++)
+        {
+            if (pre[k] < b[i + 1] && suf[k + 1] < b[i + 2])
+                cnt++;
+        }
+
+        ans = (ans * cnt) % mod;
+
+        for (int j = l; j <= r; j++)
+            pre[j] = 0;
+
+        for (int j = r; j >= l; j--)
+            suf[j] = 0;
+    }
+
+    cout << ans % mod << "\n";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
-    init();
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
+    // init();
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

@@ -14,7 +14,8 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 const int N = 1e6 + 5;
 const int mod1 = 1000000007; 
 const int mod2 = 998244353;
-const int mod = mod1;
+// const int mod = mod1;
+int mod;
 int fact[N], ifact[N], p[N];
 
 int fast_pow(int a, int b)
@@ -110,7 +111,14 @@ int A(int n, int m)
 
 void solve()
 {
-    
+    int a, b;
+    cin >> a >> b >> mod;
+    if (a == 0 || mod == 0)
+    {
+        cout << "0\n";
+        return;
+    }
+    cout << fast_pow(a, b) % mod << "\n";
 }
 
 signed main()
@@ -118,7 +126,7 @@ signed main()
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);
     // cin.tie(nullptr);
-    init();
+    // init();
     int T = 1;
     // cin >> T;
     while (T--)
