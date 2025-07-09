@@ -5,16 +5,16 @@ using namespace std;
 
 vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const double eps = 1e-9;
+const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 const int N = 1e6 + 5;
 const int mod1 = 1000000007; 
 const int mod2 = 998244353;
-const int mod = mod1;
+const int mod = mod2;
 int fact[N], ifact[N], p[N];
 
 int fast_pow(int a, int b)
@@ -115,7 +115,16 @@ int A(int n, int m)
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+
+    int ans = 0;
+    ans = (ans + 49 * (n % mod)) % mod;
+    ans = (ans + (28 * ((fast_pow(10, n + 1) - 10 + mod) % mod) % mod) * inv(9)) % mod;
+    ans = (ans + (4 * ((fast_pow(10, 2 * n + 2) - 100 + mod) % mod) % mod) * inv(99)) % mod;
+    ans = (ans * inv(81)) % mod;
+
+    cout << ans % mod << "\n";
 }
 
 signed main()
@@ -123,7 +132,7 @@ signed main()
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);
     // cin.tie(nullptr);
-    init();
+    // init();
     int T = 1;
     // cin >> T;
     while (T--)
