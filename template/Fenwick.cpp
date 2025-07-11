@@ -11,6 +11,7 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 
+// 区间修改 + 区间查询
 struct Fenwick
 {
     int n;
@@ -23,7 +24,7 @@ struct Fenwick
         return x & -x;
     }
 
-    void add(int x, int k, vector<int> &v)
+    void modify(int x, int k, vector<int> &v)
     {
         while (x <= n)
         {
@@ -33,13 +34,13 @@ struct Fenwick
     }
 
     // (r + 1) * (a[1] + ... + a[r]) - (b[1] * 1 + ... + b[r] * r)
-    void range_add(int l, int r, int k)
+    void update(int l, int r, int k)
     {
-        add(l, k, a);
-        add(r + 1, -k, a);
+        modify(l, k, a);
+        modify(r + 1, -k, a);
 
-        add(l, k * l, b);
-        add(r + 1, -k * (r + 1), b);
+        modify(l, k * l, b);
+        modify(r + 1, -k * (r + 1), b);
     }
 
     int get(int x, vector<int> &v)
@@ -54,7 +55,7 @@ struct Fenwick
         return res;
     }
 
-    int range_query(int l, int r)
+    int query(int l, int r)
     {
         if (l > r)
             return 0ll;
@@ -63,6 +64,63 @@ struct Fenwick
         int L = l * get(l - 1, a) - get(l - 1, b);
 
         return R - L;
+    }
+};
+
+// 单点修改 + 区间查询 + 第k小值
+struct Fenwick
+{
+    int n;
+    vector<int> a;
+
+    Fenwick(int _n) : n(_n), a(_n + 1) {}
+
+    int lowbit(int x)
+    {
+        return x & -x;
+    }
+
+    void update(int x, int k)
+    {
+        while (x <= n)
+        {
+            a[x] += k;
+            x += lowbit(x);
+        }
+    }
+
+    int pre(int r)
+    {
+        int res = 0;   
+
+        while (r > 0)
+        {
+            res += a[r];
+            r -= lowbit(r);
+        }
+
+        return res;
+    }
+
+    int query(int l, int r)
+    {
+        return pre(r) - pre(l - 1);
+    }
+
+    int kth(int k)
+    {
+        int ans = 0;
+        for (int p = log2l(n); p >= 0; p--)
+        {
+            int step = 1ll << p;
+            if (ans + step <= n && a[ans + step] < k)
+            {
+                k -= a[ans + step];
+                ans += step;
+            }
+        }
+
+        return ans + 1;
     }
 };
 
