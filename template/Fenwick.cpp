@@ -14,44 +14,55 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 struct Fenwick
 {
     int n;
-    vector<int> a;
+    vector<int> a, b;
 
-    Fenwick(int size)
-    {
-        n = size;
-        a.resize(n, 0);
-    }
+    Fenwick(int _n) : n(_n), a(_n + 1), b(_n + 1) {}
 
     int lowbit(int x)
     {
         return x & -x;
     }
 
-    void update(int x, int k)
+    void add(int x, int k, vector<int> &v)
     {
-        while (x > 0 && x <= n)
+        while (x <= n)
         {
-            a[x] += k;
+            v[x] += k;
             x += lowbit(x);
         }
     }
 
-    int query(int r)
+    // (r + 1) * (a[1] + ... + a[r]) - (b[1] * 1 + ... + b[r] * r)
+    void range_add(int l, int r, int k)
+    {
+        add(l, k, a);
+        add(r + 1, -k, a);
+
+        add(l, k * l, b);
+        add(r + 1, -k * (r + 1), b);
+    }
+
+    int get(int x, vector<int> &v)
     {
         int res = 0;
-        while (r > 0)
+        while (x > 0)
         {
-            res += a[r];
-            r -= lowbit(r);
+            res += v[x];
+            x -= lowbit(x);
         }
+
         return res;
     }
 
-    int query(int l, int r)
+    int range_query(int l, int r)
     {
         if (l > r)
-            return 0;
-        return query(r) - query(l - 1);
+            return 0ll;
+
+        int R = (r + 1) * get(r, a) - get(r, b);
+        int L = l * get(l - 1, a) - get(l - 1, b);
+
+        return R - L;
     }
 };
 
@@ -65,7 +76,6 @@ signed main()
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);
     // cin.tie(nullptr);
-    // init();
     int T = 1;
     // cin >> T;
     while (T--)
