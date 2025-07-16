@@ -1,0 +1,94 @@
+#include <bits/stdc++.h>
+#define uint uint64_t
+#define int long long
+using namespace std;
+
+vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
+const double eps = 1e-12;
+const int inf = 1e18;
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+
+int ceil_log2(int x)
+{
+    return  __lg(x) + (__builtin_popcountll(x) != 1);
+}
+
+void solve()
+{
+    int n;
+    cin >> n;
+    vector<int> a(n + 1), pre(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i], pre[i] = pre[i - 1] + a[i];
+
+    vector<vector<vector<pair<int, int>>>> dp(n + 1, vector<vector<pair<int, int>>>(n + 1));
+    for (int i = 1; i <= n; i++)
+        dp[i][i].emplace_back(0, 0);
+    for (int len = 2; len <= n; len++)
+    {
+        for (int i = 1; i + len - 1 <= n; i++)
+        {
+            // map<int, int> mp;
+            // j - i + 1 == len -> j = i + len - 1;
+            int j = i + len - 1;
+            vector<pair<int, int>> tmp;
+            for (int p = i; p < j; p++)
+            {
+                int left = pre[p] - pre[i - 1];
+                int right = pre[j] - pre[p];
+
+                int B = abs(right - left);
+                int curCost = min(left, right) * ceil_log2(left + right);
+
+                int totalCost = 0;
+
+                auto lc = upper_bound(dp[i][p].begin(), dp[i][p].end(), make_pair(B, inf));
+                if (lc != dp[i][p].begin())
+                    lc--;
+                else 
+                    totalCost = -1;
+
+                auto rc = upper_bound(dp[p + 1][j].begin(), dp[p + 1][j].end(), make_pair(B, inf));
+                if (rc != dp[p + 1][j].begin())
+                    rc--;
+                else 
+                    totalCost = -1;
+
+                if (totalCost != -1)
+                {
+                    totalCost = curCost + (*lc).second + (*rc).second;
+                    tmp.emplace_back(B, totalCost);
+                }
+
+                if (len == n)
+                    cout << totalCost << " \n"[p == n - 1];
+            }
+
+            sort(tmp.begin(), tmp.end());
+            int mn = inf;
+            for (auto [B, C] : tmp)
+            {
+                if (C <= mn)
+                {
+                    dp[i][j].emplace_back(B, C);
+                    mn = min(mn, C);
+                }
+            }
+        }
+    }
+}
+
+signed main()
+{
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
+    int T = 1;
+    cin >> T;
+    while (T--)
+        solve();
+    return 0;
+}
