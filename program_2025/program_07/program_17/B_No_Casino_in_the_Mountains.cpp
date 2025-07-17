@@ -13,7 +13,28 @@ auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(
 
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+
+    int ans = 0, cur = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        if (a[i] == 1)
+            cur = 0;
+        if (a[i] == 0)
+            cur++;
+        if (cur == k)
+        {
+            cur = 0;
+            ans++;
+            i++;
+        }
+    }
+
+    cout << ans << "\n";
 }
 
 signed main()
@@ -22,7 +43,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

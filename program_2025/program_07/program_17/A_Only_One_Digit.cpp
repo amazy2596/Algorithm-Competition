@@ -13,7 +13,17 @@ auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(
 
 void solve()
 {
-    
+    int x;
+    cin >> x;
+
+    map<int, int> mp;
+    while (x)
+    {
+        mp[x % 10]++;
+        x /= 10;
+    }
+
+    cout << (*mp.begin()).first << "\n";
 }
 
 signed main()
@@ -22,7 +32,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

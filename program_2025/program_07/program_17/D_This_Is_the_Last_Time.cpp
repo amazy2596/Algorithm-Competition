@@ -9,32 +9,37 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-vector<int> Z(string &s)
+struct node
 {
-    int n = s.length();
-    vector<int> z(n);
-    int l = 0, r = 0;
-    for (int i = 1; i < n; i++)
+    int l, r, real;
+
+    bool operator<(node o)
     {
-        if (i < r)
-            z[i] = min(z[l - i], r - i + 1);
-
-        while (i + z[i] - 1 < n && s[z[i]] == s[i + z[i] - 1])
-            z[i]++;
-
-        if (i + z[i] - 1 > r)
-        {
-            l = i;
-            r = i + z[i] - 1;
-        }
+        if (l == o.l && r == o.r)
+            return real < o.real;
+        else if (l == o.l)
+            return r < o.r;
+        return l < o.l;
     }
-
-    return z;
-}
+};
 
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vector<node> a(n);
+    for (auto &[l, r, real] : a)
+        cin >> l >> r >> real;
+
+    sort(a.begin(), a.end());
+
+    for (auto [l, r, real] : a)
+    {
+        if (l <= k && k <= r)
+            k = max(k, real);
+    }
+
+    cout << k << "\n";
 }
 
 signed main()
@@ -43,7 +48,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

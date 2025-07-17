@@ -9,11 +9,21 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-
+const int mod = 1e9 + 7;
 
 void solve()
 {
-    
+    int t;
+    cin >> t;
+    int a = 1, b = 0;
+    while (t--)
+    {
+        int na = ((2 * a * b) % mod + a * a) % mod;
+        int nb = (a * a % mod + b * b % mod) % mod;
+        a = na, b = nb;
+    }
+
+    cout << a << " " << b << "\n";
 }
 
 signed main()

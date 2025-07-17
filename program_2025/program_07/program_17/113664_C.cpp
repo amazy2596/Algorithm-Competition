@@ -13,7 +13,11 @@ auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    int m;
+    cin >> m;
+    cout << n * (n - 1) - m << "\n";
 }
 
 signed main()

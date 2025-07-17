@@ -7,11 +7,11 @@ const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 const int mod1 = 1000000007;
 const int mod2 = 998244353;
-const int mod = mod1;
+const int mod = mod2;
 
 struct Comb 
 {
@@ -80,7 +80,24 @@ struct Comb
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    if (m > n)
+    {
+        cout << "0\n";
+        return;
+    }
+
+    int ans = 0;
+    for (int i = 0; i <= m; i++)
+    {
+        if (i % 2 == 0)
+            ans = (ans + comb.C(m, i) * comb.fast_pow(m - i, n)) % mod;
+        else 
+            ans = ((ans - comb.C(m, i) * comb.fast_pow(m - i, n)) % mod + mod) % mod;
+    }
+
+    cout << ans << "\n";
 }
 
 signed main()

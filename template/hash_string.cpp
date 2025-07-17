@@ -3,9 +3,7 @@
 #define int long long
 using namespace std;
 
-vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
-vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
-const double eps = 1e-9;
+const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());

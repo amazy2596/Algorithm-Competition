@@ -7,7 +7,7 @@ const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 struct LinearSieve 
 {
@@ -81,7 +81,20 @@ struct LinearSieve
 
 void solve()
 {
-    
+    for (int i = 1; i <= 100; i++)
+    {
+        auto fact = LS.factorize(i);
+        for (auto [key, val] : fact)
+        {
+            int x = i + key;
+            int y = sqrt(x);
+            if (y * y == x)
+            {
+                cout << i << " " << key << "\n";
+                break;
+            }
+        }
+    }
 }
 
 signed main()

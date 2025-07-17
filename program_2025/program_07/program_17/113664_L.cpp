@@ -3,6 +3,8 @@
 #define int long long
 using namespace std;
 
+vector<pair<int, int>> dir8 = {{1, 0}, {1, 1}, {0, 1}, {-1, 1},{-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+vector<pair<int, int>> dir4 = {{1, 0}, {0, 1}, {-1, 0}, {0, -1}};
 const double eps = 1e-12;
 const int inf = 1e18;
 
@@ -13,7 +15,10 @@ auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cout << "0 ";
 }
 
 signed main()
