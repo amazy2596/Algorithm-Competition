@@ -29,17 +29,18 @@ void solve()
     }
 
     int ans = 0;
-    // vector<map<int, int>> cnt(n + 1);
+    vector<map<int, int>> cnt(n + 1);
+    vector<int> f(n + 1), fw(n + 1);
     auto dfs = [&](auto dfs, int u, int p) -> void
     {
         for (auto [v, w] : adj[u])
         {
-            // cnt[u][a[v]] += w;
             if (v == p)
                 continue;
             if (a[u] != a[v])
                 ans += w;
-
+            f[v] = u, fw[v] = w;
+            cnt[u][a[v]] += w;
             dfs(dfs, v, u);
         }
     };
@@ -51,12 +52,18 @@ void solve()
         int v, c;
         cin >> v >> c;
 
-        for (auto [u, w] : adj[v])
+        if (a[v] != c)
         {
-            if (a[v] == a[u] && c != a[u])
-                ans += w;
-            else if (a[v] != a[u] && c == a[u])
-                ans -= w;
+            ans += cnt[v][a[v]];
+            ans -= cnt[v][c];
+
+            int pa = f[v];
+            if (a[pa] == a[v])
+                ans += fw[v];
+            if (a[pa] == c)
+                ans -= fw[v];
+            cnt[pa][a[v]] -= fw[v];
+            cnt[pa][c] += fw[v];
         }
 
         a[v] = c;

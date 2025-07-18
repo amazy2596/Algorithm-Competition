@@ -12,7 +12,6 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 const int mod1 = 1000000007;
 const int mod2 = 998244353;
 const int mod = mod1;
-
 struct Comb 
 {
     int max_n;          
