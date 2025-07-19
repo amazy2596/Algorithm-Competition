@@ -15,6 +15,7 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
+    m++;
     vector<vector<int>> adj(n + 1);
     vector<int> a(n + 1);
     for (int i = 1; i <= n; i++)
@@ -27,34 +28,25 @@ void solve()
 
     vector<vector<int>> dp(n + 1, vector<int>(m + 1));
     for (int i = 1; i <= n; i++)
-    {
-        dp[i][0] = 0;
         dp[i][1] = a[i];
-    }
 
-    vector<int> siz(n + 1);
     auto dfs = [&](auto dfs, int u) -> void
     {
-        if (adj[u].size() == 0)
-            siz[u] = 1;
-
         for (auto v : adj[u])
         {
             dfs(dfs, v);
 
-            for (int j = m; j >= 1; j--)
+            for (int j = m; j >= 0; j--)
             {
                 for (int k = 1; k < j; k++)
                 {
-                    dp[u][j + k] = max(dp[u][j + k], dp[u][j] + dp[v][k]);
+                    dp[u][j] = max(dp[u][j], dp[u][j - k] + dp[v][k]);
                 }
             }
-
-            siz[u] += siz[v];
         }
     };
     dfs(dfs, 0);
-    cout << *max_element(dp[0].begin(), dp[0].end()) << "\n";
+    cout << dp[0][m] << "\n";
 
     // vector<vector<vector<int>>> dp(n + 1);
     // for (int i = 0; i <= n; i++)
