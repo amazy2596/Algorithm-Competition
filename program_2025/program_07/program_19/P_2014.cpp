@@ -15,7 +15,6 @@ void solve()
 {
     int n, m;
     cin >> n >> m;
-    m++;
     vector<vector<int>> adj(n + 1);
     vector<int> a(n + 1);
     for (int i = 1; i <= n; i++)
@@ -26,27 +25,56 @@ void solve()
         a[i] = s;
     }
 
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1));
-    for (int i = 1; i <= n; i++)
-        dp[i][1] = a[i];
-
-    auto dfs = [&](auto dfs, int u) -> void
+    vector<int> dfn(n + 2), siz(n + 2), val(n + 2);
+    int id = 0;
+    auto dfs = [&](auto dfs, int u) -> int
     {
+        int i = ++id;
+        dfn[u] = i;
+        val[i] = a[u];
+        siz[i] = 1;
+
         for (auto v : adj[u])
         {
-            dfs(dfs, v);
-
-            for (int j = m; j >= 0; j--)
-            {
-                for (int k = 1; k < j; k++)
-                {
-                    dp[u][j] = max(dp[u][j], dp[u][j - k] + dp[v][k]);
-                }
-            }
+            siz[i] += dfs(dfs, v);
         }
+
+        return siz[i];
     };
     dfs(dfs, 0);
-    cout << dp[0][m] << "\n";
+
+    vector<vector<int>> dp(n + 3, vector<int>(m + 1));
+    for (int i = n + 1; i >= 2; i--)
+    {
+        for (int j = 1; j <= m; j++)
+        {
+            dp[i][j] = max(dp[i + siz[i]][j], dp[i + 1][j - 1] + val[i]);
+        }
+    }
+
+    cout << dp[2][m] << "\n";
+
+    // vector<vector<int>> dp(n + 1, vector<int>(m + 1));
+    // for (int i = 1; i <= n; i++)
+    //     dp[i][1] = a[i];
+
+    // auto dfs = [&](auto dfs, int u) -> void
+    // {
+    //     for (auto v : adj[u])
+    //     {
+    //         dfs(dfs, v);
+
+    //         for (int j = m; j >= 0; j--)
+    //         {
+    //             for (int k = 1; k < j; k++)
+    //             {
+    //                 dp[u][j] = max(dp[u][j], dp[u][j - k] + dp[v][k]);
+    //             }
+    //         }
+    //     }
+    // };
+    // dfs(dfs, 0);
+    // cout << dp[0][m] << "\n";
 
     // vector<vector<vector<int>>> dp(n + 1);
     // for (int i = 0; i <= n; i++)
