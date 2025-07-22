@@ -13,45 +13,48 @@ auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(
 
 void solve()
 {
-    int n;
-    cin >> n;
-    vector<vector<int>> adj(n + 1);
+    int n, k;
+    cin >> n >> k;
+    vector<vector<pair<int, int>>> adj(n + 1);
     for (int i = 0; i < n - 1; i++)
     {
-        int u, v;
-        cin >> u >> v;
-        adj[u].push_back(v);
-        adj[v].push_back(u);
+        int u, v, w;
+        cin >> u >> v >> w;
+        adj[u].push_back({v, w});
+        adj[v].push_back({u, w});
     }
 
-    int m = 4;
-    vector<vector<int>> dp(n + 1, vector<int>(m + 1, inf));
+    vector<int> siz(n + 1, 1);
+    vector<vector<int>> dp(n + 1, vector<int>(k + 1, -inf));
     auto dfs = [&](auto dfs, int u, int p) -> void
     {
-        for (int i = 1; i <= m; i++)
-            dp[u][i] = i;
-
-        for (auto v : adj[u])
+        dp[u][0] = 0;
+        dp[u][1] = 0;
+        for (auto [v, w] : adj[u])
         {
             if (v == p)
                 continue;
             dfs(dfs, v, u);
-            for (int i = 1; i <= m; i++)
+
+            for (int j = min(k, siz[u]); j >= 0; j--)
             {
-                int mn = inf;
-                for (int j = 1; j <= m; j++)
+                for (int l = min(k, siz[v]); l >= 0; l--)
                 {
-                    if (i == j)
-                        continue;
-                    mn = min(mn, dp[v][j]);
+                    if (j + l <= k)
+                    {
+                        int cost1 = ((k - l) * l + (n - k - siz[v] + l) * (siz[v] - l)) * w;
+                        dp[u][j + l] = max(dp[u][j + l], dp[u][j] + dp[v][l] + cost1);
+                    }
                 }
-                dp[u][i] += mn;
             }
+
+            siz[u] += siz[v];
         }
     };
+
     dfs(dfs, 1, 0);
 
-    cout << *min_element(dp[1].begin(), dp[1].end());
+    cout << dp[1][k] << "\n";
 }
 
 signed main()
