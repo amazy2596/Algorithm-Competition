@@ -7,7 +7,7 @@ const double eps = 1e-12;
 const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 struct LinearSieve 
 {
@@ -94,11 +94,47 @@ struct LinearSieve
         if (x < 2 || x > n) return false;
         return minp[x] == x;
     }
-} LS;
+} LS(5e6 + 5);
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<int> a(n + 1);
+    map<int, int> mp;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+        auto tmp = LS.factorize(a[i]);
+        for (auto [key, val] : tmp)
+            mp[key] += val;
+    }
+
+    if (n & 1 == 1)
+    {
+        cout << "YES\n";
+        return;
+    }
+
+    if (n == 2)
+    {
+        if (a[1] != a[2])
+            cout << "NO\n";
+        else 
+            cout << "YES\n";
+        return;
+    }
+
+    for (auto [key, val] : mp)
+    {
+        if (n % 2 == 0 && val % 2 != 0)
+        {
+            cout << "NO\n";
+            return;
+        }
+    }
+
+    cout << "YES\n";
 }
 
 signed main()
@@ -107,7 +143,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

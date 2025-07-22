@@ -9,32 +9,32 @@ const int inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
-const int mod1 = 1000000007;
-const int mod2 = 998244353;
-const int mod = mod1;
-int fast_pow(int a, int b) 
-{
-    int res = 1;
-    a %= mod;
-    while (b) 
-    {
-        if (b & 1)
-            res = (res * a) % mod;
 
-        a = (a * a) % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
-int inv(int x) 
-{
-    return fast_pow(x, mod - 2);
-}
 
 void solve()
 {
-    
+    string s;
+    cin >> s;
+    map<int, int> mp;
+    for (int i = 0; i < s.length(); i++)
+        mp[s[i] - 'A']++;
+
+    while (mp['T' - 'A'])
+    {
+        cout << 'T';
+        mp['T' - 'A']--;
+    }
+
+    for (auto [key, val] : mp)
+    {
+        while (val)
+        {
+            cout << (char)(key + 'A');
+            val--;
+        }
+    }
+
+    cout << "\n";
 }
 
 signed main()
@@ -43,7 +43,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;
