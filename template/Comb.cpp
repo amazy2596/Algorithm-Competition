@@ -16,23 +16,35 @@ struct Comb
 {
     int max_n;          
     vector<int> fact; 
-    vector<int> ifact; 
-    vector<int> p2;
+    vector<int> ifact;
 
-    Comb(int n = 2e6 + 5) : max_n(n)
+    Comb() : max_n(0)
     {
+        fact.push_back(1);
+        ifact.push_back(1);
+    }
+
+    Comb(int n) : max_n(n)
+    {
+        extend_to(n);
+    }
+
+    void extend_to(int new_max_n)
+    {
+        if (new_max_n <= max_n) return;
+
+        int old_max_n = max_n;
+        max_n = new_max_n;
+
         fact.resize(max_n + 1);
         ifact.resize(max_n + 1);
-        p2.resize(max_n + 1);
 
-        p2[0] = 1;
-        for (int i = 1; i <= max_n; i++) p2[i] = (p2[i - 1] * 2) % mod;
-
-        fact[0] = 1;
-        for (int i = 1; i <= max_n; i++) fact[i] = (fact[i - 1] * i) % mod;
+        for (int i = old_max_n + 1; i <= max_n; i++)
+            fact[i] = (1LL * fact[i - 1] * i) % mod;
         
         ifact[max_n] = fast_pow(fact[max_n], mod - 2);
-        for (int i = max_n - 1; i >= 0; i--) ifact[i] = (ifact[i + 1] * (i + 1)) % mod;
+        for (int i = max_n - 1; i > old_max_n; i--)
+            ifact[i] = (1LL * ifact[i + 1] * (i + 1)) % mod;
     }
 
     int fast_pow(int a, int b) 
@@ -42,9 +54,8 @@ struct Comb
         while (b) 
         {
             if (b & 1)
-                res = (res * a) % mod;
-
-            a = (a * a) % mod;
+                res = (1LL * res * a) % mod;
+            a = (1LL * a * a) % mod;
             b >>= 1;
         }
         return res;
@@ -52,30 +63,30 @@ struct Comb
 
     int inv(int x) 
     {
+        if (x > max_n) extend_to(x);
         return fast_pow(x, mod - 2);
     }
-
+    
     int C(int n, int m) 
     {
         if (n < m || m < 0) return 0;
-        if (n <= max_n) return (((fact[n] * ifact[m]) % mod) * ifact[n - m]) % mod;
+        
+        if (n > max_n)
+            extend_to(2 * n); 
 
-        int res = ifact[m];
-        for (int i = 1; i <= m; i++) res = (res * ((n - m + i))) % mod;
-
-        return res;
+        return (((1LL * fact[n] * ifact[m]) % mod) * ifact[n - m]) % mod;
     }
 
     int A(int n, int m) 
     {
         if (n < m || m < 0) return 0;
-        if (n <= max_n) return (fact[n] * ifact[n - m]) % mod;
         
-        int res = 1;
-        for (int i = 1; i <= m; i++) res = (res * (n - m + i)) % mod;
-        return res;
+        if (n > max_n)
+            extend_to(2 * n);
+        
+        return (1LL * fact[n] * ifact[n - m]) % mod;
     }
-} comb;
+} Comb;
 
 void solve()
 {
