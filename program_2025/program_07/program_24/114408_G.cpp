@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 #define uint uint64_t
-#define int long long
+// #define int long long
 using namespace std;
 
 const double eps = 1e-12;
@@ -32,12 +32,6 @@ void solve()
     vector<int> siz(n + 1, 0);
     auto dfs = [&](auto dfs, int u, int p) -> void
     {
-        if (u != 1 && adj[u].size() == 1)
-        {
-            siz[u] = 1;
-            dp[u][1] = a[u];
-        }
-        
         for (auto v : adj[u])
         {
             if (v == p)
@@ -58,7 +52,12 @@ void solve()
             siz[u] += siz[v];
         }
 
-        if (siz[u] <= k)
+        if (u != 1 && adj[u].size() == 1)
+        {
+            siz[u] = 1;
+            dp[u][1] = a[u];
+        }
+        else if (siz[u] <= k)
             dp[u][siz[u]] += a[u];
     };
 
