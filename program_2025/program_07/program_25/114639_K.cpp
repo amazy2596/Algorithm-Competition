@@ -32,8 +32,6 @@ struct TarjanSCC
         dfn.resize(n + 1);
         low.resize(n + 1);
         in_stk.resize(n + 1);
-
-        sccs.emplace_back();
     }
 
     void add(int u, int v)
@@ -110,9 +108,109 @@ struct TarjanSCC
     }
 };
 
+struct DSU
+{
+    vector<int> f, siz;
+
+    DSU(int n) : f(n + 1), siz(n + 1, 1)
+    {
+        iota(f.begin(), f.end(), 0);
+    }
+
+    int find(int x)
+    {
+        while (f[x] != x)
+            x = f[x] = f[f[x]];
+        return x;
+    }
+
+    bool merge(int x, int y)
+    {
+        x = find(x);
+        y = find(y);
+
+        if (x == y)
+            return false;
+
+        if (siz[x] < siz[y])
+            swap(x, y);
+
+        siz[x] += siz[y];
+        f[y] = x;
+        return true;
+    }
+
+    int size(int x)
+    {
+        return siz[find(x)];
+    }
+
+    bool connected(int x, int y)
+    {
+        return find(x) == find(y);
+    }
+};
+
 void solve()
 {
+    int n, m, q;
+    cin >> n >> m >> q;
     
+    vector<pair<int, int>> e;
+    for (int i = 0; i < m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        e.push_back({u, v});
+    }
+
+    TarjanSCC tj(n + 1);
+    for (int i = 0; i < q; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        tj.add(u, v);
+    }
+
+    tj.run();
+
+    DSU dsu1(n + 1), dsu2(n + 1);;
+    for (auto [u, v] : e)
+    {
+        dsu1.merge(u, v);
+        if (tj.scc_id[u] != tj.scc_id[v])
+            dsu2.merge(tj.scc_id[u], tj.scc_id[v]);
+    }
+
+    for (int i = 0; i < tj.scc_count; i++)
+    {
+        set<int> s;
+        for (auto u : tj.sccs[i])
+        {
+            s.insert(dsu1.find(u));
+        }
+
+        if (s.size() != 1)
+        {
+            cout << "NO\n";
+            return;
+        }
+    }
+
+    tj.build();
+    for (int u = 0; u < tj.scc_count; u++)
+    {
+        for (auto v : tj.nadj[u])
+        {
+            if (!dsu2.connected(u, v))
+            {
+                cout << "NO\n";
+                return;
+            }
+        }
+    }
+
+    cout << "YES\n";
 }
 
 signed main()

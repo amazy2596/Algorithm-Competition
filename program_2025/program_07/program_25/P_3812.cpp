@@ -41,6 +41,9 @@ struct LinearBasis
         {
             if (!(x >> i & 1))
                 continue;
+
+            if (basis[i] == 0)
+                return false;
             
             x ^= basis[i];
         }
@@ -50,13 +53,14 @@ struct LinearBasis
 
     int queryMIN()
     {
-        for (int i = 0; i < bits; i++)
+        int res = inf;
+        for (int i = bits - 1; i >= 0; i--)
         {
             if (basis[i] != 0)
-                return basis[i];
+                res = min(res, basis[i]);
         }
         
-        return 0;
+        return res;
     }
 
     int queryMAX()
@@ -77,7 +81,17 @@ struct LinearBasis
 
 void solve()
 {
-    
+    LinearBasis lb(64);
+    int n;
+    cin >> n;
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        lb.insert(x);
+    }
+
+    cout << lb.queryMAX() << "\n";
 }
 
 signed main()

@@ -170,7 +170,7 @@ struct tagAdd
 			return;
 
 		add += o.add;
-	}
+    }
 };
 
 // 区间加乘
@@ -229,7 +229,7 @@ struct tagAssign
 
 	void merge(const tagAssign &o)
 	{
-		if (!o.has)
+		if (o.empty())
 			return;
 
 		has = true;
@@ -270,16 +270,64 @@ struct tagAddMIN
 
 void solve()
 {
+    int n, q;
+    cin >> n >> q;
+    vector<info> a(n + 1, info(0));
+    for (int i = 1; i <= n; i++)
+    {
+        int x;
+        cin >> x;
+        a[i] = info(x);
+    }
 
+    SegmentTree<info, tagAddMIN> t(a);
+    while (q--)
+    {
+        int op;
+        cin >> op;
+
+        if (op == 1)
+        {
+            int id, x;
+            cin >> id >> x;
+
+            t.update(id, id, tagAddMIN(tagAdd(-x)));
+        }
+        else if (op == 2)
+        {
+            int id;
+            cin >> id;
+
+            cout << t.query(id, id).mn << "\n";
+        }
+        else if (op == 3)
+        {
+            int x;
+            cin >> x;
+            
+            t.update(1, n, tagAddMIN(tagAdd(-x)));
+        }
+        else if (op == 4)
+        {
+            int x;
+            cin >> x;
+
+            t.update(1, n, tagAddMIN(x));
+        }
+        else if (op == 5)
+        {
+            cout << t.query(1, n).mn << "\n";
+        }
+    }
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
+	ios::sync_with_stdio(false);
+	cout.tie(nullptr);
+	cin.tie(nullptr);
 	int T = 1;
-	// cin >> T;
+	cin >> T;
 	while (T--)
 		solve();
 	return 0;

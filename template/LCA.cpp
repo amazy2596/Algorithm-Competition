@@ -13,32 +13,38 @@ struct LCA
 {
     int n, max_log;
     vector<vector<int>> up;
-    vector<int> depth;
+    vector<int> depth, root;
 
     LCA(int _n)
     {
         n = _n;
         max_log = log2(n) + 1;
         up.resize(n + 1, vector<int>(max_log + 1, 0));
-        depth.resize(n + 1);
+        root.resize(n + 1, -1);
+        depth.resize(n + 1, -1);
     }
 
-    void build(int root, vector<vector<int>> &adj)
+    void build(vector<vector<int>> &adj)
     {
-        auto dfs = [&](auto dfs, int u, int p, int d) -> void
+        auto dfs = [&](auto dfs, int u, int p, int d, int r) -> void
         {
             up[u][0] = p;
             depth[u] = d;
+            root[u] = r;
 
             for (int v : adj[u])
             {
                 if (v == p)
                     continue;
-                dfs(dfs, v, u, d + 1);
+                dfs(dfs, v, u, d + 1, r);
             }
         };
 
-        dfs(dfs, root, 0, 0);
+        for (int i = 1; i <= n; i++)
+        {
+            if (depth[i] == -1)
+                dfs(dfs, i, 0, 0, i);
+        }
 
         for (int j = 1; j < max_log; j++)
         {
@@ -54,6 +60,9 @@ struct LCA
 
     int query(int u, int v)
     {
+        if (root[u] != root[v])
+            return -1;
+
         if (depth[u] < depth[v])
             swap(u, v);
 

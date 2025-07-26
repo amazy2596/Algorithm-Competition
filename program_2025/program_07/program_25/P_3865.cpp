@@ -27,7 +27,7 @@ struct ST
         for (int i = 1; i <= n; i++) 
             a[i][0] = input[i];
 
-        for (int j = 1; j < max_log; j++) 
+        for (int j = 1; j <= max_log; j++) 
         {
             for (int i = 1; i + (1 << j) - 1 <= n; i++) 
             {
@@ -47,14 +47,25 @@ struct ST
 
 void solve()
 {
-    
+    int n, q;
+    cin >> n >> q;
+    vector<int> a(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    ST st(a);
+    while (q--)
+    {
+        int l, r;
+        cin >> l >> r;
+        cout << st.query(l, r) << "\n";
+    }
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
     // cin >> T;
     while (T--)
