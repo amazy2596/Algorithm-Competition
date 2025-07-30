@@ -12,10 +12,10 @@ auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
 template<typename T>
 struct ST 
 {
-    int n;
-    vector<vector<T>> a;
     using _func = function<T(T, T)>;
+    vector<vector<T>> a;
     _func op;
+    int n;
 
     ST(vector<T>& input, _func _op = [](T a, T b) { return max(a, b); }) : op(_op) 
     {
@@ -27,7 +27,7 @@ struct ST
         for (int i = 1; i <= n; i++) 
             a[i][0] = input[i];
 
-        for (int j = 1; j < max_log; j++) 
+        for (int j = 1; j <= max_log; j++) 
         {
             for (int i = 1; i + (1 << j) - 1 <= n; i++) 
             {

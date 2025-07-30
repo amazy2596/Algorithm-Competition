@@ -1,0 +1,54 @@
+#include <bits/stdc++.h>
+#define uint uint64_t
+#define int long long
+using namespace std;
+
+const double eps = 1e-12;
+const int inf = 1e18;
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+
+
+
+void solve()
+{
+    int n, p;
+    cin >> n >> p;
+
+    vector<int> a(n + 1), b(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i] >> b[i];
+        if (b[i] >= n)
+            b[i] = n - 1;
+    }
+
+    vector<int> dp(n + 1, inf);
+    dp[0] = 0;
+    for (int i = 1; i <= n; i++)
+    {
+        for (int j = 0; j <= n; j++)
+        {
+            dp[j] = min(dp[j], dp[max(0ll, j - b[i])] + a[i]);
+        }
+    }
+
+    int ans = inf;
+    for (int i = 0; i < n; i++)
+        ans = min(ans, dp[i] + (n - i) * p);
+
+    cout << ans << "\n";
+}
+
+signed main()
+{
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
+}
