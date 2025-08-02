@@ -13,7 +13,7 @@ const i64 inf = 1e18;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-const int mod = 998244353, G = 3;
+const i64 mod = 998244353, G = 3;
 
 i64 fast_pow(i64 a, i64 b, const i64 mod) 
 {
@@ -35,16 +35,6 @@ i64 inv(i64 x, i64 mod)
     return fast_pow(x, mod - 2, mod);
 }
 
-/**
- * @brief 计算模意义下的二次剩余，即求解方程 x^2 = a (mod p)。
- *        该函数实现了 Tonelli-Shanks 算法，并包含了针对特殊情况的优化。
- * 
- * @param a 方程中的常数项 a。
- * @param mod 模数 p，要求必须是一个奇素数。
- * @return  如果方程有解，返回其中一个解 x。方程的另一个解是 mod - x。
- *          如果方程无解，返回 -1。
- *          如果 a = 0，返回 0。
- */
 i64 sqrt_mod(i64 a, i64 mod) 
 {
     // 将 a 化为最小正整数
@@ -122,7 +112,7 @@ i64 sqrt_mod(i64 a, i64 mod)
     return R;
 }
 
-template<i64 mod>
+template<i64 mod, i64 G>
 struct NTT 
 {
     vector<int> rev;            
@@ -318,7 +308,15 @@ struct NTT
 
 void solve()
 {
-    
+    NTT<mod, G> ntt;
+    int n;
+    cin >> n;
+    vector<i64> a(n);
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+    auto b = ntt.sqrt_poly(a, n);
+    for (int i = 0; i < n; i++)
+        cout << b[i] << " ";
 }
 
 signed main()

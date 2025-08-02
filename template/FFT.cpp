@@ -1,13 +1,17 @@
 #include <bits/stdc++.h>
-#define uint uint64_t
-#define int long long
 using namespace std;
 
-const double eps = 1e-12;
-const int inf = 1e18;
+using i64 = long long;
+using u64 = unsigned long long;
+
+using i128 = __int128;
+using u128 = unsigned __int128;
+
+const long double eps = 1e-12;
+const i64 inf = 1e18; 
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 using Complex = complex<double>;
 const double PI = acos(-1.0);
@@ -16,9 +20,14 @@ struct FTT
 {
     vector<int> rev;
     vector<Complex> roots {Complex(0, 0), Complex(1, 0)};
-
     FTT() {}
 
+    /**
+     * @brief 执行快速傅里叶变换 (FFT) 或其逆变换 (IFFT)。
+     *        采用 Cooley-Tukey 算法，在原数组上进行变换（in-place）。
+     * @param a 要变换的多项式系数向量（复数形式）。其大小必须是2的幂。
+     * @param invert 一个布尔值，`false` 表示执行正向 FFT, `true` 表示执行逆向 IFFT。
+     */
     void dft(vector<Complex> &a, bool invert)
     {
         int n = a.size();
@@ -81,19 +90,28 @@ struct FTT
         }
     }
 
-    vector<int> mul(const vector<int> &a, const vector<int> &b)
+    /**
+     * @brief 使用 FFT 计算两个多项式的乘积（卷积）。
+     * @param a 第一个多项式 A(x) 的系数向量。
+     * @param b 第二个多项式 B(x) 的系数向量。
+     * @return 返回表示乘积多项式 C(x) = A(x) * B(x) 的系数向量。
+     * @note 对于小规模输入（结果次数小于128），会回退到 O(n^2) 的朴素乘法以避免 FFT 的常数开销。
+     */
+    vector<i64> mul(const vector<i64> &a, const vector<i64> &b)
     {
-        int tot = a.size() + b.size() - 1;
+        int siz_a = a.size();
+        int siz_b = b.size();
+        int tot = siz_a + siz_b - 1;
         if (tot <= 0) return {};
 
         if (tot < 128) 
         {
-            vector<int> c(tot, 0);
-            for (int i = 0; i < a.size(); i++) 
+            vector<i64> c(tot, 0);
+            for (int i = 0; i < siz_a; i++) 
             {
-                for (int j = 0; j < b.size(); j++) 
+                for (int j = 0; j < siz_b; j++) 
                 {
-                    c[i + j] += a[i] * b[j];
+                    c[i + j] += a[i] * b[j]; 
                 }
             }
             return c;
@@ -116,7 +134,7 @@ struct FTT
 
         dft(fa, true);
 
-        vector<int> res(n);
+        vector<i64> res(n);
         for (int i = 0; i < n; i++)
             res[i] = round(fa[i].real());
 
@@ -124,7 +142,11 @@ struct FTT
         return res;
     }
 
-    void print_poly(const vector<int> &p)
+    /**
+     * @brief 以可读的数学格式打印多项式。
+     * @param p 要打印的多项式的系数向量。例如 {4, 23, 22, 15} 会被打印为 "15x^3 + 22x^2 + 23x + 4"。
+     */
+    void print_poly(const vector<i64> &p)
     {
         bool first_term = true;
         for (int i = p.size() - 1; i >= 0; --i) 
@@ -148,16 +170,22 @@ struct FTT
 
 } ftt;
 
+
 void solve()
 {
-
+    // Example usage:
+    vector<i64> p1 = {1, 2, 3}; // 3x^2 + 2x + 1
+    vector<i64> p2 = {4, 5};    // 5x + 4
+    vector<i64> p3 = ftt.mul(p1, p2); // Should be 15x^3 + 22x^2 + 23x + 4
+    ftt.print_poly(p3);
+    cout << endl;
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
     // cin >> T;
     while (T--)

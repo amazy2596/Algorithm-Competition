@@ -1,13 +1,17 @@
 #include <bits/stdc++.h>
-#define uint uint64_t
-#define int long long
 using namespace std;
 
-const double eps = 1e-12;
-const int inf = 1e18;
+using i64 = long long;
+using u64 = unsigned long long;
+
+using i128 = __int128;
+using u128 = unsigned __int128;
+
+const long double eps = 1e-12;
+const i64 inf = 1e18; 
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 #define ls (node * 2 + 1)
 #define rs (node * 2 + 2)
@@ -119,14 +123,14 @@ struct SegmentTree
 
 struct info
 {
-	int mx = -inf;
-	int mn = inf;
-	int sum = 0;
-	int ssum = 0;
+	i64 mx = -inf;
+	i64 mn = inf;
+	i64 sum = 0;
+	i64 ssum = 0;
 	int len = 0;
 	
 	info () : mx(-inf), mn(inf), sum(0), ssum(0), len(0) {};
-	info (int val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
+	info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
 	
 	info operator+(const info &o) const
 	{
@@ -144,10 +148,10 @@ struct info
 // 区间加
 struct tagAdd
 {
-	int add = 0;
+	i64 add = 0;
 
 	tagAdd() : add(0) {}
-	tagAdd(int _add) : add(_add) {}
+	tagAdd(i64 _add) : add(_add) {}
 
 	bool empty() const
 	{
@@ -156,7 +160,7 @@ struct tagAdd
 
 	void apply(info &a) const 
 	{
-		int old = a.sum;
+		i64 old = a.sum;
 
 		a.mx += add;
 		a.mn += add;
@@ -176,10 +180,10 @@ struct tagAdd
 // 区间加乘
 struct tagAddMul
 {
-    int add = 0, mul = 1;
+    i64 add = 0, mul = 1;
 
     tagAddMul() : add(0), mul(1) {}
-    tagAddMul(int _add, int _mul) : add(_add), mul(_mul) {}
+    tagAddMul(i64 _add, i64 _mul) : add(_add), mul(_mul) {}
 
     bool empty() const 
     {
@@ -188,8 +192,8 @@ struct tagAddMul
 
     void apply(info &o) const 
     {
-        int old_sum = o.sum;
-        int old_ssum = o.ssum;
+        i64 old_sum = o.sum;
+        i64 old_ssum = o.ssum;
 
         o.mx = o.mx * mul + add;
         o.mn = o.mn * mul + add;
@@ -209,10 +213,10 @@ struct tagAddMul
 struct tagAssign
 {
 	bool has = false;
-	int val = 0;
+	i64 val = 0;
 
 	tagAssign() : has(false), val(0) {};
-	tagAssign(int _val) : has(true), val(_val) {};
+	tagAssign(i64 _val) : has(true), val(_val) {};
 
 	bool empty() const 
 	{
@@ -240,11 +244,11 @@ struct tagAssign
 struct tagAddMIN
 {
     tagAdd tagadd;
-    int mn = inf;
+    i64 mn = inf;
 
     tagAddMIN() : tagadd(), mn(inf) {}
     tagAddMIN(tagAdd _tagadd) : tagadd(_tagadd) {}
-    tagAddMIN(int _mn) : mn(_mn) {}
+    tagAddMIN(i64 _mn) : mn(_mn) {}
 
     bool empty() const
     {

@@ -1,20 +1,24 @@
 #include <bits/stdc++.h>
-#define uint uint64_t
-#define int long long
 using namespace std;
 
-const double eps = 1e-12;
-const int inf = 1e18;
+using i64 = long long;
+using u64 = unsigned long long;
+
+using i128 = __int128;
+using u128 = unsigned __int128;
+
+const long double eps = 1e-12;
+const i64 inf = 1e18; 
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 const int mod1 = 1000000007;
 const int mod2 = 998244353;
 const int mod = mod1;
-int fast_pow(int a, int b) 
+i64 fast_pow(i64 a, i64 b) 
 {
-    int res = 1;
+    i64 res = 1;
     a %= mod;
     while (b) 
     {
@@ -27,7 +31,7 @@ int fast_pow(int a, int b)
     return res;
 }
 
-int inv(int x) 
+i64 inv(i64 x) 
 {
     return fast_pow(x, mod - 2);
 }

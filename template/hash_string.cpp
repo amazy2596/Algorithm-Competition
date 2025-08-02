@@ -1,20 +1,34 @@
 #include <bits/stdc++.h>
-#define uint uint64_t
-#define int long long
 using namespace std;
 
-const double eps = 1e-12;
-const int inf = 1e18;
+using i64 = long long;
+using u64 = unsigned long long;
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
+using i128 = __int128;
+using u128 = unsigned __int128;
 
-const uint mod = (1ull << 61) - 1;
-const uint base = rnd(mod / 2, mod - 1);
+const long double eps = 1e-12;
+const i64 inf = 1e18; 
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
+
+// 模数为梅森素数 2^61 - 1。这是一个巨大的素数，可以有效减少哈希碰撞。
+const u64 mod = (1ull << 61) - 1;
+// 为多项式哈希随机选择的基数，以防止被特定数据卡掉。
+const u64 base = rnd(mod / 2, mod - 1);
+// 预处理基数幂次的最大长度。
 const int N = 2e5 + 5;
-vector<uint> p(N);
+// 存储基数的幂次，即 p[i] = base^i mod (2^61 - 1)。
+vector<u64> p(N);
 
-uint add(uint a, uint b)
+/**
+ * @brief 在模 2^61 - 1 下执行加法。
+ * @param a 第一个操作数。
+ * @param b 第二个操作数。
+ * @return 返回 (a + b) mod (2^61 - 1)。
+ */
+u64 add(u64 a, u64 b)
 {
     a += b;
     if (a >= mod)
@@ -22,13 +36,27 @@ uint add(uint a, uint b)
     return a;
 }
 
-uint mul(uint a, uint b)
+/**
+ * @brief 在模 2^61 - 1 下使用128位整数执行快速乘法。
+ * @param a 第一个操作数。
+ * @param b 第二个操作数。
+ * @return 返回 (a * b) mod (2^61 - 1)。
+ */
+u64 mul(u64 a, u64 b)
 {
     __uint128_t c = __uint128_t(a) * b;
     return add(c >> 61, c & mod);
 }
 
-uint query(const vector<uint> &h, int l, int r)
+/**
+ * @brief 查询子串 s[l..r] 的哈希值。
+ *        此实现假设字符串和查询均为1-based索引。
+ * @param h 前缀哈希数组，其中 h[i] 是 s[1..i] 的哈希值。
+ * @param l 子串的左端点 (包含)。
+ * @param r 子串的右端点 (包含)。
+ * @return 子串 s[l..r] 的哈希值。
+ */
+u64 query(const vector<u64> &h, int l, int r)
 {
     if (r < l)
         return 0ull;
@@ -42,10 +70,17 @@ void init()
         p[i] = mul(p[i - 1], base);
 }
 
+/**
+ * @brief 为给定的序列 (如 vector<char> 或 vector<int>) 构建前缀哈希数组。
+ *        此实现假设输入序列 `s` 是1-based索引 (即 s[0] 是占位符)。
+ * @tparam T 序列中元素的类型。
+ * @param s 输入的序列。
+ * @return 一个前缀哈希数组，其中 `hashed[i]` 对应 s[1..i] 的哈希值。
+ */
 template<typename T>
-vector<uint> build(vector<T> &s)
+vector<u64> build(vector<T> &s)
 {
-    vector<uint> hashed(s.size(), 0);
+    vector<u64> hashed(s.size(), 0);
     for (int i = 1; i < s.size(); i++)
         hashed[i] = add(mul(hashed[i - 1], base), s[i]);
     return hashed;

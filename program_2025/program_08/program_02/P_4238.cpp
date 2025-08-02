@@ -14,7 +14,6 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 const int mod = 998244353, G = 3;
-
 i64 fast_pow(i64 a, i64 b, const i64 mod) 
 {
     i64 res = 1;
@@ -318,14 +317,23 @@ struct NTT
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<i64> f(n);
+    for (int i = 0; i < n; i++)
+        cin >> f[i];
+
+    NTT<mod> ntt;
+    auto g = ntt.inv_poly(f, n);
+    for (int i = 0; i < n; i++)
+        cout << g[i] << " ";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
     // cin >> T;
     while (T--)

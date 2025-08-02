@@ -1,23 +1,20 @@
 #include <bits/stdc++.h>
+#define uint uint64_t
+#define int long long
 using namespace std;
 
-using i64 = long long;
-using u64 = unsigned long long;
-
-using i128 = __int128;
-using u128 = unsigned __int128;
-
-const long double eps = 1e-12;
-const i64 inf = 1e18; 
+const double eps = 1e-12;
+const int inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
+auto rnd = [](uint l, uint r) { return (l <= r ? uniform_int_distribution<uint>(l, r)(rng) : 0); };
 
 
 
 void solve()
 {
-    
+    int n = 5, m = 2;
+    vector<vector<int>> g(n + 1, vector<int>(n + 1));
 }
 
 signed main()

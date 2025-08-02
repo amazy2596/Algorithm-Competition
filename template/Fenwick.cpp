@@ -1,13 +1,17 @@
 #include <bits/stdc++.h>
-#define uint uint64_t
-#define int long long
 using namespace std;
 
-const double eps = 1e-12;
-const int inf = 1e18;
+using i64 = long long;
+using u64 = unsigned long long;
+
+using i128 = __int128;
+using u128 = unsigned __int128;
+
+const long double eps = 1e-12;
+const i64 inf = 1e18; 
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](int l, int r){ return uniform_int_distribution<int>(l, r)(rng); };
+auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 // 区间修改 + 区间查询
 struct Fenwick
@@ -108,7 +112,7 @@ struct Fenwick
     int kth(int k)
     {
         int ans = 0;
-        for (int p = log2l(n); p >= 0; p--)
+        for (int p = __lg(n); p >= 0; p--)
         {
             int step = 1ll << p;
             if (ans + step <= n && a[ans + step] < k)
