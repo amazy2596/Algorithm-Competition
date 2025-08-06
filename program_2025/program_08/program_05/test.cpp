@@ -8,7 +8,7 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 inf = 1e18; 
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
@@ -17,7 +17,22 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 
 void solve()
 {
-    
+    int n = 100;
+    for (int i = 2; i <= n; i++)
+    {
+        for (int j = 2; j <= n; j++)
+        {
+            if (i % j == 0 || j % i == 0)
+                continue;
+
+            int big = sqrt(max(i, j));
+            int g = gcd(i, j);
+            if (g > big)
+            {
+                cout << i << " " << j << " " << g << "\n";
+            }
+        }
+    }
 }
 
 signed main()
