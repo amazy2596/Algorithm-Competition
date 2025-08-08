@@ -15,7 +15,6 @@ const int inf = 1e9;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 #define ls (node * 2 + 1)
 #define rs (node * 2 + 2)
 
@@ -89,13 +88,18 @@ struct SegmentTree
 
         pushdown(node);
 
-        int mid = (start + end) / 2;
+        int mid = (start + end) >> 1;
         if (l <= mid)
             update(ls, start, mid, l, r, val);
         if (mid < r)
             update(rs, mid + 1, end, l, r, val);
         
         tree[node] = tree[ls] + tree[rs];
+    }
+
+    void modify(int node, int start, int end, int pos, const Info &val)
+    {
+        
     }
     
     Info query(int node, int start, int end, int l, int r)
@@ -277,21 +281,43 @@ struct tagAddMIN
 
 #undef ls
 #undef rs
-// snippet-end
 
 void solve()
 {
+    int n, m;
+    cin >> n >> m;
+    vector<i64> a(n + 1);
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
 
+    SegmentTree<info, tagAdd> tree(a);
+    while (m--)
+    {
+        int op;
+        cin >> op;
+        if (op == 1)
+        {
+            i64 l, r, k;
+            cin >> l >> r >> k;
+            tree.update(l, r, k);
+        }
+        else 
+        {
+            int l, r;
+            cin >> l >> r;
+            cout << tree.query(l, r).sum << "\n";
+        }
+    }
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }

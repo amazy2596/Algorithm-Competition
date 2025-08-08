@@ -8,14 +8,13 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
+// const i64 mod = 1e9 + 7;
 const i64 INF = 1e18;
 const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 // 模数为梅森素数 2^61 - 1。这是一个巨大的素数，可以有效减少哈希碰撞。
 const u64 mod = (1ull << 61) - 1;
 // 为多项式哈希随机选择的基数，以防止被特定数据卡掉。
@@ -88,11 +87,25 @@ vector<u64> build(vector<T> &s)
         hashed[i] = add(mul(hashed[i - 1], base), s[i]);
     return hashed;
 }
-// snippet-end
 
 void solve()
 {
-    
+    init();
+    int n;
+    cin >> n;
+    unordered_map<i64, int> mp;
+    for (int i = 0; i < n; i++)
+    {
+        string s;
+        cin >> s;
+        s = " " + s;
+        vector<i64> tmp(s.length());
+        for (int i = 1; i < s.length(); i++)
+            tmp[i] = s[i];
+        mp[build(tmp).back()]++;
+    }
+
+    cout << mp.size() << "\n";
 }
 
 signed main()

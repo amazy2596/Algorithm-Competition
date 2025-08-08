@@ -8,14 +8,11 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 struct LinearSieve 
 {
     int n;
@@ -113,11 +110,25 @@ struct LinearSieve
         return minp[x] == x;
     }
 } LS(2e6 + 5, false, false);
-// snippet-end
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+
+    vector<int> ans;
+    for (int i = 2; i <= n; i++)
+    {
+        auto tmp = LS.factorize(i);
+        int cnt = 0;
+        for (auto [fact, val] : tmp)
+            cnt += val;
+
+        if (ans.size() < n / 2 && cnt % 2 == 1)
+            ans.push_back(i);
+    }
+
+    for (auto x : ans) cout << x << " \n"[x == ans.back()];
 }
 
 signed main()
@@ -126,7 +137,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

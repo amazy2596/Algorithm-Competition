@@ -15,7 +15,6 @@ const int inf = 1e9;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 using Complex = complex<double>;
 const double PI = acos(-1.0);
 
@@ -172,16 +171,44 @@ struct FTT
     }
 
 } fft;
-// snippet-end
 
 void solve()
 {
-    // Example usage:
-    vector<i64> p1 = {1, 2, 3}; // 3x^2 + 2x + 1
-    vector<i64> p2 = {4, 5};    // 5x + 4
-    vector<i64> p3 = fft.mul(p1, p2); // Should be 15x^3 + 22x^2 + 23x + 4
-    fft.print_poly(p3);
-    cout << endl;
+    string s;
+    cin >> s;
+    vector<i64> a(s.length());
+    for (int i = 0; i < s.length(); i++)
+        a[i] = s[i] - '0';
+    cin >> s;
+    vector<i64> b(s.length());
+    for (int i = 0; i < s.length(); i++)
+        b[i] = s[i] - '0';
+
+    reverse(a.begin(), a.end());
+    reverse(b.begin(), b.end());
+
+    auto ans = fft.mul(a, b);
+
+    i64 carry = 0;
+    for (int i = 0; i < ans.size(); i++)
+    {
+        ans[i] += carry;
+        carry = ans[i] / 10;
+        ans[i] %= 10;
+    }
+
+    while (carry > 0)
+    {
+        ans.push_back(carry % 10);
+        carry /= 10;
+    }
+
+    while (!ans.empty() && ans.back() == 0)
+        ans.pop_back();
+
+    reverse(ans.begin(), ans.end());
+    for (int i = 0; i < ans.size(); i++)
+        cout << ans[i];
 }
 
 signed main()

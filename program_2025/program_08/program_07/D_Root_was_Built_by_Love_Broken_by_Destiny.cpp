@@ -8,14 +8,12 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
+const int mod = 1e9 + 7;
 struct Comb 
 {
     int max_n;          
@@ -91,11 +89,91 @@ struct Comb
         return (1LL * fact[n] * ifact[n - m]) % mod;
     }
 } Comb;
-// snippet-end
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> adj(n + 1);
+    for (int i = 1; i <= m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    if (m != n - 1)
+    {
+        cout << "0\n";
+        return;
+    }
+
+    if (n == 2)
+    {
+        cout << "2\n";
+        return;
+    }
+
+    vector<int> color(n + 1, -1);
+    queue<int> q;
+    q.push(1);
+    color[1] = 0;
+    while (!q.empty())
+    {
+        auto u = q.front();
+        q.pop();
+
+        for (int v : adj[u])
+        {
+            if (color[v] == -1)
+            {
+                color[v] = color[u] ^ 1;
+                q.push(v);
+            }
+            else if (color[u] == color[v])
+            {
+                cout << "0\n";
+                return;
+            }
+        }
+    }
+
+    vector<int> siz(n + 1), vis(n + 1);
+    for (int u = 1; u <= n; u++)
+    {
+        if (adj[u].size() == 1 && !vis[u])
+        {
+            vis[adj[u][0]] = 1;
+            siz[adj[u][0]]++;
+        }
+        if (vis[u])
+        {
+            for (auto v : adj[u])
+            {
+                if (adj[v].size() != 1)
+                    vis[v] = 1;
+            }
+        }
+    }
+
+    vector<int> group;
+    for (int u = 1; u <= n; u++)
+    {
+        if (!vis[u])
+            continue;
+        group.push_back(u);
+    }
+
+    i64 ans = 2;
+    if (group.size() >= 2)
+        ans = (ans * 2) % mod;
+    for (auto u : group)
+    {
+        ans = (ans * Comb.A(siz[u], siz[u])) % mod;
+    }
+
+    cout << ans % mod << "\n";
 }
 
 signed main()
@@ -104,7 +182,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

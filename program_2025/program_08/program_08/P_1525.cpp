@@ -8,14 +8,22 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
+struct node
+{
+    int u, v;
+    int c;
+
+    bool operator<(node o)
+    {
+        return c < o.c;
+    }
+};
+
 struct DSU
 {
     vector<int> f, siz;
@@ -58,11 +66,31 @@ struct DSU
         return find(x) == find(y);
     }
 };
-// snippet-end
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<node> a(m);
+    for (auto &[u, v, c] : a)
+        cin >> u >> v >> c;
+
+    sort(a.rbegin(), a.rend());
+
+    DSU dsu(2 * n);
+    for (int i = 0; i < m; i++)
+    {
+        auto [u, v, c] = a[i];
+        if (dsu.connected(u, v))
+        {
+            cout << c << "\n";
+            return;
+        }
+        dsu.merge(u, v + n);
+        dsu.merge(v, u + n);
+    }
+
+    cout << "0\n";
 }
 
 signed main()

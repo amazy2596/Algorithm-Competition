@@ -8,11 +8,14 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 inf = 1e18; 
+const i64 mod = 1e9 + 7;
+const i64 INF = 1e18;
+const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
+// snippet-begin:
 struct LCA
 {
     int n, max_log;
@@ -91,6 +94,7 @@ struct LCA
         return up[u][0];
     }
 };
+// snippet-end
 
 void solve()
 {

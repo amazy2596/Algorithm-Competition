@@ -8,14 +8,12 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
+const int mod = 1e9 + 7;
 struct Comb 
 {
     int max_n;          
@@ -91,11 +89,68 @@ struct Comb
         return (1LL * fact[n] * ifact[n - m]) % mod;
     }
 } Comb;
-// snippet-end
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m;
+    vector<vector<int>> adj(n + 1);
+    vector<int> d(n + 1);
+    for (int i = 1; i <= m; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        d[u]++;
+        d[v]++;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    if (m != n - 1)
+    {
+        cout << "0\n";
+        return;
+    }
+
+    if (n == 2)
+    {
+        cout << "2\n";
+        return;
+    }
+
+    i64 ans = 2, not_leaf = n;
+    auto dfs = [&](auto dfs, int u, int p) -> void
+    {
+        int cnt = 0;
+        for (auto v : adj[u])
+        {
+            if (v == p)
+                continue;
+
+            if (adj[v].size() == 1)
+                cnt++;
+            else 
+                dfs(dfs, v, u);
+        }
+
+        if (d[u] - cnt > 2)
+            ans = 0;
+        not_leaf -= cnt;
+        ans = (ans * Comb.A(cnt, cnt)) % mod;
+    };
+    for (int i = 1; i <= n; i++)
+    {
+        if (adj[i].size() > 1)
+        {
+            dfs(dfs, i, 0);
+            break;
+        }
+    }
+
+    if (not_leaf >= 2)
+        ans = (ans * 2) % mod;
+
+    cout << ans % mod << "\n";
 }
 
 signed main()
@@ -104,7 +159,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

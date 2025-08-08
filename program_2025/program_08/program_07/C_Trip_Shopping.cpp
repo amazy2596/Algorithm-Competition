@@ -8,71 +8,12 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin: Fenwick, 区间修改 + 区间查询
-struct Fenwick
-{
-    int n;
-    vector<int> a, b;
-
-    Fenwick(int _n) : n(_n), a(_n + 1), b(_n + 1) {}
-
-    int lowbit(int x)
-    {
-        return x & -x;
-    }
-
-    void modify(int x, int k, vector<int> &v)
-    {
-        while (x >= 1 && x <= n)
-        {
-            v[x] += k;
-            x += lowbit(x);
-        }
-    }
-
-    // (r + 1) * (a[1] + ... + a[r]) - (b[1] * 1 + ... + b[r] * r)
-    void update(int l, int r, int k)
-    {
-        modify(l, k, a);
-        modify(r + 1, -k, a);
-
-        modify(l, k * l, b);
-        modify(r + 1, -k * (r + 1), b);
-    }
-
-    int get(int x, vector<int> &v)
-    {
-        int res = 0;
-        while (x > 0)
-        {
-            res += v[x];
-            x -= lowbit(x);
-        }
-
-        return res;
-    }
-
-    int query(int l, int r)
-    {
-        if (l > r)
-            return 0ll;
-
-        int R = (r + 1) * get(r, a) - get(r, b);
-        int L = l * get(l - 1, a) - get(l - 1, b);
-
-        return R - L;
-    }
-};
-// snippet-end
-
-// snippet-begin: Fenwick, 单点修改 + 区间查询 + 第k小值
+// 单点修改 + 区间查询 + 第k小值
 struct Fenwick
 {
     int n;
@@ -128,11 +69,48 @@ struct Fenwick
         return ans + 1;
     }
 };
-// snippet-end
 
 void solve()
 {
-    
+    int n, k;
+    cin >> n >> k;
+    vector<int> all;
+    vector<int> a(n + 1), b(n + 1);
+    i64 ans = 0;
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    for (int i = 1; i <= n; i++)
+        cin >> b[i];
+
+    vector<pair<int, int>> p(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        ans += abs(a[i] - b[i]);
+        p[i] = {min(a[i], b[i]), max(a[i], b[i])};
+    }
+
+    sort(p.begin() + 1, p.end());
+    for (int i = 1; i + 1 <= n; i++)
+    {
+        if (p[i].second >= p[i + 1].first)
+        {
+            cout << ans << "\n";
+            return;
+        }
+    }
+
+    int mn = 1e9;
+    for (int i = 1; i + 1 <= n; i++)
+    {
+        mn = min(mn, p[i + 1].first - p[i].second);
+    }
+
+    if (k > 0)
+    {
+        ans += 2 * mn;
+    }
+
+    cout << ans << "\n";
 }
 
 signed main()
@@ -141,7 +119,7 @@ signed main()
     // cout.tie(nullptr);
     // cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

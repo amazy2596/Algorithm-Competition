@@ -8,17 +8,12 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
+const i64 inf = 1e18;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
-const i64 P1 = 998244353;
-const i64 P2 = 1004535809;
-const i64 P3 = 469762049;
+const int mod = 998244353, G = 3;
 
 i64 fast_pow(i64 a, i64 b, const i64 mod) 
 {
@@ -130,7 +125,6 @@ i64 sqrt_mod(i64 a, i64 mod)
 template<i64 mod>
 struct NTT 
 {
-    int G = 3;
     vector<int> rev;            
     vector<i64> roots = {0, 1}; 
 
@@ -322,94 +316,66 @@ struct NTT
 
 };
 
-struct MTT
-{
-    NTT<P1> ntt1;
-    NTT<P2> ntt2;
-    NTT<P3> ntt3;
-
-    /**
-     * @brief 在任意模数下计算两个多项式的乘积。
-     * @param a 第一个多项式的系数。
-     * @param b 第二个多项式的系数。
-     * @return 结果多项式的系数，模 `mod`。
-     */
-    vector<i64> mul(const vector<i64> &a, const vector<i64> &b)
-    {
-        auto c1 = ntt1.mul(a, b);
-        auto c2 = ntt2.mul(a, b);
-        auto c3 = ntt3.mul(a, b);
-
-        int n = c1.size();
-        vector<i64> c(n);
-
-        i64 inv_p1_p2 = inv(P1, P2);
-        i64 inv_p1p2_p3 = inv(((i128)P1 * P2) % P3, P3);
-
-        for (int i = 0; i < n; i++)
-        {
-            i64 k1 = (i128)(c2[i] - c1[i] + P2) % P2 * inv_p1_p2 % P2;
-            i128 c12 = (i128)k1 * P1 + c1[i];
-            
-            i64 k2 = ((i128)c3[i] - c12 % P3 + P3) % P3 * inv_p1p2_p3 % P3;
-            i128 c123 = c12 + (i128)k2 * P1 * P2;
-            
-            c[i] = c123 % mod;
-        }
-
-        return c;
-    }
-
-    /**
-     * @brief 在任意模数下计算多项式逆元。
-     * @param a 输入多项式 A(x) 的系数，要求 a[0] 非零。
-     * @param n 需要计算的逆元多项式的系数数量。
-     * @return 结果多项式 B(x) = A(x)^(-1) 的前 n 个系数，模 `mod`。
-     */
-    vector<i64> inv_poly(const vector<i64> &a, i64 n)
-    {
-        assert(a.size() > 0 && a[0] != 0);
-
-        vector<i64> b;
-        b.assign(1, inv(a[0], mod));
-
-        int k = 1;
-        while (k < n)
-        {
-            i64 nk = k << 1;
-            vector<i64> tmp1(a.begin(), a.begin() + min(n, nk));
-
-            auto tmp2 = mul(tmp1, b);
-            tmp2.resize(nk, 0);
-
-            for (int i = 0; i < nk; i++)
-                tmp2[i] = (mod - tmp2[i]) % mod;
-            tmp2[0] = (tmp2[0] + 2) % mod;
-
-            b = mul(b, tmp2);
-            b.resize(nk, 0);
-            k <<= 1;
-        }
-
-        b.resize(n, 0);
-        return b;
-    }
-
-} mtt;
-// snippet-end
-
 void solve()
 {
-    
+    NTT<mod> ntt;
+    string a, b;
+    cin >> a >> b;
+    int n = a.length();
+    int m = b.length();
+    vector<i64> x(n), y(m);
+    for (int i = 0; i < n; i++)
+        x[i] = (a[i] - '0');
+    for (int i = 0; i < m; i++)
+        y[i] = (b[i] - '0');
+
+    auto ans = ntt.mul(x, y);
+    // for (auto x : ans) cout << x;
+    // cout << "\n";
+    reverse(ans.begin(), ans.end());
+
+    for (int i = 0; i < ans.size(); i++)
+    {
+        if (ans[i] > 1)
+        {
+            int cnt = ans[i] / 2;
+            ans[i] -= cnt * 2;
+            if (i + 2 < ans.size() && cnt <= ans[i + 2])
+                ans[i + 2] -= cnt;
+            else 
+            {
+                ans.push_back(0);
+                ans.push_back(0);
+                ans.push_back(0);
+                ans.push_back(0);
+
+                ans[i + 2] += cnt;
+                ans[i + 4] += cnt;
+            }
+        }
+        while (ans.back() == 0)
+            ans.pop_back();
+    }
+
+    if (ans.size() == 0)
+    {
+        cout << "0\n";
+        return;
+    }
+
+    reverse(ans.begin(), ans.end());
+    for (auto x : ans)
+        cout << x;
+    cout << "\n";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;

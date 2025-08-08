@@ -8,14 +8,14 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
+// const i64 mod = 1e9 + 7;
+i64 mod;
 const i64 INF = 1e18;
 const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 const i64 P1 = 998244353;
 const i64 P2 = 1004535809;
 const i64 P3 = 469762049;
@@ -396,18 +396,27 @@ struct MTT
     }
 
 } mtt;
-// snippet-end
 
 void solve()
 {
-    
+    int n, m;
+    cin >> n >> m >> mod;
+    vector<i64> a(n + 1), b(m + 1);
+    for (int i = 0; i <= n; i++)
+        cin >> a[i];
+    for (int i = 0; i <= m; i++)
+        cin >> b[i];
+
+    auto ans = mtt.mul(a, b);
+    for (int i = 0; i < ans.size(); i++)
+        cout << ans[i] << " ";
 }
 
 signed main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
     // cin >> T;
     while (T--)

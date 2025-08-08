@@ -8,14 +8,14 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
+// const i64 mod = 1e9 + 7;
+i64 mod;
 const i64 INF = 1e18;
 const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 #define ls (node * 2 + 1)
 #define rs (node * 2 + 2)
 
@@ -31,22 +31,19 @@ struct SegmentTree
         init(vector<Info>(n, Info(0)));
     }
 
-    template<typename T>
-    SegmentTree(const vector<T> &input) : n(input.size())
+    SegmentTree(const vector<Info> &input) : n(input.size())
     {
         init(input);
     }
 
-    template<typename T>
-    void init(const vector<T> &input)
+    void init(const vector<Info> &input)
     {
         tree.resize(4 * n + 5, Info());
         lazy.resize(4 * n + 5, Tag());
         build(0, 0, n - 1, input);
     }
     
-    template<typename T>
-    void build(int node, int start, int end, const vector<T> &input)
+    void build(int node, int start, int end, const vector<Info> &input)
     {
         if (start == end)
         {
@@ -89,13 +86,18 @@ struct SegmentTree
 
         pushdown(node);
 
-        int mid = (start + end) / 2;
+        int mid = (start + end) >> 1;
         if (l <= mid)
             update(ls, start, mid, l, r, val);
         if (mid < r)
             update(rs, mid + 1, end, l, r, val);
         
         tree[node] = tree[ls] + tree[rs];
+    }
+
+    void modify(int node, int start, int end, int pos, const Info &val)
+    {
+        
     }
     
     Info query(int node, int start, int end, int l, int r)
@@ -201,17 +203,17 @@ struct tagAddMul
         i64 old_sum = o.sum;
         i64 old_ssum = o.ssum;
 
-        o.mx = o.mx * mul + add;
-        o.mn = o.mn * mul + add;
+        o.mx = (o.mx * mul) % mod + add;
+        o.mn = (o.mn * mul) % mod + add;
 
-        o.sum = old_sum * mul + add * o.len;
+        o.sum = ((old_sum * mul) % mod + (add * o.len) % mod) % mod;
         o.ssum = old_ssum * mul * mul + 2 * old_sum * mul * add + o.len * add * add;
     }
 
     void merge(const tagAddMul &o)
     {
-        mul = mul * o.mul;
-        add = add * o.mul + o.add;
+        mul = (mul * o.mul) % mod;
+        add = ((add * o.mul) % mod + o.add) % mod;
     }
 };
 
@@ -277,21 +279,53 @@ struct tagAddMIN
 
 #undef ls
 #undef rs
-// snippet-end
 
 void solve()
 {
+    int n, q;
+    cin >> n >> q >> mod;
+    vector<info> a(n + 1);
+    for (int i = 1; i <= n; i++)
+    {
+        i64 x;
+        cin >> x;
+        a[i] = info(x);
+    }
 
+    SegmentTree<info, tagAddMul> tree(a);
+    while (q--)
+    {
+        int op;
+        cin >> op;
+        if (op == 1)
+        {
+            i64 l, r, k;
+            cin >> l >> r >> k;
+            tree.update(l, r, tagAddMul(0, k));
+        }
+        else if (op == 2)
+        {
+            i64 l, r, k;
+            cin >> l >> r >> k;
+            tree.update(l, r, tagAddMul(k, 1));
+        }
+        else if (op == 3)
+        {
+            i64 l, r;
+            cin >> l >> r;
+            cout << tree.query(l, r).sum % mod << "\n";
+        }
+    }
 }
 
 signed main()
 {
-	// ios::sync_with_stdio(false);
-	// cout.tie(nullptr);
-	// cin.tie(nullptr);
-	int T = 1;
-	// cin >> T;
-	while (T--)
-		solve();
-	return 0;
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
 }
