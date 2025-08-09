@@ -1,12 +1,10 @@
 // snippet-begin: ak
 #include <bits/stdc++.h>
 using namespace std;
-using u32 = uint32_t;
 using i64 = int64_t;
 using u64 = uint64_t;
 using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
 
 const long double eps = 1e-12;
 const i64 mod = 1e9 + 7;

@@ -20,7 +20,7 @@ struct DSU
 {
     vector<int> f, siz;
 
-    DSU(int n) : f(n + 1), siz(n + 1, 1)
+    DSU(int n) : f(n), siz(n, 1)
     {
         iota(f.begin(), f.end(), 0);
     }
