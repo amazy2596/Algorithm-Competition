@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using u32 = uint32_t;
 using i64 = int64_t;
 using u64 = uint64_t;
 using f64 = long double;
@@ -13,9 +12,8 @@ const i64 INF = 1e18;
 const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
+auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
 
-// snippet-begin:
 struct LCA
 {
     int n, max_log;
@@ -123,14 +121,36 @@ struct LCA
         return up[u][0];
     }
 };
-// snippet-end
 
 void solve()
 {
-    
+    int n;
+    cin >> n;
+    vector<vector<int>> adj(n + 1);
+    for (int i = 0; i < n - 1; i++)
+    {
+        int u, v;
+        cin >> u >> v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    auto lca = LCA(n);
+    lca.build(n, adj);
+
+    i64 ans = 0;
+    int mn = n, root = 1;
+    for (int i = 1; i <= n; i++)
+    {
+        root = lca.query(root, i);
+        mn = min(mn, lca.depth[root] + 1);
+        ans += mn;
+    }
+
+    cout << ans << "\n";
 }
 
-signed main()
+int main()
 {
     // ios::sync_with_stdio(false);
     // cout.tie(nullptr);

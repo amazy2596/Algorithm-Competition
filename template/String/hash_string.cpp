@@ -47,7 +47,7 @@ u64 add(u64 a, u64 b)
  */
 u64 mul(u64 a, u64 b)
 {
-    __uint128_t c = __uint128_t(a) * b;
+    u128 c = u128(a) * b;
     return add(c >> 61, c & mod);
 }
 
