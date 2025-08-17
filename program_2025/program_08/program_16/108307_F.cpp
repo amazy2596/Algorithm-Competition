@@ -315,14 +315,15 @@ void solve()
         mp3[a[i - 1]]--;
         mp2[a[i - 1]]++;
         
-        if(mp.count(a[i - 1])) {
-            if(!mp1[a[i - 1]] || !mp2[a[i - 1]] || !mp3[a[i - 1]]) {
+        if (mp.count(a[i - 1])) 
+        {
+            if (!mp1[a[i - 1]] || !mp2[a[i - 1]] || !mp3[a[i - 1]]) 
                 mp.erase(a[i - 1]);
-            }
-        } else {
-            if(mp1[a[i - 1]] && mp2[a[i - 1]] && mp3[a[i - 1]]) {
+        }
+        else
+        {
+            if (mp1[a[i - 1]] && mp2[a[i - 1]] && mp3[a[i - 1]]) 
                 mp[a[i - 1]] = 1;
-            }
         }
 
         input[i] = info(mp.size(), i);
