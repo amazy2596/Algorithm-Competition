@@ -109,7 +109,7 @@ struct NTT
             i64 temp_t = t;
             while (temp_t != 1) 
             {
-                temp_t = (__int128_t)temp_t * temp_t % mod;
+                temp_t = (i128)temp_t * temp_t % mod;
                 i++;
             }
             
@@ -203,6 +203,21 @@ struct NTT
     {
         int tot = a.size() + b.size() - 1;
         if (tot <= 0) return {};
+        if (tot == 1) return { ( ( (i128)a[0] * b[0]) % mod + mod ) % mod };
+
+        if (tot <= 128) 
+        {
+            vector<i64> c(tot);
+            for (int i = 0; i < a.size(); i++)
+            {
+                for (int j = 0; j < b.size(); j++)
+                {
+                    c[i + j] = (c[i + j] + (i128)a[i] * b[j]) % mod;
+                }
+            }
+            return c;
+        }
+
         int n = 1;
         while (n < tot) n <<= 1;
 

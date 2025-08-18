@@ -102,7 +102,7 @@ i64 sqrt_mod(i64 a, i64 mod)
         i64 temp_t = t;
         while (temp_t != 1) 
         {
-            temp_t = (__int128_t)temp_t * temp_t % mod;
+            temp_t = (i128)temp_t * temp_t % mod;
             i++;
         }
         

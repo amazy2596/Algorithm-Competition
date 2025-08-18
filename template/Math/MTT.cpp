@@ -16,9 +16,9 @@ mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 // snippet-begin:
-const i64 P1 = 998244353;
-const i64 P2 = 1004535809;
-const i64 P3 = 469762049;
+constexpr i64 P1 = 998244353;
+constexpr i64 P2 = 1004535809;
+constexpr i64 P3 = 469762049;
 
 i64 fast_pow(i64 a, i64 b, const i64 mod) 
 {
@@ -106,7 +106,7 @@ i64 sqrt_mod(i64 a, i64 mod)
         i64 temp_t = t;
         while (temp_t != 1) 
         {
-            temp_t = (__int128_t)temp_t * temp_t % mod;
+            temp_t = (i128)temp_t * temp_t % mod;
             i++;
         }
         
@@ -207,6 +207,21 @@ struct NTT
     {
         int tot = a.size() + b.size() - 1;
         if (tot <= 0) return {};
+        if (tot == 1) return { ( ( (i128)a[0] * b[0]) % mod + mod ) % mod };
+
+        if (tot <= 128) 
+        {
+            vector<i64> c(tot);
+            for (int i = 0; i < a.size(); i++)
+            {
+                for (int j = 0; j < b.size(); j++)
+                {
+                    c[i + j] = (c[i + j] + (i128)a[i] * b[j]) % mod;
+                }
+            }
+            return c;
+        }
+
         int n = 1;
         while (n < tot) n <<= 1;
 
@@ -328,6 +343,9 @@ struct MTT
     NTT<P2> ntt2;
     NTT<P3> ntt3;
 
+    const i64 inv_p1_p2 = inv(P1 % P2, P2);
+    const i64 inv_p1p2_p3 = inv((i128)P1 * P2 % P3, P3);
+
     /**
      * @brief 在任意模数下计算两个多项式的乘积。
      * @param a 第一个多项式的系数。
@@ -342,9 +360,6 @@ struct MTT
 
         int n = c1.size();
         vector<i64> c(n);
-
-        i64 inv_p1_p2 = inv(P1, P2);
-        i64 inv_p1p2_p3 = inv(((i128)P1 * P2) % P3, P3);
 
         for (int i = 0; i < n; i++)
         {
@@ -377,7 +392,7 @@ struct MTT
         while (k < n)
         {
             i64 nk = k << 1;
-            vector<i64> tmp1(a.begin(), a.begin() + min(n, nk));
+            vector<i64> tmp1(a.begin(), a.begin() + min((i64)a.size(), nk));
 
             auto tmp2 = mul(tmp1, b);
             tmp2.resize(nk, 0);
