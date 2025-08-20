@@ -17,7 +17,9 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 
 void solve()
 {
-    
+    char x;
+    cin >> x;
+    cout << (char)toupper(x);
 }
 
 signed main()

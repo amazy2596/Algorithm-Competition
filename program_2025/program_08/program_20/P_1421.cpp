@@ -17,7 +17,10 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 
 void solve()
 {
-    
+    int a, b, c;
+    c = 19;
+    cin >> a >> b;
+    cout << (a * 10 + b) / c;
 }
 
 signed main()

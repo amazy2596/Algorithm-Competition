@@ -17,7 +17,12 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 
 void solve()
 {
-    
+    cout << fixed << setprecision(1);
+
+    double a, b, c;
+    cin >> a >> b >> c;
+    double p = (a + b + c) / 2;
+    cout << sqrt(p * (p - a) * (p - b) * (p - c));
 }
 
 signed main()
