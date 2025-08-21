@@ -25,7 +25,7 @@ struct SegmentTree
     vector<Info> tree;
     vector<Tag> lazy;
 
-    SegmentTree() {};
+    SegmentTree() {}
 
     SegmentTree(int _n) : n(_n)
     {
@@ -139,19 +139,19 @@ struct info
     
     info () : mx(-INF), mn(INF), sum(0), ssum(0), len(0) {};
     info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
-    
-    info operator+(const info &o) const
-    {
-        info res;
-        res.mx = max(mx, o.mx);
-        res.mn = min(mn, o.mn);
-        res.sum = sum + o.sum;
-        res.ssum = ssum + o.ssum;
-        res.len = len + o.len;
-
-        return res;
-    }
 };
+
+info operator+(const info &l, const info &r)
+{
+    info res;
+    res.mx = max(l.mx, r.mx);
+    res.mn = min(l.mn, r.mn);
+    res.sum = l.sum + r.sum;
+    res.ssum = l.ssum + r.ssum;
+    res.len = l.len + r.len;
+
+    return res;
+}
 
 // 区间加
 struct tagAdd
@@ -182,38 +182,6 @@ struct tagAdd
             return;
 
         add += o.add;
-    }
-};
-
-// 区间加乘
-struct tagAddMul
-{
-    i64 add = 0, mul = 1;
-
-    tagAddMul() : add(0), mul(1) {}
-    tagAddMul(i64 _add, i64 _mul) : add(_add), mul(_mul) {}
-
-    bool empty() const 
-    {
-        return mul == 1 && add == 0;
-    }
-
-    void apply(info &o) const 
-    {
-        i64 old_sum = o.sum;
-        i64 old_ssum = o.ssum;
-
-        o.mx = o.mx * mul + add;
-        o.mn = o.mn * mul + add;
-
-        o.sum = old_sum * mul + add * o.len;
-        o.ssum = old_ssum * mul * mul + 2 * old_sum * mul * add + o.len * add * add;
-    }
-
-    void merge(const tagAddMul &o)
-    {
-        mul = mul * o.mul;
-        add = add * o.mul + o.add;
     }
 };
 
@@ -249,34 +217,6 @@ struct tagAssign
     }
 };
 
-struct tagAddMIN
-{
-    tagAdd tagadd;
-    i64 mn = INF;
-
-    tagAddMIN() : tagadd(), mn(INF) {}
-    tagAddMIN(tagAdd _tagadd) : tagadd(_tagadd) {}
-    tagAddMIN(i64 _mn) : mn(_mn) {}
-
-    bool empty() const
-    {
-        return tagadd.empty() && mn == INF;
-    }
-
-    void apply(info &a) const
-    {
-        tagadd.apply(a);
-        a.mn = min(a.mn, mn);
-        a.mx = min(a.mx, mn);
-    }
-
-    void merge(const tagAddMIN &o)
-    {
-        tagadd.merge(o.tagadd);
-        mn = min(mn + o.tagadd.add, o.mn);
-    }
-};
-
 #undef ls
 #undef rs
 
@@ -286,6 +226,7 @@ struct HLD
     int n;
     int id;
     int start;
+    int capacity;
     vector<vector<int>> adj;
 
     vector<int> fa;
@@ -299,17 +240,17 @@ struct HLD
 
     SegmentTree<info, Tag> tree;
 
-    HLD(int _n, int _start = 1) : n(_n), start(_start)
+    HLD(int _n, int _start = 1) : n(_n), start(_start), capacity(n + start)
     {
-        adj.resize(n);
-        fa.resize(n);
-        deep.resize(n);
-        siz.resize(n);
-        hs.resize(n, -1);
+        adj.resize(capacity);
+        fa.resize(capacity);
+        deep.resize(capacity);
+        siz.resize(capacity);
+        hs.resize(capacity, -1);
 
-        dfn.resize(n);
-        seg.resize(n);
-        top.resize(n); 
+        dfn.resize(capacity);
+        seg.resize(capacity);
+        top.resize(capacity); 
     }
 
     template<typename T>
@@ -319,8 +260,8 @@ struct HLD
         dfs1(root, -1, 0);
         dfs2(root, root);
 
-        vector<T> tmp(n);
-        for (int i = start; i < n; i++)
+        vector<T> tmp(n, 0);
+        for (int i = start; i < capacity; i++)
             tmp[dfn[i]] = input[i];
         
         tree.init(tmp);
