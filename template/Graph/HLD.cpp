@@ -28,23 +28,23 @@ struct HLD
     vector<int> siz;
 
     vector<int> dfn;
-    vector<int> seg;
+    vector<int> rev;
     vector<int> top;
 
     HLD(int _n) : n(_n)
     {
-        adj.resize(n);
-        fa.resize(n);
-        deep.resize(n);
-        siz.resize(n);
-        hs.resize(n, -1);
+        adj.resize(n + 1);
+        fa.resize(n + 1, -1);
+        deep.resize(n + 1);
+        siz.resize(n + 1);
+        hs.resize(n + 1, -1);
 
-        dfn.resize(n);
-        seg.resize(n);
-        top.resize(n); 
+        dfn.resize(n + 1);
+        rev.resize(n + 1);
+        top.resize(n + 1); 
     }
 
-    void work(int root = 0)
+    void build(int root = 1)
     {
         id = 0;
         dfs1(root, -1, 0);
@@ -80,8 +80,8 @@ struct HLD
     void dfs2(int u, int t)
     {
         top[u] = t;
-        seg[id] = u;
         dfn[u] = id++;
+        rev[dfn[u]] = u;
         if (hs[u] != -1)    
             dfs2(hs[u], t);
         for (auto v : adj[u])
@@ -110,20 +110,18 @@ struct HLD
 
     int kth(int u, int k) 
     {
-        if (deep[u] < k)
-            return -1;
-
-        while (k) 
+        if (k < 0) return -1;
+        if (deep[u] < k) return -1;
+        while (u != -1)
         {
-            int t = fa[top[u]];
-            if (deep[u] - deep[t] <= k) 
-            {
-                k -= deep[u] - deep[t];
-                u = t;
-            } else
-                return seg[dfn[u] - k];
+            int d = dfn[u] - dfn[top[u]];
+            if (k <= d) return rev[dfn[u] - k];
+
+            k -= d + 1;
+            u = fa[top[u]];
         }
-        return seg[dfn[u]];
+
+        return -1;
     }
 };
 // snippet-end

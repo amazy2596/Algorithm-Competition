@@ -18,19 +18,19 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 // snippet-begin:
 struct TarjanEBCC
 {
-    int n, m, cnt, ebcc_count;
+    int n, cnt = 0, ebcc_count = 0, timer = 0;
     vector<vector<pair<int, int>>> adj;
     vector<vector<int>> ebcc, nadj;
     vector<int> dfn, low, ebcc_id;
     vector<bool> bridge;
     
-    TarjanEBCC(int _n, int _m) : n(_n), m(_m), cnt(0), ebcc_count(0)
+    TarjanEBCC(int _n) : n(_n)
     {
         adj.resize(n + 1);
         dfn.resize(n + 1);
         low.resize(n + 1);
         ebcc_id.resize(n + 1);
-        bridge.resize(2 * m + 1);
+        ebcc.resize(1);
     }
 
     void add(int u, int v)
@@ -39,36 +39,34 @@ struct TarjanEBCC
         adj[v].push_back({u, cnt++});
     }
 
+    void dfs(int u, int p)
+    {
+        dfn[u] = low[u] = ++timer;
+        for (auto [v, id] : adj[u])
+        {
+            if (id == (p ^ 1))
+                continue;
+
+            if (!dfn[v])
+            {
+                dfs(v, id);
+                low[u] = min(low[u], low[v]);
+                if (low[v] > dfn[u]) bridge[id] = bridge[id ^ 1] = 1;
+            }
+            else if (dfn[v] < dfn[u])
+                low[u] = min(low[u], dfn[v]);
+        }
+    }
+
     void run()
     {
-        int timer = 0;
-        auto tarjan = [&](auto tarjan, int u, int p) -> void
-        {
-            dfn[u] = low[u] = ++timer;
-            for (auto [v, id] : adj[u])
-            {
-                if (id == (p ^ 1))
-                    continue;
-
-                if (!dfn[v])
-                {
-                    tarjan(tarjan, v, id);
-                    low[u] = min(low[u], low[v]);
-                    if (low[v] > dfn[u])
-                    {
-                        bridge[id] = 1;
-                        bridge[id ^ 1] = 1;
-                    }
-                }
-                else 
-                    low[u] = min(low[u], dfn[v]);
-            }
-        };
-
+        bridge.assign(cnt, 0);
         for (int i = 1; i <= n; i++)
         {
             if (!dfn[i])
-                tarjan(tarjan, i, -1);
+            {
+                dfs(i, -1);
+            }
         }
     }
 
@@ -101,7 +99,7 @@ struct TarjanEBCC
 
     void construct()
     {
-        nadj.resize(ebcc_count + 1);
+        nadj.assign(ebcc_count + 1, {});
         for (int u = 1; u <= n; u++)
         {
             for (auto [v, id] : adj[u])

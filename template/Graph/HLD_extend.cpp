@@ -139,19 +139,20 @@ struct info
     
     info () : mx(-INF), mn(INF), sum(0), ssum(0), len(0) {};
     info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
+    
+    info operator+(const info &o) const
+    {
+        info res;
+        res.mx = max(mx, o.mx);
+        res.mn = min(mn, o.mn);
+        res.sum = sum + o.sum;
+        res.sum %= mod;
+        res.ssum = ssum + o.ssum;
+        res.len = len + o.len;
+
+        return res;
+    }
 };
-
-info operator+(const info &l, const info &r)
-{
-    info res;
-    res.mx = max(l.mx, r.mx);
-    res.mn = min(l.mn, r.mn);
-    res.sum = l.sum + r.sum;
-    res.ssum = l.ssum + r.ssum;
-    res.len = l.len + r.len;
-
-    return res;
-}
 
 // 区间加
 struct tagAdd
@@ -173,6 +174,7 @@ struct tagAdd
         a.mx += add;
         a.mn += add;
         a.sum += add * a.len;
+        a.sum %= mod;
         a.ssum += 2 * add * old + add * add * a.len;
     }
 
@@ -182,6 +184,7 @@ struct tagAdd
             return;
 
         add += o.add;
+        add %= mod;
     }
 };
 
@@ -235,7 +238,7 @@ struct HLD
     vector<int> siz;
 
     vector<int> dfn;
-    vector<int> seg;
+    vector<int> rev;
     vector<int> top;
 
     SegmentTree<info, Tag> tree;
@@ -243,13 +246,13 @@ struct HLD
     HLD(int _n, int _start = 1) : n(_n), start(_start), capacity(n + start)
     {
         adj.resize(capacity);
-        fa.resize(capacity);
+        fa.resize(capacity, -1);
         deep.resize(capacity);
         siz.resize(capacity);
         hs.resize(capacity, -1);
 
         dfn.resize(capacity);
-        seg.resize(capacity);
+        rev.resize(capacity);
         top.resize(capacity); 
     }
 
@@ -296,8 +299,8 @@ struct HLD
     void dfs2(int u, int t)
     {
         top[u] = t;
-        seg[id] = u;
         dfn[u] = id++;
+        rev[dfn[u]] = u;
         if (hs[u] != -1)    
             dfs2(hs[u], t);
         for (auto v : adj[u])
@@ -326,20 +329,18 @@ struct HLD
 
     int kth(int u, int k) 
     {
-        if (deep[u] < k)
-            return -1;
-
-        while (k) 
+        if (k < 0) return -1;
+        if (deep[u] < k) return -1;
+        while (u != -1)
         {
-            int t = fa[top[u]];
-            if (deep[u] - deep[t] <= k) 
-            {
-                k -= deep[u] - deep[t];
-                u = t;
-            } else
-                return seg[dfn[u] - k];
+            int d = dfn[u] - dfn[top[u]];
+            if (k <= d) return rev[dfn[u] - k];
+
+            k -= d + 1;
+            u = fa[top[u]];
         }
-        return seg[dfn[u]];
+
+        return -1;
     }
 
     void update_path(int u, int v, const Tag &val)

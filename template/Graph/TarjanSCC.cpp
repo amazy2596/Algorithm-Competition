@@ -18,29 +18,26 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 // snippet-begin:
 struct TarjanSCC
 {
-    int n;
+    int n, scc_count = 0, timer = 0;
     vector<vector<int>> adj;
 
-    int scc_count;
-    vector<int> scc_id;
-    vector<int> scc_size;
-    vector<vector<int>> sccs;
-    vector<vector<int>> nadj;
+    vector<int> scc_id, scc_size;
+    vector<vector<int>> sccs, nadj;
 
-    int time;
-    vector<int> dfn, low, in_stk;
+    vector<int> dfn, low;
+    vector<bool> in_stk;
     stack<int> stk;
 
-    TarjanSCC(int _n) : n(_n), scc_count(0), time(0)
+    TarjanSCC(int _n) : n(_n)
     {
         adj.resize(n + 1);
         scc_id.resize(n + 1);
-        scc_size.resize(n + 1);
+        scc_size.resize(1);
+        sccs.resize(1);
+
         dfn.resize(n + 1);
         low.resize(n + 1);
         in_stk.resize(n + 1);
-
-        sccs.emplace_back();
     }
 
     void add(int u, int v)
@@ -48,48 +45,49 @@ struct TarjanSCC
         adj[u].push_back(v);
     }
 
+    void dfs(int u)
+    {
+        dfn[u] = low[u] = ++timer;
+        stk.push(u);
+        in_stk[u] = 1;
+
+        for (auto v : adj[u])
+        {
+            if (!dfn[v])
+            {
+                dfs(v);
+                low[u] = min(low[u], low[v]);
+            }
+            else if (in_stk[v])
+                low[u] = min(low[u], dfn[v]);
+        }
+
+        if (dfn[u] == low[u])
+        {
+            scc_count++;
+            sccs.emplace_back();
+            scc_size.emplace_back(0);
+            int node;
+            do
+            {
+                node = stk.top();
+                stk.pop();
+
+                in_stk[node] = 0;
+                scc_id[node] = scc_count;
+                scc_size[scc_count]++;
+                sccs.back().push_back(node);
+            } while (node != u);
+        }
+    }
+
     void run()
     {
-        auto tarjan = [&](auto tarjan, int u) -> void
-        {
-            dfn[u] = low[u] = ++time;
-            stk.push(u);
-            in_stk[u] = 1;
-
-            for (auto v : adj[u])
-            {
-                if (!dfn[v])
-                {
-                    tarjan(tarjan, v);
-                    low[u] = min(low[u], low[v]);
-                }
-                else if (in_stk[v])
-                    low[u] = min(low[u], dfn[v]);
-            }
-
-            if (dfn[u] == low[u])
-            {
-                scc_count++;
-                sccs.emplace_back();
-                int node;
-                do
-                {
-                    node = stk.top();
-                    stk.pop();
-
-                    in_stk[node] = 0;
-                    scc_id[node] = scc_count;
-                    scc_size[scc_count]++;
-                    sccs.back().push_back(node);
-                } while (node != u);
-            }
-        };
-
         for (int i = 1; i <= n; i++)
         {
             if (!dfn[i])
             {
-                tarjan(tarjan, i);
+                dfs(i);
             }
         }
     }
