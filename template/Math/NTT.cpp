@@ -23,7 +23,7 @@ struct NTT
     vector<int> rev;            
     vector<i64> roots = {0, 1}; 
 
-    i64 fast_pow(i64 a, i64 b, const i64 mod) 
+    i64 fast_pow(i64 a, i64 b) 
     {
         i64 res = 1;
         a %= mod;
@@ -38,9 +38,9 @@ struct NTT
         return res;
     }
 
-    i64 inv(i64 x, i64 mod) 
+    i64 inv(i64 x) 
     {
-        return fast_pow(x, mod - 2, mod);
+        return fast_pow(x, mod - 2);
     }
 
     /**
@@ -53,7 +53,7 @@ struct NTT
      *          如果方程无解，返回 -1。
      *          如果 a = 0，返回 0。
      */
-    i64 sqrt_mod(i64 a, i64 mod) 
+    i64 sqrt_mod(i64 a) 
     {
         // 将 a 化为最小正整数
         a %= mod;
@@ -68,13 +68,13 @@ struct NTT
         // ----- 使用欧拉判别法检查解是否存在 -----
         // (a/p) = a^((p-1)/2) mod p
         // 如果结果为 p-1 (即 -1)，则无解
-        if (fast_pow(a, (mod - 1) / 2, mod) == mod - 1)
+        if (fast_pow(a, (mod - 1) / 2) == mod - 1)
             return -1;
 
         // ----- p = 3 (mod 4) 的简单情况 -----
         // x = a^((p+1)/4) mod p
         if (mod % 4 == 3)
-            return fast_pow(a, (mod + 1) / 4, mod);
+            return fast_pow(a, (mod + 1) / 4);
 
         // ----- p = 1 (mod 4) 的 Tonelli-Shanks 算法 -----
         // 1. 将 p-1 分解为 Q * 2^S，其中 Q 是奇数
@@ -90,14 +90,14 @@ struct NTT
 
         // 2. 找到一个二次非剩余 n
         i64 n = 2;
-        while (fast_pow(n, (mod - 1) / 2, mod) != mod - 1) 
+        while (fast_pow(n, (mod - 1) / 2) != mod - 1) 
             n++;
 
         // 3. 初始化变量
         i64 M = S;
-        i64 c = fast_pow(n, Q, mod); // c = n^Q mod p
-        i64 t = fast_pow(a, Q, mod); // t = a^Q mod p
-        i64 R = fast_pow(a, (Q + 1) / 2, mod); // R = a^((Q+1)/2) mod p
+        i64 c = fast_pow(n, Q); // c = n^Q mod p
+        i64 t = fast_pow(a, Q); // t = a^Q mod p
+        i64 R = fast_pow(a, (Q + 1) / 2); // R = a^((Q+1)/2) mod p
 
         // 4. 主循环
         while (t != 1) 
@@ -118,7 +118,7 @@ struct NTT
 
             // 计算 b = c^(2^(M-i-1))
             i64 b_exp = 1LL << (M - i - 1); // 2^(M-i-1)
-            i64 b = fast_pow(c, b_exp, mod);
+            i64 b = fast_pow(c, b_exp);
 
             // 更新 M, c, t, R
             M = i;
@@ -154,7 +154,7 @@ struct NTT
             roots.resize(n);
             while ((1 << k) < n) 
             {
-                i64 e = fast_pow(G, (mod - 1) / (1LL << (k + 1)), mod);
+                i64 e = fast_pow(G, (mod - 1) / (1LL << (k + 1)));
                 for (int i = 1 << (k - 1); i < (1 << k); i++) 
                 {
                     roots[2 * i] = roots[i];
@@ -188,7 +188,7 @@ struct NTT
         int n = a.size();
         reverse(a.begin() + 1, a.end());
         dft(a);
-        i64 tmp = inv(n, mod);
+        i64 tmp = inv(n);
         for (int i = 0; i < n; i++)
             a[i] = (a[i] * tmp) % mod;
     }
@@ -203,7 +203,6 @@ struct NTT
     {
         int tot = a.size() + b.size() - 1;
         if (tot <= 0) return {};
-        if (tot == 1) return { ( ( (i128)a[0] * b[0]) % mod + mod ) % mod };
 
         if (tot <= 128) 
         {
