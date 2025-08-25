@@ -100,13 +100,32 @@ struct SegmentTree
         
         tree[node] = tree[ls] + tree[rs];
     }
+
+    void modify(int node, int start, int end, int pos, const Info &val)
+    {
+        if (start == end)
+        {
+            tree[node] = val;
+            return;
+        }
+
+        pushdown(node);
+
+        int mid = (start + end) / 2;
+        if (pos <= mid)
+            modify(ls, start, mid, pos, val);
+        else if (pos > mid)
+            modify(rs, mid + 1, end, pos, val);
+
+        tree[node] = tree[ls] + tree[rs];
+    }
     
     Info query(int node, int start, int end, int l, int r)
     {
-        if (l > end || r < start)
+        if (l > end || r < start) 
             return Info();
             
-        if (l <= start && end <= r)
+        if (l <= start && end <= r) 
             return tree[node];
 
         pushdown(node);
@@ -117,14 +136,19 @@ struct SegmentTree
     
     void update(int l, int r, const Tag &val)
     {
-        if (l > r)
+        if (l > r) 
             return;
         update(0, 0, n - 1, l, r, val);
     }
     
+    void modify(int pos, const Info &val)
+    {
+        modify(0, 0, n - 1, pos, val);
+    }
+
     Info query(int l, int r)
     {
-        if (l > r)
+        if (l > r) 
             return Info();
         return query(0, 0, n - 1, l, r);
     }

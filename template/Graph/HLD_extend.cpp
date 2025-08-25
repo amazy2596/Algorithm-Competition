@@ -99,13 +99,32 @@ struct SegmentTree
         
         tree[node] = tree[ls] + tree[rs];
     }
+
+    void modify(int node, int start, int end, int pos, const Info &val)
+    {
+        if (start == end)
+        {
+            tree[node] = val;
+            return;
+        }
+
+        pushdown(node);
+
+        int mid = (start + end) / 2;
+        if (pos <= mid)
+            modify(ls, start, mid, pos, val);
+        else if (pos > mid)
+            modify(rs, mid + 1, end, pos, val);
+
+        tree[node] = tree[ls] + tree[rs];
+    }
     
     Info query(int node, int start, int end, int l, int r)
     {
-        if (l > end || r < start)
+        if (l > end || r < start) 
             return Info();
             
-        if (l <= start && end <= r)
+        if (l <= start && end <= r) 
             return tree[node];
 
         pushdown(node);
@@ -116,14 +135,19 @@ struct SegmentTree
     
     void update(int l, int r, const Tag &val)
     {
-        if (l > r)
+        if (l > r) 
             return;
         update(0, 0, n - 1, l, r, val);
     }
     
+    void modify(int pos, const Info &val)
+    {
+        modify(0, 0, n - 1, pos, val);
+    }
+
     Info query(int l, int r)
     {
-        if (l > r)
+        if (l > r) 
             return Info();
         return query(0, 0, n - 1, l, r);
     }
@@ -139,20 +163,19 @@ struct info
     
     info () : mx(-INF), mn(INF), sum(0), ssum(0), len(0) {};
     info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
-    
-    info operator+(const info &o) const
-    {
-        info res;
-        res.mx = max(mx, o.mx);
-        res.mn = min(mn, o.mn);
-        res.sum = sum + o.sum;
-        res.sum %= mod;
-        res.ssum = ssum + o.ssum;
-        res.len = len + o.len;
-
-        return res;
-    }
 };
+
+info operator+(const info &l, const info &r)
+{
+    info res;
+    res.mx = max(l.mx, r.mx);
+    res.mn = min(l.mn, r.mn);
+    res.sum = l.sum + r.sum;
+    res.ssum = l.ssum + r.ssum;
+    res.len = l.len + r.len;
+
+    return res;
+}
 
 // 区间加
 struct tagAdd
@@ -174,7 +197,6 @@ struct tagAdd
         a.mx += add;
         a.mn += add;
         a.sum += add * a.len;
-        a.sum %= mod;
         a.ssum += 2 * add * old + add * add * a.len;
     }
 
@@ -184,7 +206,6 @@ struct tagAdd
             return;
 
         add += o.add;
-        add %= mod;
     }
 };
 
@@ -230,6 +251,7 @@ struct HLD
     int id;
     int start;
     int capacity;
+    int use_edge;
     vector<vector<int>> adj;
 
     vector<int> fa;
@@ -256,17 +278,37 @@ struct HLD
         top.resize(capacity); 
     }
 
-    template<typename T>
-    void build(int root, vector<T> &input)
+    void build(int root)
     {
         id = 0;
         dfs1(root, -1, 0);
         dfs2(root, root);
+    }
 
+    template<typename T> 
+    void init(vector<T> &input)
+    {
+        use_edge = 0;
         vector<T> tmp(n, 0);
         for (int i = start; i < capacity; i++)
             tmp[dfn[i]] = input[i];
         
+        tree.init(tmp);
+    }
+
+    template<typename T> 
+    void init(vector<tuple<int, int, T>> &input)
+    {
+        use_edge = 1;
+        vector<T> tmp(n, 0);
+        for (auto [u, v, w] : input)
+        {
+            if (deep[u] > deep[v])
+                tmp[dfn[u]] = w;
+            else 
+                tmp[dfn[v]] = w;
+        }
+
         tree.init(tmp);
     }
 
@@ -358,7 +400,7 @@ struct HLD
 
         int l = min(dfn[u], dfn[v]);
         int r = max(dfn[u], dfn[v]);
-        tree.update(l, r, val);
+        tree.update(l + use_edge, r, val);
     }
 
     info query_path(int u, int v)
@@ -377,7 +419,7 @@ struct HLD
 
         int l = min(dfn[u], dfn[v]);
         int r = max(dfn[u], dfn[v]);
-        res = res + tree.query(l, r);
+        res = res + tree.query(l + use_edge, r);
 
         return res;
     }
@@ -386,14 +428,14 @@ struct HLD
     {
         int l = dfn[u];
         int r = dfn[u] + siz[u] - 1;
-        tree.update(l, r, val);
+        tree.update(l + use_edge, r, val);
     }
 
     info query_subtree(int u)
     {
         int l = dfn[u];
         int r = dfn[u] + siz[u] - 1;
-        return tree.query(l, r);
+        return tree.query(l + use_edge, r);
     }
 };
 // snippet-end
