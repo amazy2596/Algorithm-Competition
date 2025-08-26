@@ -19,9 +19,12 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 struct LinearBasis
 {
     int bits;
-    vector<int> basis;
+    vector<i64> basis;
 
-    LinearBasis (int _bits) : bits(_bits), basis(vector<int>(bits)) {}
+    LinearBasis (int _bits) : bits(_bits)
+    {
+        basis.resize(bits + 1);
+    }
 
     bool insert(i64 x)
     {
