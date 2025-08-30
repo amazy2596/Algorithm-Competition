@@ -19,25 +19,18 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 struct TarjanSCC
 {
     int n, scc_count = 0, timer = 0;
-    vector<vector<int>> adj;
-
-    vector<int> scc_id, scc_size;
-    vector<vector<int>> sccs, nadj;
-
-    vector<int> dfn, low;
-    vector<bool> in_stk;
-    stack<int> stk;
+    vector<vector<int>> adj, scc, nadj;
+    vector<int> dfn, low, bel, stk;
+    vector<bool> instk;
 
     TarjanSCC(int _n) : n(_n)
     {
+        instk.resize(n + 1);
         adj.resize(n + 1);
-        scc_id.resize(n + 1);
-        scc_size.resize(1);
-        sccs.resize(1);
-
         dfn.resize(n + 1);
         low.resize(n + 1);
-        in_stk.resize(n + 1);
+        bel.resize(n + 1);
+        scc.resize(1);
     }
 
     void add(int u, int v)
@@ -48,8 +41,8 @@ struct TarjanSCC
     void dfs(int u)
     {
         dfn[u] = low[u] = ++timer;
-        stk.push(u);
-        in_stk[u] = 1;
+        stk.push_back(u);
+        instk[u] = 1;
 
         for (auto v : adj[u])
         {
@@ -58,26 +51,23 @@ struct TarjanSCC
                 dfs(v);
                 low[u] = min(low[u], low[v]);
             }
-            else if (in_stk[v])
+            else if (instk[v])
                 low[u] = min(low[u], dfn[v]);
         }
 
         if (dfn[u] == low[u])
         {
             scc_count++;
-            sccs.emplace_back();
-            scc_size.emplace_back(0);
-            int node;
-            do
+            scc.emplace_back();
+            while (true)
             {
-                node = stk.top();
-                stk.pop();
-
-                in_stk[node] = 0;
-                scc_id[node] = scc_count;
-                scc_size[scc_count]++;
-                sccs.back().push_back(node);
-            } while (node != u);
+                int x = stk.back();
+                stk.pop_back();
+                instk[x] = false;
+                bel[x] = scc_count;
+                scc.back().push_back(x);
+                if (x == u) break;
+            }
         }
     }
 
@@ -100,9 +90,9 @@ struct TarjanSCC
         {
             for (int v : adj[u])
             {
-                if (scc_id[u] != scc_id[v])
+                if (bel[u] != bel[v])
                 {
-                    e.push_back({scc_id[u], scc_id[v]});
+                    e.push_back({bel[u], bel[v]});
                 }
             }
         }

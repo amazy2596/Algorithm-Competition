@@ -18,49 +18,70 @@ auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, 
 // snippet-begin:
 struct TarjanEBCC
 {
-    int n, cnt = 0, ebcc_count = 0, timer = 0;
+    int n, id = 0, ebcc_count = 0, timer = 0;
     vector<vector<pair<int, int>>> adj;
     vector<vector<int>> ebcc, nadj;
-    vector<int> dfn, low, ebcc_id;
-    vector<bool> bridge;
+    vector<int> dfn, low, bel, stk;
+    vector<bool> bridge, instk;
     
     TarjanEBCC(int _n) : n(_n)
     {
+        instk.resize(n + 1);
         adj.resize(n + 1);
         dfn.resize(n + 1);
         low.resize(n + 1);
-        ebcc_id.resize(n + 1);
+        bel.resize(n + 1);
         ebcc.resize(1);
     }
 
     void add(int u, int v)
     {
-        adj[u].push_back({v, cnt++});
-        adj[v].push_back({u, cnt++});
+        id++;
+        adj[u].push_back({v, id});
+        adj[v].push_back({u, id});
     }
 
-    void dfs(int u, int p)
+    void dfs(int u, int fid)
     {
         dfn[u] = low[u] = ++timer;
-        for (auto [v, id] : adj[u])
+        stk.push_back(u);
+        instk[u] = true;
+
+        for (auto [v, eid] : adj[u])
         {
-            if (id == (p ^ 1))
-                continue;
+            if (eid == fid) continue;
 
             if (!dfn[v])
             {
-                dfs(v, id);
+                dfs(v, eid);
                 low[u] = min(low[u], low[v]);
-                if (low[v] > dfn[u]) bridge[id] = bridge[id ^ 1] = 1;
+
+                if (low[v] > dfn[u]) 
+                    bridge[eid] = true;
             }
-            else if (dfn[v] < dfn[u])
+            else if (instk[v])
                 low[u] = min(low[u], dfn[v]);
+        }
+
+        if (dfn[u] == low[u])
+        {
+            ebcc_count++;
+            ebcc.emplace_back();
+            while (true)
+            {
+                int x = stk.back();
+                stk.pop_back();
+                instk[x] = false;
+                bel[x] = ebcc_count;
+                ebcc.back().push_back(x);
+                if (x == u) break;
+            }
         }
     }
 
     void run()
     {
-        bridge.assign(cnt, 0);
+        bridge.assign(id + 1, 0);
         for (int i = 1; i <= n; i++)
         {
             if (!dfn[i])
@@ -72,33 +93,6 @@ struct TarjanEBCC
 
     void build()
     {
-        vector<int> vis(n + 1);
-        auto dfs = [&](auto dfs, int u) -> void
-        {
-            ebcc.back().push_back(u);
-            ebcc_id[u] = ebcc_count;
-            vis[u] = 1;
-            for (auto [v, id] : adj[u])
-            {
-                if (bridge[id] || vis[v])
-                    continue;
-                dfs(dfs, v);
-            }
-        };
-
-        for (int i = 1; i <= n; i++)
-        {
-            if (!vis[i])
-            {
-                ebcc_count++;
-                ebcc.emplace_back();
-                dfs(dfs, i);
-            }
-        }
-    }
-
-    void construct()
-    {
         nadj.assign(ebcc_count + 1, {});
         for (int u = 1; u <= n; u++)
         {
@@ -106,8 +100,8 @@ struct TarjanEBCC
             {
                 if (bridge[id])
                 {
-                    int x = ebcc_id[u];
-                    int y = ebcc_id[v];
+                    int x = bel[u];
+                    int y = bel[v];
                     if (x > y) 
                     {
                         nadj[x].push_back(y);
