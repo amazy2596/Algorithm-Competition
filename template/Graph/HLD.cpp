@@ -123,6 +123,39 @@ struct HLD
 
         return -1;
     }
+
+    bool is_anc(int u, int v) 
+    {
+        return dfn[u] <= dfn[v] && dfn[v] < dfn[u] + siz[u];
+    }
+
+    vector<pair<int,int>> vtree(vector<int> nodes, int root = 1) 
+    {
+        auto cmp = [&](int x, int y) { return dfn[x] < dfn[y]; };
+        sort(nodes.begin(), nodes.end(), cmp);
+        nodes.erase(unique(nodes.begin(), nodes.end()), nodes.end());
+
+        vector<int> all = nodes;
+        for (int i = 1; i < nodes.size(); i++) all.push_back(lca(nodes[i - 1], nodes[i]));
+        sort(all.begin(), all.end(), cmp);
+        all.erase(unique(all.begin(), all.end()), all.end());
+
+        vector<pair<int,int>> edges;
+        vector<int> st;
+        for (int v : all) 
+        {
+            if (st.empty()) 
+            { 
+                st.push_back(v); 
+                continue; 
+            }
+            while (!st.empty() && !is_anc(st.back(), v)) 
+                st.pop_back();
+            edges.emplace_back(st.back(), v);
+            st.push_back(v);
+        }
+        return edges;
+    }
 };
 // snippet-end
 

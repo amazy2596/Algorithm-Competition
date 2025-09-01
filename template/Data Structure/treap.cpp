@@ -20,7 +20,7 @@ struct Node
 {
     Node *left = nullptr, *right = nullptr;
     pair<int, int> key;
-    int priority;
+    i64 priority;
     int min_left = INT32_MAX;
     Node(pair<int, int> key) : key(key), priority(rng()), min_left(key.second) {}
 };

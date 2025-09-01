@@ -23,7 +23,7 @@ struct LinearSieve
     vector<int> primes;
     vector<int> phi;
     vector<int> mu;
-    vector<int> tau, cnt;
+    vector<int> tau, cnt; //约数个数
 
     LinearSieve(int _n = 2e6 + 5, bool enable_phi = false, bool enable_mu = false, bool enable_tau = false) : n(_n)
     {
@@ -87,9 +87,9 @@ struct LinearSieve
         }
     }
 
-    vector<pair<int, int>> factorize(int x) 
+    map<i64, i64> factorize(i64 x) 
     {
-        vector<pair<int, int>> facts;
+        map<i64, i64> facts;
 
         if (x <= n)
         {
@@ -102,7 +102,7 @@ struct LinearSieve
                     x /= p;
                     count++;
                 }
-                facts.push_back({p, count});
+                facts[p] += count;
             }
 
             return facts;
@@ -120,11 +120,11 @@ struct LinearSieve
                     x /= p;
                     count++;
                 }
-                facts.push_back({p, count});
+                facts[p] += count;
             }
         }
 
-        if (x > 1) facts.push_back({x, 1});
+        if (x > 1) facts[x] = 1;
 
         return facts;
     }
