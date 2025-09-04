@@ -23,7 +23,6 @@ struct HLD
     vector<vector<int>> adj;
 
     vector<int> fa;
-    vector<int> hs;
     vector<int> deep;
     vector<int> siz;
 
@@ -37,7 +36,6 @@ struct HLD
         fa.resize(n + 1, -1);
         deep.resize(n + 1);
         siz.resize(n + 1);
-        hs.resize(n + 1, -1);
 
         dfn.resize(n + 1);
         rev.resize(n + 1);
@@ -62,17 +60,13 @@ struct HLD
         fa[u] = p;
         deep[u] = d;
         siz[u] = 1;
-        int mx = 0;
         for (auto v : adj[u])
         {
             if (v == p)
                 continue;
             dfs1(v, u, d + 1);
-            if (siz[v] > mx)
-            {
-                hs[u] = v;
-                mx = siz[v];
-            }
+            if (siz[v] > siz[adj[u][0]])
+                swap(v, adj[u][0]);
             siz[u] += siz[v];
         }
     }
@@ -82,11 +76,9 @@ struct HLD
         top[u] = t;
         dfn[u] = id++;
         rev[dfn[u]] = u;
-        if (hs[u] != -1)    
-            dfs2(hs[u], t);
         for (auto v : adj[u])
         {
-            if (v == fa[u] || v == hs[u])
+            if (v == fa[u])
                 continue;
             dfs2(v, v);
         }
