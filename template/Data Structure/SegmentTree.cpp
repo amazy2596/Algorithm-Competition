@@ -30,7 +30,7 @@ struct SegmentTree
 
     SegmentTree(int _n) : n(_n)
     {
-        init(vector<Info>(n, Info(0)));
+        init(vector<Info>(n, Info()));
     }
 
     template<typename T>
