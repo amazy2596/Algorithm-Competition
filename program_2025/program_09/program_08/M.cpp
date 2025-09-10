@@ -14,7 +14,15 @@ const int inf = 1e9;
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
 
-
+struct node
+{
+    int u;
+    i64 t;
+    bool operator<(const node &o) const
+    {
+        return t > o.t;
+    }
+};
 
 void solve()
 {
@@ -52,6 +60,32 @@ void solve()
     dfs(dfs, 1, 0);
     cout << accumulate(dp.begin() + 1, dp.end(), 0LL) << "\n";
 
+    auto dijkstra = [&]()
+    {
+        priority_queue<node> q;
+        vector<int> vis(n + 1);
+        for (int i = 1; i <= n; i++)
+            q.push({i, dp[i]});
+        while (!q.empty())
+        {
+            auto [u, t] = q.top();
+            q.pop();
+
+            if (vis[u] || t > dp[u])
+                continue;
+            vis[u] = 1;
+
+            for (auto [v, w] : adj[u])
+            {
+                if (t + w < dp[v])
+                {
+                    dp[v] = t + w;
+                    q.push({v, dp[v]});
+                }
+            }
+        }
+    };
+
     for (int k = 1; k <= n; k++)
     {
         auto ndp = dp;
@@ -59,67 +93,68 @@ void solve()
         {
             for (auto v : path[u])
             {
-                ndp[v] = min(ndp[v], dp[u]);
+                ndp[u] = min(ndp[u], dp[v]);
             }
         }
         dp = move(ndp);
 
-        vector<i64> down(n + 1, INF), up(n + 1, INF);
-        auto dfs1 = [&](auto self, int u, int p) -> void
-        {
-            down[u] = dp[u];
-            for (auto [v, w] : adj[u])
-            {
-                if (v == p) continue;
-                self(self, v, u);
-                down[u] = min(down[u], down[v] + w);
-            }
-        };
+        // vector<i64> down(n + 1, INF), up(n + 1, INF);
+        // auto dfs1 = [&](auto self, int u, int p) -> void
+        // {
+        //     down[u] = dp[u];
+        //     for (auto [v, w] : adj[u])
+        //     {
+        //         if (v == p) continue;
+        //         self(self, v, u);
+        //         down[u] = min(down[u], down[v] + w);
+        //     }
+        // };
 
-        auto dfs2 = [&](auto self, int u, int p) -> void
-        {
-            vector<pair<int, i64>> cand;
-            for (auto [v, w] : adj[u])
-            {
-                if (v == p) continue;
-                cand.push_back({v, w});
-            }
+        // auto dfs2 = [&](auto self, int u, int p) -> void
+        // {
+        //     vector<pair<int, i64>> cand;
+        //     for (auto [v, w] : adj[u])
+        //     {
+        //         if (v == p) continue;
+        //         cand.push_back({v, w});
+        //     }
             
-            int siz = cand.size();
-            vector<i64> pre(siz, INF), suf(siz, INF);
-            for (int i = 0; i < siz; i++)
-            {
-                auto [v, w] = cand[i];
-                if (i == 0)
-                    pre[i] = down[v] + w;
-                else 
-                    pre[i] = min(pre[i - 1], down[v] + w);
-            }
+        //     int siz = cand.size();
+        //     vector<i64> pre(siz, INF), suf(siz, INF);
+        //     for (int i = 0; i < siz; i++)
+        //     {
+        //         auto [v, w] = cand[i];
+        //         if (i == 0)
+        //             pre[i] = down[v] + w;
+        //         else 
+        //             pre[i] = min(pre[i - 1], down[v] + w);
+        //     }
 
-            for (int i = siz - 1; i >= 0; i--)
-            {
-                auto [v, w] = cand[i];
-                if (i == siz - 1)
-                    suf[i] = down[v] + w;
-                else 
-                    suf[i] = min(suf[i + 1], down[v] + w);
-            }
+        //     for (int i = siz - 1; i >= 0; i--)
+        //     {
+        //         auto [v, w] = cand[i];
+        //         if (i == siz - 1)
+        //             suf[i] = down[v] + w;
+        //         else 
+        //             suf[i] = min(suf[i + 1], down[v] + w);
+        //     }
 
-            for (int i = 0; i < siz; i++)
-            {
-                auto [v, w] = cand[i];
-                i64 best = INF;
-                if (i != 0) best = min(best, pre[i - 1]);
-                if (i != siz - 1) best = min(best, suf[i + 1]);
-                up[v] = min({dp[u] + w, up[u] + w, best + w});
-                self(self, v, u);
-            }
-        };
-        dfs1(dfs1, 1, 0);
-        dfs2(dfs2, 1, 0);
+        //     for (int i = 0; i < siz; i++)
+        //     {
+        //         auto [v, w] = cand[i];
+        //         i64 best = INF;
+        //         if (i != 0) best = min(best, pre[i - 1]);
+        //         if (i != siz - 1) best = min(best, suf[i + 1]);
+        //         up[v] = min({dp[u] + w, up[u] + w, best + w});
+        //         self(self, v, u);
+        //     }
+        // };
+        // dfs1(dfs1, 1, 0);
+        // dfs2(dfs2, 1, 0);
 
-        for (int i = 1; i <= n; i++)
-            dp[i] = min(down[i], up[i]);
+        // for (int i = 1; i <= n; i++)
+        //     dp[i] = min(down[i], up[i]);
+        dijkstra();
         cout << accumulate(dp.begin() + 1, dp.end(), 0LL) << "\n";
     }
 }
