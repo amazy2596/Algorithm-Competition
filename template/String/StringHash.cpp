@@ -29,16 +29,18 @@ struct StringHash
         Hash() = default;
         Hash(u64 v, int l): val(v), len(l) {}
 
-        Hash operator+(const Hash& rhs) const 
-        {
-            ensure(rhs.len);
-            return Hash(add(rhs.val, mul(val, P[rhs.len])), len + rhs.len);
-        }
-
         bool operator==(const Hash &o) const 
         { 
             return val == o.val && len == o.len; 
         }
+
+        Hash operator+(const Hash& rhs) const 
+        {
+            ensure(rhs.len);
+            // return Hash(add(rhs.val, mul(val, P[rhs.len])), len + rhs.len);
+            return Hash((rhs.val + (u128)val * P[rhs.len]) % MOD, len);
+        }
+
         bool operator<(const Hash &o) const 
         {
             return (val < o.val) || (val == o.val && len < o.len);
@@ -57,7 +59,8 @@ struct StringHash
         for (int i = 1; i <= n; ++i) 
         {
             u64 v = (u64)(unsigned char)s[i - 1] + 1ull;
-            h[i] = add(mul(h[i - 1], BASE), v);
+            // h[i] = add(mul(h[i - 1], BASE), v);
+            h[i] = ((u128)h[i - 1] * BASE + v) % MOD;
         }
     }
 
@@ -66,7 +69,8 @@ struct StringHash
         if (r < l) return Hash(0, 0);
         int m = r - l + 1;
         ensure(m);
-        return Hash(sub(h[r + 1], mul(h[l], P[m])), m);
+        // return Hash(sub(h[r + 1], mul(h[l], P[m])), m);
+        return Hash(h[r + 1] - (u128)(MOD - h[l]) * P[m] % MOD, m);
     }
 
     Hash whole() 
@@ -74,28 +78,28 @@ struct StringHash
         return Hash(h.back(), h.size() - 1); 
     }
 
-    static u64 add(u64 a, u64 b) 
-    {
-         a += b; 
-         if (a >= MOD) a -= MOD; 
-         return a; 
-    }
-    static u64 sub(u64 a, u64 b) 
-    { 
-        return a >= b ? (a - b) : (a + MOD - b); 
-    }
-    static u64 mul(u64 a, u64 b) 
-    {
-        u128 c = (u128)a * b;
-        u64 res = (u64)(c >> 61) + (u64)(c & MOD);
-        if (res >= MOD) res -= MOD;
-        return res;
-    }
+    // static u64 add(u64 a, u64 b) 
+    // {
+    //      a += b; 
+    //      if (a >= MOD) a -= MOD; 
+    //      return a; 
+    // }
+    // static u64 sub(u64 a, u64 b) 
+    // { 
+    //     return a >= b ? (a - b) : (a + MOD - b); 
+    // }
+    // static u64 mul(u64 a, u64 b) 
+    // {
+    //     u128 c = (u128)a * b;
+    //     u64 res = (u64)(c >> 61) + (u64)(c & MOD);
+    //     if (res >= MOD) res -= MOD;
+    //     return res;
+    // }
     static void ensure(int m) 
     {
         if (max_pow >= m) return;
         P.resize(m + 1);
-        for (int i = max_pow + 1; i <= m; ++i) P[i] = mul(P[i - 1], BASE);
+        for (int i = max_pow + 1; i <= m; ++i) P[i] = (u128)P[i - 1] * BASE % MOD;
         max_pow = m;
     }
 };
