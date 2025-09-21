@@ -7,14 +7,33 @@ using i128 = __int128_t;
 using u128 = __uint128_t;
 
 const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
+const i64 mod = 998244353;
 const i64 INF = 1e18;
 const int inf = 1e9;
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
 
-// snippet-begin:
+i64 fast_pow(i64 a, i64 b) 
+{
+    i64 res = 1;
+    a %= mod;
+    while (b) 
+    {
+        if (b & 1)
+            res = (1LL * res * a) % mod;
+
+        a = (1LL * a * a) % mod;
+        b >>= 1;
+    }
+    return res;
+}
+
+i64 inv(i64 x) 
+{
+    return fast_pow(x, mod - 2);
+}
+
 struct Matrix 
 {
     int n, m;
@@ -85,20 +104,48 @@ Matrix fast_pow(Matrix base, i64 b)
     }
     return res;
 }
-// snippet-end:
 
 void solve()
 {
-    
+    i64 n, m;
+    cin >> n >> m;
+    if (n == 1)
+    {
+        cout << "1\n";
+        return;
+    }
+
+    if (n == 2)
+    {
+        cout << "0\n";
+        return;
+    }
+
+    i64 x = (fast_pow(2, m) - 1 + mod) % mod;
+    Matrix t
+    {
+        {-x, 0, x + 1},
+        {0, -x, (x + 1) * x},
+        {0, 0, x * x}
+    };
+    Matrix v{{0}, {x * x}, {x * x}};
+
+    int k = n / 2;
+    auto ans = fast_pow(t, k - 1) * v;
+
+    if (n % 2 == 0)
+        cout << ans[0][0] << "\n";
+    else 
+        cout << ans[1][0] << "\n";
 }
 
 int main()
 {
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
     int T = 1;
-    // cin >> T;
+    cin >> T;
     while (T--)
         solve();
     return 0;
