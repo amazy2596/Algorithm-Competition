@@ -66,7 +66,7 @@ struct SegmentTree
 
     void pushdown(int node)
     {
-        if (!lazy[node].empty()) return;
+        if (lazy[node].empty()) return;
 
         lazy[node].apply(tree[ls]);
         lazy[node].apply(tree[rs]);
@@ -86,7 +86,7 @@ struct SegmentTree
             lazy[node].merge(val);
             return;
         }
-d
+
         pushdown(node);
         int mid = (start + end) / 2;
         if (l <= mid) update(ls, start, mid, l, r, val);
