@@ -39,7 +39,7 @@ struct FWT
 {
     FWT() {}
 
-    void OR(vector<i64> &a, int type)
+    static void OR(vector<i64> &a, int type)
     {
         int n = a.size();
         for (int len = 2; len <= n; len <<= 1)
@@ -55,7 +55,7 @@ struct FWT
         }
     }
 
-    void AND(vector<i64> &a, int type)
+    static void AND(vector<i64> &a, int type)
     {
         int n = a.size();
         for (int len = 2; len <= n; len <<= 1)
@@ -71,7 +71,7 @@ struct FWT
         }
     }
 
-    void XOR(vector<i64> &a, int type)
+    static void XOR(vector<i64> &a, int type)
     {
         int n = a.size();
         for (int len = 2; len <= n; len <<= 1)
@@ -100,10 +100,10 @@ struct FWT
         }
     }
 
-    using Func = function<vector<i64>(vector<i64>, int)>;
+    using Func = function<void(vector<i64>&, int)>;
     vector<i64> work(const vector<i64> &a, const vector<i64> &b, Func op)
     {
-        int tot = a.size() + b.size() - 1;
+        int tot = max(a.size(), b.size());
         if (tot <= 0) return {};
         int n = 1;
         while (n < tot) n <<= 1;

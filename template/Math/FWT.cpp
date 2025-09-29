@@ -36,26 +36,6 @@ i64 inv(i64 x)
     return fast_pow(x, mod - 2);
 }
 
-i64 fast_pow(i64 a, i64 b) 
-{
-    i64 res = 1;
-    a %= mod;
-    while (b) 
-    {
-        if (b & 1)
-            res = (1LL * res * a) % mod;
-
-        a = (1LL * a * a) % mod;
-        b >>= 1;
-    }
-    return res;
-}
-
-i64 inv(i64 x) 
-{
-    return fast_pow(x, mod - 2);
-}
-
 struct FWT
 {
     FWT() {}

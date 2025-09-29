@@ -65,23 +65,20 @@ struct SegmentTree
 
     void pushdown(int node)
     {
-        if (!lazy[node].empty())
-        {
-            lazy[node].apply(tree[ls]);
-            lazy[node].apply(tree[rs]);
+        if (lazy[node].empty()) return;
 
-            lazy[ls].merge(lazy[node]);
-            lazy[rs].merge(lazy[node]);
+        lazy[node].apply(tree[ls]);
+        lazy[node].apply(tree[rs]);
 
-            lazy[node] = Tag();
-        }
+        lazy[ls].merge(lazy[node]);
+        lazy[rs].merge(lazy[node]);
+
+        lazy[node] = Tag();
     }
     
     void update(int node, int start, int end, int l, int r, const Tag &val)
     {
-        if (end < l || start > r)
-            return ;
-
+        if (end < l || start > r) return;
         if (l <= start && end <= r)
         {
             val.apply(tree[node]);
@@ -90,13 +87,9 @@ struct SegmentTree
         }
 
         pushdown(node);
-
         int mid = (start + end) / 2;
-        if (l <= mid)
-            update(ls, start, mid, l, r, val);
-        if (mid < r)
-            update(rs, mid + 1, end, l, r, val);
-        
+        if (l <= mid) update(ls, start, mid, l, r, val);
+        if (mid < r) update(rs, mid + 1, end, l, r, val);
         tree[node] = tree[ls] + tree[rs];
     }
 
@@ -109,34 +102,24 @@ struct SegmentTree
         }
 
         pushdown(node);
-
         int mid = (start + end) / 2;
-        if (pos <= mid)
-            modify(ls, start, mid, pos, val);
-        else if (pos > mid)
-            modify(rs, mid + 1, end, pos, val);
-
+        if (pos <= mid) modify(ls, start, mid, pos, val);
+        else if (pos > mid) modify(rs, mid + 1, end, pos, val);
         tree[node] = tree[ls] + tree[rs];
     }
     
     Info query(int node, int start, int end, int l, int r)
     {
-        if (l > end || r < start) 
-            return Info();
-            
-        if (l <= start && end <= r) 
-            return tree[node];
-
+        if (l > end || r < start) return Info();
+        if (l <= start && end <= r) return tree[node];
         pushdown(node);
-            
         int mid = (start + end) / 2;
         return query(ls, start, mid, l, r) + query(rs, mid + 1, end, l, r);
     }
     
     void update(int l, int r, const Tag &val)
     {
-        if (l > r) 
-            return;
+        if (l > r) return;
         update(0, 0, n - 1, l, r, val);
     }
     
@@ -147,8 +130,7 @@ struct SegmentTree
 
     Info query(int l, int r)
     {
-        if (l > r) 
-            return Info();
+        if (l > r) return Info();
         return query(0, 0, n - 1, l, r);
     }
 };
@@ -250,12 +232,11 @@ struct HLD
     int n;
     int id;
     int start;
-    int capacity;
+    int cap;
     int use_edge;
     vector<vector<int>> adj;
 
     vector<int> fa;
-    vector<int> hs;
     vector<int> deep;
     vector<int> siz;
 
@@ -265,17 +246,16 @@ struct HLD
 
     SegmentTree<info, Tag> tree;
 
-    HLD(int _n, int _start = 1) : n(_n), start(_start), capacity(n + start)
+    HLD(int _n, int _start = 1) : n(_n), start(_start), cap(n + start)
     {
-        adj.resize(capacity);
-        fa.resize(capacity, -1);
-        deep.resize(capacity);
-        siz.resize(capacity);
-        hs.resize(capacity, -1);
+        adj.resize(cap);
+        fa.resize(cap, -1);
+        deep.resize(cap);
+        siz.resize(cap);
 
-        dfn.resize(capacity);
-        rev.resize(capacity);
-        top.resize(capacity); 
+        dfn.resize(cap);
+        rev.resize(cap);
+        top.resize(cap); 
     }
 
     void build(int root)
@@ -290,7 +270,7 @@ struct HLD
     {
         use_edge = 0;
         vector<T> tmp(n, 0);
-        for (int i = start; i < capacity; i++)
+        for (int i = start; i < cap; i++)
             tmp[dfn[i]] = input[i];
         
         tree.init(tmp);
@@ -323,17 +303,13 @@ struct HLD
         fa[u] = p;
         deep[u] = d;
         siz[u] = 1;
-        int mx = 0;
         for (auto v : adj[u])
         {
             if (v == p)
                 continue;
             dfs1(v, u, d + 1);
-            if (siz[v] > mx)
-            {
-                hs[u] = v;
-                mx = siz[v];
-            }
+            if (siz[v] > siz[adj[u][0]])
+                swap(v, adj[u][0]);
             siz[u] += siz[v];
         }
     }
@@ -343,11 +319,9 @@ struct HLD
         top[u] = t;
         dfn[u] = id++;
         rev[dfn[u]] = u;
-        if (hs[u] != -1)    
-            dfs2(hs[u], t);
         for (auto v : adj[u])
         {
-            if (v == fa[u] || v == hs[u])
+            if (v == fa[u])
                 continue;
             dfs2(v, v);
         }
