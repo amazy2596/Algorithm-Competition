@@ -1,0 +1,91 @@
+\contentsline {section}{\numberline {1}数据结构}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}ST表~\textcolor {gray}{\ttfamily @woquneidi}}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}线段树}{1}{subsection.1.2}%
+\contentsline {subsubsection}{\numberline {1.2.1}区间修改线段树~\textcolor {gray}{\ttfamily @woquneidi}}{1}{subsubsection.1.2.1}%
+\contentsline {subsubsection}{\numberline {1.2.2}线段树(初始赋值+单点修改+查找前驱后继)~\textcolor {gray}{\ttfamily @woquneidi}}{2}{subsubsection.1.2.2}%
+\contentsline {subsubsection}{\numberline {1.2.3}线段树~\textcolor {gray}{\ttfamily @amazy}}{4}{subsubsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.3}树状数组}{6}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}树状数组(区间修改 + 查询)~\textcolor {gray}{\ttfamily @amazy}}{6}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}树状数组(单点修改 + 区间查询 + 第k小值)~\textcolor {gray}{\ttfamily @woquneidi}}{7}{subsubsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.4}平衡树}{7}{subsection.1.4}%
+\contentsline {subsubsection}{\numberline {1.4.1}treap~\textcolor {gray}{\ttfamily @amazy}}{7}{subsubsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.5}其他}{9}{subsection.1.5}%
+\contentsline {subsubsection}{\numberline {1.5.1}并查集~\textcolor {gray}{\ttfamily @amazy}}{9}{subsubsection.1.5.1}%
+\contentsline {subsubsection}{\numberline {1.5.2}珂朵莉~\textcolor {gray}{\ttfamily @amazy}}{9}{subsubsection.1.5.2}%
+\contentsline {section}{\numberline {2}图论}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}2-SAT}{10}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}2-SAT~\textcolor {gray}{\ttfamily @Song4u}}{10}{subsubsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.2}二分图}{11}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}二分图最大匹配~\textcolor {gray}{\ttfamily @Song4u}}{11}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}二分图最大匹配~\textcolor {gray}{\ttfamily @amazy}}{12}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}二分图最大权值匹配~\textcolor {gray}{\ttfamily @Song4u}}{14}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4}匈牙利算法~\textcolor {gray}{\ttfamily @woquneidi}}{15}{subsubsection.2.2.4}%
+\contentsline {subsection}{\numberline {2.3}最小生成树}{16}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Boruvka~\textcolor {gray}{\ttfamily @Song4u}}{16}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}kruskal~\textcolor {gray}{\ttfamily @Song4u}}{16}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}prim~\textcolor {gray}{\ttfamily @Song4u}}{17}{subsubsection.2.3.3}%
+\contentsline {subsection}{\numberline {2.4}最短路}{18}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Bellman ford~\textcolor {gray}{\ttfamily @Song4u}}{18}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Floyd~\textcolor {gray}{\ttfamily @Song4u}}{18}{subsubsection.2.4.2}%
+\contentsline {subsubsection}{\numberline {2.4.3}dijkstra~\textcolor {gray}{\ttfamily @Song4u}}{19}{subsubsection.2.4.3}%
+\contentsline {subsubsection}{\numberline {2.4.4}spfa~\textcolor {gray}{\ttfamily @Song4u}}{19}{subsubsection.2.4.4}%
+\contentsline {subsection}{\numberline {2.5}树上算法}{20}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}扩展树链剖分~\textcolor {gray}{\ttfamily @amazy}}{20}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}树链剖分~\textcolor {gray}{\ttfamily @amazy}}{25}{subsubsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.6}网络流}{27}{subsection.2.6}%
+\contentsline {subsubsection}{\numberline {2.6.1}dinic求最大流~\textcolor {gray}{\ttfamily @woquneidi}}{27}{subsubsection.2.6.1}%
+\contentsline {subsubsection}{\numberline {2.6.2}最大流最小费用~\textcolor {gray}{\ttfamily @woquneidi}}{28}{subsubsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.7}连通性(Tarjan)}{29}{subsection.2.7}%
+\contentsline {subsubsection}{\numberline {2.7.1}tarjan SCC缩点~\textcolor {gray}{\ttfamily @Song4u}}{29}{subsubsection.2.7.1}%
+\contentsline {subsubsection}{\numberline {2.7.2}tarjan割点~\textcolor {gray}{\ttfamily @woquneidi}}{30}{subsubsection.2.7.2}%
+\contentsline {subsubsection}{\numberline {2.7.3}tarjan求eDCC~\textcolor {gray}{\ttfamily @Song4u}}{31}{subsubsection.2.7.3}%
+\contentsline {subsubsection}{\numberline {2.7.4}tarjan求vDCC~\textcolor {gray}{\ttfamily @Song4u}}{32}{subsubsection.2.7.4}%
+\contentsline {subsubsection}{\numberline {2.7.5}tarjan求强连通分量~\textcolor {gray}{\ttfamily @woquneidi}}{33}{subsubsection.2.7.5}%
+\contentsline {subsubsection}{\numberline {2.7.6}tarjan求边双连通分量~\textcolor {gray}{\ttfamily @woquneidi}}{34}{subsubsection.2.7.6}%
+\contentsline {subsubsection}{\numberline {2.7.7}强连通分量~\textcolor {gray}{\ttfamily @amazy}}{35}{subsubsection.2.7.7}%
+\contentsline {subsubsection}{\numberline {2.7.8}边双连通分量~\textcolor {gray}{\ttfamily @amazy}}{37}{subsubsection.2.7.8}%
+\contentsline {section}{\numberline {3}数学}{38}{section.3}%
+\contentsline {subsection}{\numberline {3.1}多项式}{38}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}FFT~\textcolor {gray}{\ttfamily @amazy}}{38}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}FWT~\textcolor {gray}{\ttfamily @amazy}}{40}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}MTT~\textcolor {gray}{\ttfamily @amazy}}{41}{subsubsection.3.1.3}%
+\contentsline {subsubsection}{\numberline {3.1.4}NTT~\textcolor {gray}{\ttfamily @amazy}}{46}{subsubsection.3.1.4}%
+\contentsline {subsection}{\numberline {3.2}数论}{49}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}二次剩余~\textcolor {gray}{\ttfamily @amazy}}{49}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}扩展欧几里得~\textcolor {gray}{\ttfamily @woquneidi}}{51}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}线性筛~\textcolor {gray}{\ttfamily @amazy}}{51}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}线性代数}{52}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}矩阵快速幂~\textcolor {gray}{\ttfamily @amazy}}{52}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}线性基~\textcolor {gray}{\ttfamily @amazy}}{53}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}组合数学}{54}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}组合数~\textcolor {gray}{\ttfamily @amazy}}{54}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}组合数~\textcolor {gray}{\ttfamily @woquneidi}}{55}{subsubsection.3.4.2}%
+\contentsline {section}{\numberline {4}字符串}{55}{section.4}%
+\contentsline {subsection}{\numberline {4.1}回文串}{55}{subsection.4.1}%
+\contentsline {subsubsection}{\numberline {4.1.1}回文自动机~\textcolor {gray}{\ttfamily @amazy}}{55}{subsubsection.4.1.1}%
+\contentsline {subsubsection}{\numberline {4.1.2}马拉车~\textcolor {gray}{\ttfamily @amazy}}{57}{subsubsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.2}字典树}{57}{subsection.4.2}%
+\contentsline {subsubsection}{\numberline {4.2.1}01字典树~\textcolor {gray}{\ttfamily @amazy}}{57}{subsubsection.4.2.1}%
+\contentsline {subsubsection}{\numberline {4.2.2}字典树~\textcolor {gray}{\ttfamily @amazy}}{58}{subsubsection.4.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3}字典树~\textcolor {gray}{\ttfamily @woquneidi}}{59}{subsubsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.3}字符串哈希}{59}{subsection.4.3}%
+\contentsline {subsubsection}{\numberline {4.3.1}字符串哈希~\textcolor {gray}{\ttfamily @amazy}}{59}{subsubsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.4}字符匹配}{60}{subsection.4.4}%
+\contentsline {subsubsection}{\numberline {4.4.1}AC自动机~\textcolor {gray}{\ttfamily @amazy}}{60}{subsubsection.4.4.1}%
+\contentsline {subsubsection}{\numberline {4.4.2}KMP~\textcolor {gray}{\ttfamily @woquneidi}}{62}{subsubsection.4.4.2}%
+\contentsline {subsubsection}{\numberline {4.4.3}扩展KMP~\textcolor {gray}{\ttfamily @amazy}}{62}{subsubsection.4.4.3}%
+\contentsline {section}{\numberline {5}计算几何}{63}{section.5}%
+\contentsline {subsection}{\numberline {5.1}凸包~\textcolor {gray}{\ttfamily @Song4u}}{63}{subsection.5.1}%
+\contentsline {section}{\numberline {6}杂项}{66}{section.6}%
+\contentsline {subsection}{\numberline {6.1}int128~\textcolor {gray}{\ttfamily @amazy}}{66}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}二分 三分~\textcolor {gray}{\ttfamily @Song4u}}{67}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}基姆拉尔森公式}{68}{subsection.6.3}%
+\contentsline {section}{\numberline {7}附录}{68}{section.7}%
+\contentsline {subsection}{\numberline {7.1}数学公式}{68}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}常见错因}{79}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}互质的规律}{79}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4}常数表}{79}{subsection.7.4}%
+\contentsline {subsection}{\numberline {7.5}斐波那契数列}{79}{subsection.7.5}%
+\contentsline {subsection}{\numberline {7.6}组合数学公式}{80}{subsection.7.6}%
+\contentsline {subsection}{\numberline {7.7}随机素数}{80}{subsection.7.7}%
+\contentsline {subsection}{\numberline {7.8}编译参数}{80}{subsection.7.8}%
