@@ -160,69 +160,69 @@ info operator+(const info &l, const info &r)
     return res;
 }
 
-// 区间加
-struct tagAdd
-{
-    i64 add = 0;
+// // 区间加
+// struct tagAdd
+// {
+//     i64 add = 0;
 
-    tagAdd() : add(0) {}
-    tagAdd(i64 _add) : add(_add) {}
+//     tagAdd() : add(0) {}
+//     tagAdd(i64 _add) : add(_add) {}
 
-    bool empty() const
-    {
-        return add == 0;
-    }
+//     bool empty() const
+//     {
+//         return add == 0;
+//     }
 
-    void apply(info &a) const 
-    {
-        i64 old = a.sum;
+//     void apply(info &a) const 
+//     {
+//         i64 old = a.sum;
 
-        a.mx += add;
-        a.mn += add;
-        a.sum += add * a.len;
-        a.ssum += 2 * add * old + add * add * a.len;
-    }
+//         a.mx += add;
+//         a.mn += add;
+//         a.sum += add * a.len;
+//         a.ssum += 2 * add * old + add * add * a.len;
+//     }
 
-    void merge(const tagAdd &o)
-    {
-        if (o.empty())
-            return;
+//     void merge(const tagAdd &o)
+//     {
+//         if (o.empty())
+//             return;
 
-        add += o.add;
-    }
-};
+//         add += o.add;
+//     }
+// };
 
-// 区间赋值
-struct tagAssign
-{
-    bool has = false;
-    i64 val = 0;
+// // 区间赋值
+// struct tagAssign
+// {
+//     bool has = false;
+//     i64 val = 0;
 
-    tagAssign() : has(false), val(0) {};
-    tagAssign(i64 _val) : has(true), val(_val) {};
+//     tagAssign() : has(false), val(0) {};
+//     tagAssign(i64 _val) : has(true), val(_val) {};
 
-    bool empty() const 
-    {
-        return !has;
-    }
+//     bool empty() const 
+//     {
+//         return !has;
+//     }
 
-    void apply(info &a) const
-    {
-        a.mx = val;
-        a.mn = val;
-        a.sum = val * a.len;
-        a.ssum = val * val * a.len;
-    }
+//     void apply(info &a) const
+//     {
+//         a.mx = val;
+//         a.mn = val;
+//         a.sum = val * a.len;
+//         a.ssum = val * val * a.len;
+//     }
 
-    void merge(const tagAssign &o)
-    {
-        if (!o.has)
-            return;
+//     void merge(const tagAssign &o)
+//     {
+//         if (!o.has)
+//             return;
 
-        has = true;
-        val = o.val;
-    }
-};
+//         has = true;
+//         val = o.val;
+//     }
+// };
 
 #undef ls
 #undef rs
@@ -373,69 +373,69 @@ info operator+(const info &l, const info &r)
     return res;
 }
 
-// 区间加
-struct tagAdd
-{
-    i64 add = 0;
+// // 区间加
+// struct tagAdd
+// {
+//     i64 add = 0;
 
-    tagAdd() : add(0) {}
-    tagAdd(i64 _add) : add(_add) {}
+//     tagAdd() : add(0) {}
+//     tagAdd(i64 _add) : add(_add) {}
 
-    bool empty() const
-    {
-        return add == 0;
-    }
+//     bool empty() const
+//     {
+//         return add == 0;
+//     }
 
-    void apply(info &a) const 
-    {
-        i64 old = a.sum;
+//     void apply(info &a) const 
+//     {
+//         i64 old = a.sum;
 
-        a.mx += add;
-        a.mn += add;
-        a.sum += add * a.len;
-        a.ssum += 2 * add * old + add * add * a.len;
-    }
+//         a.mx += add;
+//         a.mn += add;
+//         a.sum += add * a.len;
+//         a.ssum += 2 * add * old + add * add * a.len;
+//     }
 
-    void merge(const tagAdd &o)
-    {
-        if (o.empty())
-            return;
+//     void merge(const tagAdd &o)
+//     {
+//         if (o.empty())
+//             return;
 
-        add += o.add;
-    }
-};
+//         add += o.add;
+//     }
+// };
 
-// 区间赋值
-struct tagAssign
-{
-    bool has = false;
-    i64 val = 0;
+// // 区间赋值
+// struct tagAssign
+// {
+//     bool has = false;
+//     i64 val = 0;
 
-    tagAssign() : has(false), val(0) {};
-    tagAssign(i64 _val) : has(true), val(_val) {};
+//     tagAssign() : has(false), val(0) {};
+//     tagAssign(i64 _val) : has(true), val(_val) {};
 
-    bool empty() const 
-    {
-        return !has;
-    }
+//     bool empty() const 
+//     {
+//         return !has;
+//     }
 
-    void apply(info &a) const
-    {
-        a.mx = val;
-        a.mn = val;
-        a.sum = val * a.len;
-        a.ssum = val * val * a.len;
-    }
+//     void apply(info &a) const
+//     {
+//         a.mx = val;
+//         a.mn = val;
+//         a.sum = val * a.len;
+//         a.ssum = val * val * a.len;
+//     }
 
-    void merge(const tagAssign &o)
-    {
-        if (!o.has)
-            return;
+//     void merge(const tagAssign &o)
+//     {
+//         if (!o.has)
+//             return;
 
-        has = true;
-        val = o.val;
-    }
-};
+//         has = true;
+//         val = o.val;
+//     }
+// };
 
 #undef ls
 #undef rs
