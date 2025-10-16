@@ -1,0 +1,382 @@
+PWD d:/Code/c++/song4u
+INPUT d:/My program/TinyTeX/texmf.cnf
+INPUT d:/My program/TinyTeX/texmf-dist/web2c/texmf.cnf
+INPUT d:/My program/TinyTeX/texmf-var/web2c/xetex/xelatex.fmt
+INPUT d:/Code/c++/song4u/song4u.tex
+OUTPUT song4u.log
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/article.cls
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/article.cls
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/size10.clo
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/geometry/geometry.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/keyval.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/iftex/ifvtex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/iftex/iftex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3kernel/expl3.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/engine/ctex-engine-xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctexhook.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctexhook.sty
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctexpatch.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctexpatch.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/fix-cm.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/fix-cm.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/ts1enc.def
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctexopts.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctexopts.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/engine/ctex-engine-xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/cjk/texinput/CJKfntef.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJKfntef.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3packages/xtemplate/xtemplate.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec-xetex.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/fontenc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/fontspec/fontspec.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/zhnumber/zhnumber.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/zhnumber/zhnumber.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/zhnumber/zhnumber-utf8.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/zhnumber/zhnumber-utf8.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/scheme/ctex-scheme-chinese.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/scheme/ctex-scheme-chinese.def
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctex-name-utf8.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctex-name-utf8.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/indentfirst.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/indentfirst.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctex-c5size.clo
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/ctex-c5size.clo
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctex.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/ctex/config/ctex.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/base/ifthen.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/calc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/xcolor/xcolor.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/color.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-def/xetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/mathcolor.ltx
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/graphicx.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/graphics.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/trig.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdfpages/ppxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdfpages/ppxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdfpages/ppxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/titlesec/titlesec.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/listings.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/listings.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstpatch.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/listings.cfg
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK-listings.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/xelatex/xecjk/xeCJK-listings.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/multicol.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/multicol.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/hyperref.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/kvsetkeys/kvsetkeys.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/kvdefinekeys/kvdefinekeys.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/pdfescape/pdfescape.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/ltxcmds/ltxcmds.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/pdftexcmds/pdftexcmds.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/infwarerr/infwarerr.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hycolor/hycolor.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/nameref.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/refcount/refcount.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/kvoptions/kvoptions.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/stringenc/stringenc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/pd1enc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/intcalc/intcalc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/puenc.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/url/url.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/url/url.sty
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/bitset/bitset.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/bigintcalc/bigintcalc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/hyperref/hxetex.def
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/rerunfilecheck/rerunfilecheck.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/generic/uniquecounter/uniquecounter.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tools/array.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/color.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/grffile/grffile.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/grffile/grffile.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsmath.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amstext.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsgen.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsbsy.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsmath/amsopn.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/amssymb.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/mathtools/mathtools.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/mathtools/mathtools.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/mathtools/mhsetup.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/mathtools/mhsetup.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/tocloft/tocloft.sty
+INPUT ./song4u.aux
+INPUT ./song4u.aux
+INPUT song4u.aux
+OUTPUT song4u.aux
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/graphics/lscape.sty
+INPUT ./song4u.out
+INPUT ./song4u.out
+INPUT song4u.out
+INPUT song4u.out
+INPUT ./song4u.out
+INPUT ./song4u.out
+OUTPUT song4u.out
+INPUT ./img/HENU_LOGO.png
+INPUT ./img/HENU_LOGO.png
+INPUT ./img/HENU_LOGO.png
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam5.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm5.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr10.tfm
+OUTPUT song4u.xdv
+INPUT ./song4u.toc
+INPUT ./song4u.toc
+INPUT song4u.toc
+OUTPUT song4u.toc
+INPUT ./contents.tex
+INPUT ./contents.tex
+INPUT contents.tex
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstmisc.sty
+INPUT ./src/图论/2-SAT/2-SAT.cpp
+INPUT ./src/图论/2-SAT/2-SAT.cpp
+INPUT src/图论/2-SAT/2-SAT.cpp
+INPUT ./src/图论/DSU.cpp
+INPUT ./src/图论/DSU.cpp
+INPUT src/图论/DSU.cpp
+INPUT ./src/图论/LCA/最近公共祖先.cpp
+INPUT ./src/图论/LCA/最近公共祖先.cpp
+INPUT src/图论/LCA/最近公共祖先.cpp
+INPUT ./src/图论/二分图/all.cpp
+INPUT ./src/图论/二分图/all.cpp
+INPUT src/图论/二分图/all.cpp
+INPUT ./src/图论/二分图/二分图最大匹配.cpp
+INPUT ./src/图论/二分图/二分图最大匹配.cpp
+INPUT src/图论/二分图/二分图最大匹配.cpp
+INPUT ./src/图论/二分图/二分图最大权值匹配.cpp
+INPUT ./src/图论/二分图/二分图最大权值匹配.cpp
+INPUT src/图论/二分图/二分图最大权值匹配.cpp
+INPUT ./src/图论/二分图/染色法.cpp
+INPUT ./src/图论/二分图/染色法.cpp
+INPUT src/图论/二分图/染色法.cpp
+INPUT ./src/图论/最小生成树/最小生成树.cpp
+INPUT ./src/图论/最小生成树/最小生成树.cpp
+INPUT src/图论/最小生成树/最小生成树.cpp
+INPUT ./src/图论/最短路/Bellman_ford.cpp
+INPUT ./src/图论/最短路/Bellman_ford.cpp
+INPUT src/图论/最短路/Bellman_ford.cpp
+INPUT ./src/图论/最短路/Floyd.cpp
+INPUT ./src/图论/最短路/Floyd.cpp
+INPUT src/图论/最短路/Floyd.cpp
+INPUT ./src/图论/最短路/all.cpp
+INPUT ./src/图论/最短路/all.cpp
+INPUT src/图论/最短路/all.cpp
+INPUT ./src/图论/最短路/dijikstra.cpp
+INPUT ./src/图论/最短路/dijikstra.cpp
+INPUT src/图论/最短路/dijikstra.cpp
+INPUT ./src/图论/最短路/spfa.cpp
+INPUT ./src/图论/最短路/spfa.cpp
+INPUT src/图论/最短路/spfa.cpp
+INPUT ./src/图论/连通性（tarjan）/all.cpp
+INPUT ./src/图论/连通性（tarjan）/all.cpp
+INPUT src/图论/连通性（tarjan）/all.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan SCC缩点.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan SCC缩点.cpp
+INPUT src/图论/连通性（tarjan）/tarjan SCC缩点.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求eDCC.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求eDCC.cpp
+INPUT src/图论/连通性（tarjan）/tarjan求eDCC.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求vDCC.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求vDCC.cpp
+INPUT src/图论/连通性（tarjan）/tarjan求vDCC.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求割点.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求割点.cpp
+INPUT src/图论/连通性（tarjan）/tarjan求割点.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求割边.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求割边.cpp
+INPUT src/图论/连通性（tarjan）/tarjan求割边.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求强连通分量.cpp
+INPUT ./src/图论/连通性（tarjan）/tarjan求强连通分量.cpp
+INPUT src/图论/连通性（tarjan）/tarjan求强连通分量.cpp
+INPUT ./src/二分&三分.cpp
+INPUT ./src/二分&三分.cpp
+INPUT src/二分&三分.cpp
+INPUT ./src/凸包.cpp
+INPUT ./src/凸包.cpp
+INPUT src/凸包.cpp
+INPUT ./src/附录/VSCode设置.tex
+INPUT ./src/附录/VSCode设置.tex
+INPUT src/附录/VSCode设置.tex
+INPUT ./src/附录/互质的规律.tex
+INPUT ./src/附录/互质的规律.tex
+INPUT src/附录/互质的规律.tex
+INPUT ./src/附录/常数表.tex
+INPUT ./src/附录/常数表.tex
+INPUT src/附录/常数表.tex
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi9.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy6.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex9.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
+INPUT ./src/附录/常见错因.tex
+INPUT ./src/附录/常见错因.tex
+INPUT src/附录/常见错因.tex
+INPUT ./src/附录/斐波那契数列.tex
+INPUT ./src/附录/斐波那契数列.tex
+INPUT src/附录/斐波那契数列.tex
+INPUT ./src/附录/算法.tex
+INPUT ./src/附录/算法.tex
+INPUT src/附录/算法.tex
+INPUT ./src/附录/组合数学公式.tex
+INPUT ./src/附录/组合数学公式.tex
+INPUT src/附录/组合数学公式.tex
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
+INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
+INPUT ./src/附录/编译参数.tex
+INPUT ./src/附录/编译参数.tex
+INPUT src/附录/编译参数.tex
+INPUT ./src/附录/运行脚本.tex
+INPUT ./src/附录/运行脚本.tex
+INPUT src/附录/运行脚本.tex
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+INPUT ./src/附录/随机素数.tex
+INPUT ./src/附录/随机素数.tex
+INPUT src/附录/随机素数.tex
+INPUT song4u.aux
+INPUT ./song4u.out
+INPUT ./song4u.out

@@ -1,0 +1,203 @@
+\textbf{出现的错误检查}
+
+\begin{enumerate}
+    \item 超出范围(int, i64)
+    \item 取模出现错误
+    \item 图可能有重边或者自环
+\end{enumerate}
+
+\textbf{杂项 (通用)}
+
+想不到的题考虑: 
+
+\begin{enumerate}
+    \item 二分, 二分答案, 三分
+    \item dp
+    \item 离线
+    \item 倒推
+    \item 倍增
+    \item 建图
+\end{enumerate}
+
+\textbf{分块}
+
+一个二进制状态, 枚举他的所有子集状态  \texttt{for(j = status; j > 0; j = (j - 1) \& status);}
+
+\textbf{中位数:}
+
+\begin{itemize}
+    \item 变成二分 变成+1 -1判断
+    \item 若动态维护, 每次加入一个数 然后求中位数, 用对顶堆
+    \item 如果还有删除一个数, 那么就用对顶multiset
+\end{itemize}
+
+\textbf{DP}
+
+\begin{itemize}
+    \item 背包
+    \item 区间dp
+    \item DAG图上的dp
+    \item 树形dp
+    \begin{itemize}
+        \item 直接dfs
+        \item DFN序: 
+        \begin{itemize}
+            \item 能够知道这个节点的子树大小
+            \item 某节点在不在此子树
+            \item 适用于对于一个节点向一个还没有合并过的节点合并复杂度较低的问题
+        \end{itemize}
+        \item 换根dp
+        \item 基环树
+    \end{itemize}
+    \item 状压dp
+    \item 数位dp
+\end{itemize}
+
+\textbf{搜索}
+
+\begin{itemize}
+    \item dfs, bfs
+    \item bfs不适用于有权图 01bfs可适用于权值只有0和1的图
+    \item 双向广搜: 两边各搜一半再合并
+\end{itemize}
+
+\textbf{图论}
+
+\begin{itemize}
+    \item \textbf{拓扑排序:}
+    \begin{itemize}
+        \item 能够处理环, 算出环的大小, 链的大小等
+    \end{itemize}
+    
+    \item \textbf{tarjan缩点(连通性相关)}
+    \begin{itemize}
+        \item 边双联通分量: 等价于:该子图中任意两点之间至少存在两条边互不相交的路径
+        \item 点双联通分量: 等价于:任意两点之间至少存在两条内部点互不相交的路径。
+    \end{itemize}
+\end{itemize}
+
+\textbf{树}
+
+\begin{itemize}
+    \item \textbf{倍增}
+    \begin{itemize}
+        \item lca
+    \end{itemize}
+    
+    \item \textbf{树的重心}
+    \begin{itemize}
+        \item 定义:
+        \begin{enumerate}
+            \item 以某个节点为根时，最大子树的节点数最少，那么这个节点是重心
+            \item 以某个节点为根时，每颗子树的节点数不超过总节点数的一半，那么这个节点是重心
+            \item 以某个节点为根时，所有节点都走向该节点的总边数最少，那么这个节点是重心
+        \end{enumerate}
+        \item 性质:
+        \begin{enumerate}
+            \item 一棵树最多有两个重心，如果有两个重心，那么两个重心一定相邻
+            \item 如果树上增加或者删除一个叶节点，转移后的重心最多移动一条边
+            \item 如果把两棵树连起来，那么新树的重心一定在原来两棵树重心的路径上
+            \item 树上的边权如果都为正数，不管边权怎么分布，所有节点都走向重心的总距离和最小
+        \end{enumerate}
+    \end{itemize}
+    
+    \item \textbf{树的直径}
+    \begin{itemize}
+        \item 求法: 
+        \begin{enumerate}
+            \item 两次dfs 找两个距离最远的点 不适用于有负边的树
+            \item 树形dp 对于每个点找子树中的最长的两条链 适用于所有树
+        \end{enumerate}
+        \item 性质:
+        
+        如果树上的边权都为正，则有如下直径相关的结论：
+        \begin{enumerate}
+            \item 如果有多条直径，那么这些直径一定拥有共同的中间部分，可能是一个公共点或一段公共路径
+            \item 树上任意一点，相隔最远的点的集合，直径的两端点至少有一个在其中
+        \end{enumerate}
+    \end{itemize}
+    
+    \item 树上差分
+    \begin{itemize}
+        \item 点差分
+        \item 边差分
+    \end{itemize}
+    
+    \item 换根dp
+    \item 重链剖分
+    \item 树上启发式合并
+    \begin{itemize}
+        \item 适用于对多个子树统计答案
+        \item 树上启发式合并的特征：
+        \begin{enumerate}
+            \item 没有修改操作
+            \item 可以通过遍历子树，建立信息统计，得到所有查询的答案
+        \end{enumerate}
+    \end{itemize}
+\end{itemize}
+
+\textbf{数学}
+
+\begin{itemize}
+    \item 数论分块
+    \item 互质的情况
+    \item 素数密度
+    \item \textbf{质数判断:}
+    \begin{enumerate}
+        \item 一个较小质数判断, 试除法
+        \item 一个较大质数判断, miller rabin
+        \item 一个范围内质数(较多质数)判断 欧拉筛
+    \end{enumerate}
+    \item \textbf{质因数分解:}
+    \begin{enumerate}
+        \item 数量少用试除法 $O(\sqrt{n})$
+        \item 数量多欧拉筛 除以minp
+    \end{enumerate}
+\end{itemize}
+
+\textbf{字符串}
+
+\begin{itemize}
+    \item kmp
+    \item 字符串哈希
+    \item trie
+\end{itemize}
+
+\textbf{数据结构}
+
+\begin{itemize}
+    \item 链表, 栈, 队列
+    \item \textbf{单调栈:} 能够知道每个数前面距离最近的比它大或者小的数
+    \item \textbf{单调队列:} 能够知道每个长度为k的子区间的最值
+    \item \textbf{堆}
+    \begin{itemize}
+        \item 对顶堆: 能够方便的动态维护集合中第k大的元素
+    \end{itemize}
+    \item \textbf{并查集:}
+    \begin{itemize}
+        \item 扩展域/种类并查集: 能够维护满足1.朋友的朋友是朋友 2.敌人的敌人是朋友
+        \item 带权并查集: 维护到根的距离并且取模能够达到类似扩展域并查集的效果
+    \end{itemize}
+    \item \textbf{线段树:}
+    \begin{itemize}
+        \item 区间加减
+        \item 区间修改 Tag设一个ip变量代表是否修改
+        \item 势能分析  直接暴力修改到叶子
+        \item 区间合并
+        \item 扫描线的修改, 区间懒标记是否被选取, 因为删除的时候 只会删除已经添加过的区间
+        \item 动态开点
+    \end{itemize}
+    \item \textbf{树状数组}
+    \begin{itemize}
+        \item 能够维护可差分信息
+        \item 能够更快的边维护边查单个点的前缀
+        \item 能够动态地知道每个数前面有多少个小于它的数
+        \item kth知道第k大的数是多少
+        \item 树上二分
+    \end{itemize}
+    \item \textbf{波纹疾走树}
+    \begin{itemize}
+        \item 查询区间第k小的数字
+        \item 区间内一个数字/一段数字的频率
+    \end{itemize}
+\end{itemize}
