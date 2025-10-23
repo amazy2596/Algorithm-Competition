@@ -1,6 +1,11 @@
 // Problem: D. Not Alone
 // URL: https://codeforces.com/contest/2153/problem/D
 // Author: amazy
+// Date: 2025-10-23 11:21:34
+
+// Problem: D. Not Alone
+// URL: https://codeforces.com/contest/2153/problem/D
+// Author: amazy
 // Date: 2025-10-22 11:33:42
 
 #include <bits/stdc++.h>
@@ -44,11 +49,19 @@ void solve()
         v.push_back(v[1]);
         v.erase(v.begin() + 1);
         dp.assign(n + 1, INF);
-        dp[0] = dp[1] = 0;
+        dp[0] = 0;
         for (int i = 1; i <= n; i++)
         {
-            if (i >= 2) dp[i] = min(dp[i], dp[i - 2] + cost(v[i - 1], v[i]));
-            if (i >= 3) dp[i] = min(dp[i], dp[i - 3] + cost(v[i - 2], v[i - 1], v[i]));
+            if (i >= 2) 
+            {
+                // cout << "cost2: " << cost(v[i - 1], v[i]) << "\n";
+                dp[i] = min(dp[i], dp[i - 2] + cost(v[i - 1], v[i]));
+            }
+            if (i >= 3) 
+            {
+                // cout << "cost3: " << cost(v[i - 2], v[i - 1], v[i]) << "\n";
+                dp[i] = min(dp[i], dp[i - 3] + cost(v[i - 2], v[i - 1], v[i]));
+            }
         }
         ans = min(ans, dp[n]);
     }
