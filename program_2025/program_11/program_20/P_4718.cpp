@@ -106,7 +106,7 @@ void factorize(i64 n, vector<i64>& factors) {
 
 void solve()
 {
-    int n;
+    i64 n;
     cin >> n;
     if (is_prime(n)) {
         cout << "Prime\n";
