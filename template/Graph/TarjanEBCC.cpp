@@ -1,109 +1,82 @@
 #include <bits/stdc++.h>
 using namespace std;
-using u32 = uint32_t;
 using i64 = int64_t;
-using u64 = uint64_t;
-using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
-
-const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
-
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 // snippet-begin:
-struct TarjanEBCC
-{
-    int n, id = 0, ebcc_count = 0, timer = 0;
-    vector<vector<pair<int, int>>> adj;
+struct TarjanEBCC {
+    int n, id = 0, timer = 0;
+    vector<vector<pair<int, int>>> adj; 
+    vector<int> dfn, low, bel, stk, bridge;
+    int ebcc_count = 0;
     vector<vector<int>> ebcc, nadj;
-    vector<int> dfn, low, bel, stk;
-    vector<bool> bridge, instk;
+    // 如果adj使用0-indexed, 那么ebcc和nadj也是0-indexed
+    // 如果adj使用1-indexed, 那么ebcc和nadj也是1-indexed
     
-    TarjanEBCC(int _n) : n(_n)
-    {
-        instk.resize(n + 1);
-        adj.resize(n + 1);
-        dfn.resize(n + 1);
-        low.resize(n + 1);
-        bel.resize(n + 1);
-        ebcc.resize(1);
+    TarjanEBCC(int _n) : n(_n) {
+        adj.resize(n);
+        dfn.resize(n, 0);
+        low.resize(n, 0);
+        bel.assign(n, -1);
     }
 
-    void add(int u, int v)
-    {
-        id++;
+    void add(int u, int v) {
         adj[u].push_back({v, id});
         adj[v].push_back({u, id});
+        id++;
     }
 
-    void dfs(int u, int fid)
-    {
+    void dfs(int u, int fid) {
         dfn[u] = low[u] = ++timer;
         stk.push_back(u);
-        instk[u] = true;
 
-        for (auto [v, eid] : adj[u])
-        {
-            if (eid == fid) continue;
+        for (auto [v, eid] : adj[u]) {
+            if (eid == fid) continue; 
 
-            if (!dfn[v])
-            {
+            if (!dfn[v]) {
                 dfs(v, eid);
                 low[u] = min(low[u], low[v]);
-
-                if (low[v] > dfn[u]) 
-                    bridge[eid] = true;
-            }
-            else if (instk[v])
+                if (low[v] > dfn[u]) {
+                    bridge[eid] = 1;
+                }
+            } else {
                 low[u] = min(low[u], dfn[v]);
+            }
         }
 
-        if (dfn[u] == low[u])
-        {
-            ebcc_count++;
-            ebcc.emplace_back();
-            while (true)
-            {
-                int x = stk.back();
+        if (dfn[u] == low[u]) {
+            ebcc.emplace_back(); 
+            int x;
+            do {
+                x = stk.back();
                 stk.pop_back();
-                instk[x] = false;
-                bel[x] = ebcc_count;
+                bel[x] = ebcc_count; 
                 ebcc.back().push_back(x);
-                if (x == u) break;
-            }
+            } while (x != u);
+            ebcc_count++;
         }
     }
 
-    void run()
-    {
-        bridge.assign(id + 1, 0);
-        for (int i = 1; i <= n; i++)
-        {
-            if (!dfn[i])
-            {
+    void run() {
+        bridge.assign(id, 0);
+        timer = 0;
+        ebcc_count = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (!dfn[i]) {
                 dfs(i, -1);
             }
         }
     }
 
-    void build()
-    {
-        nadj.assign(ebcc_count + 1, {});
-        for (int u = 1; u <= n; u++)
-        {
-            for (auto [v, id] : adj[u])
-            {
-                if (bridge[id])
-                {
+    void build() {
+        nadj.assign(ebcc_count, {});
+        for (int u = 0; u < n; u++) {
+            for (auto [v, eid] : adj[u]) {
+                if (bridge[eid]) {
                     int x = bel[u];
                     int y = bel[v];
-                    if (x > y) 
-                    {
+                    if (x < y) {
                         nadj[x].push_back(y);
                         nadj[y].push_back(x);
                     }

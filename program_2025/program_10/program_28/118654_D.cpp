@@ -1,0 +1,59 @@
+// Problem: eli和字符串
+// URL: https://ac.nowcoder.com/acm/contest/118654/D
+// Author: amazy
+// Date: 2025-10-28 15:40:41
+
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = int64_t;
+using u64 = uint64_t;
+using f64 = long double;
+using i128 = __int128_t;
+using u128 = __uint128_t;
+
+const long double eps = 1e-12;
+const i64 mod = 1e9 + 7;
+const i64 INF = 1e18;
+const int inf = 1e9;
+
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
+
+
+
+void solve()
+{
+    int n, k;
+    cin >> n >> k;
+    string s;
+    cin >> s;
+    s = " " + s;
+    vector<vector<int>> idx(26);
+    for (int i = 1; i <= n; i++)
+    {
+        idx[s[i] - 'a'].push_back(i);
+    }
+
+    int ans = n + 1;
+    for (int i = 0; i < 26; i++)
+    {
+        for (int j = 0; j + k - 1 < idx[i].size(); j++)
+        {
+            ans = min(ans, idx[i][j + k - 1] - idx[i][j] + 1);
+        }
+    }
+
+    cout << (ans == n + 1 ? -1 : ans);
+}
+
+int main()
+{
+    // ios::sync_with_stdio(false);
+    // cout.tie(nullptr);
+    // cin.tie(nullptr);
+    int T = 1;
+    // cin >> T;
+    while (T--)
+        solve();
+    return 0;
+}

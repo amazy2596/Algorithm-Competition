@@ -1,19 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-using u32 = uint32_t;
 using i64 = int64_t;
-using u64 = uint64_t;
-using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
-
-const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
-
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
 
 // snippet-begin:
 struct HLD
@@ -25,6 +13,7 @@ struct HLD
     vector<int> fa;
     vector<int> deep;
     vector<int> siz;
+    vector<int> son;
 
     vector<int> dfn;
     vector<int> rev;
@@ -36,6 +25,7 @@ struct HLD
         fa.resize(n + 1, -1);
         deep.resize(n + 1);
         siz.resize(n + 1);
+        son.resize(n + 1, 0);
 
         dfn.resize(n + 1);
         rev.resize(n + 1);
@@ -65,8 +55,7 @@ struct HLD
             if (v == p)
                 continue;
             dfs1(v, u, d + 1);
-            if (siz[v] > siz[adj[u][0]])
-                swap(v, adj[u][0]);
+            if (siz[v] > siz[son[u]]) son[u] = v;
             siz[u] += siz[v];
         }
     }
@@ -76,9 +65,10 @@ struct HLD
         top[u] = t;
         dfn[u] = id++;
         rev[dfn[u]] = u;
+        if (son[u]) dfs2(son[u], t);
         for (auto v : adj[u])
         {
-            if (v == fa[u])
+            if (v == fa[u] || v == son[u])
                 continue;
             dfs2(v, v);
         }
