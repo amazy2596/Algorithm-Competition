@@ -49,7 +49,6 @@ bool is_prime(i64 n) {
     return true;
 }
 
-// --- Pollard's Rho 核心算法 ---
 // 寻找 n 的一个非平凡因子 (不一定是素数)
 i64 pollard_rho(i64 n) {
     if (n == 4) return 2;
@@ -85,7 +84,7 @@ i64 pollard_rho(i64 n) {
     return n;
 }
 
-// --- 递归分解主函数 ---
+// n的范围是[1, 1e18]
 void factorize(i64 n, vector<i64>& factors) {
     if (n == 1) return;
     if (is_prime(n)) {

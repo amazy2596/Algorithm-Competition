@@ -1,5 +1,0 @@
-auto save
-alt键的快捷键
-coderunner运行快捷键 , run in terminal  , run in terminal  , 
-
-有时间可选: smooth

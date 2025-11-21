@@ -1,10 +1,7 @@
-ll exgcd(ll a, ll b, ll &x, ll &y) {
-    if (b == 0) {
-        x = 1;
-        y = 0;
-        return a;
+array<i64, 3> exgcd(i64 a, i64 b) {
+    if(b == 0) {
+        return {a, 1, 0};
     }
-    ll g = exgcd(b, a % b, y, x);
-    y -= a / b * x;
-    return g;
+    auto [gd, x, y] = exgcd(b, a % b);
+    return {gd, y, x - a / b * y};
 }

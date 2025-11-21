@@ -4,6 +4,7 @@ using i64 = int64_t;
 using i128 = __int128_t;
 
 // snippet-begin:
+const i64 mod = 1e9 + 7;
 struct Matrix 
 {
     int n, m;
@@ -19,7 +20,7 @@ struct Matrix
         {
             for (auto x : row)
             {
-                mt[i++] = x;
+                mt[i++] = (x % mod + mod) % mod;
             }
         }
     }
@@ -27,27 +28,85 @@ struct Matrix
     i64* operator[](int i) { return mt.data() + i * m; }
     const i64* operator[](int i) const { return mt.data() + i * m; }
 
-    void identity()
+    static Matrix identity(int n) 
     {
-        assert(n == m);
-        fill(mt.begin(), mt.end(), 0);
-        for (int i = 0; i < n; i++) (*this)[i][i] = 1;
+        Matrix res(n, n);
+        for (int i = 0; i < n; i++) res[i][i] = 1;
+        return res;
     }
 
-    friend Matrix operator*(const Matrix &l, const Matrix &r) 
+    friend Matrix operator+(const Matrix &a, const Matrix &b) 
     {
-        assert(l.m == r.n);
-        Matrix res(l.n, r.m);
-        for (int i = 0; i < l.n; i++) 
+        assert(a.n == b.n && a.m == b.m);
+        Matrix res(a.n, a.m);
+        for (int i = 0; i < a.n * a.m; i++) 
         {
-            for (int k = 0; k < l.m; k++) 
+            res.mt[i] = (a.mt[i] + b.mt[i]) % mod;
+        }
+        return res;
+    }
+
+    friend Matrix operator*(const Matrix &a, const Matrix &b) 
+    {
+        assert(a.m == b.n);
+        Matrix res(a.n, b.m);
+        for (int i = 0; i < a.n; i++) 
+        {
+            for (int k = 0; k < a.m; k++) 
             {
-                for (int j = 0; j < r.m; j++) 
+                i64 r = a[i][k];
+                if (r == 0) continue;
+                for (int j = 0; j < b.m; j++) 
                 {
-                    res[i][j] += l[i][k] * r[k][j];
+                    res[i][j] = (res[i][j] + (i128)r * b[k][j]) % mod;
                 }
             }
         }
+        return res;
+    }
+
+    Matrix fast_pow(i64 b) const
+    {
+        Matrix res = Matrix::identity(n);
+        Matrix base = *this;
+        while (b) 
+        {
+            if (b & 1) res = res * base;
+            base = base * base;
+            b >>= 1;
+        }
+        return res;
+    }
+
+    i64 det() const 
+    {
+        assert(n == m);
+        Matrix temp = *this;
+        i64 res = 1;
+        int w = 1;
+
+        for (int i = 0; i < n; i++) 
+        {
+            for (int j = i + 1; j < n; j++) 
+            {
+                while (temp[j][i] != 0) 
+                {
+                    i64 t = temp[i][i] / temp[j][i];
+                    for (int k = i; k < n; k++) 
+                    {
+                        temp[i][k] = (temp[i][k] - (i128)t * temp[j][k] % mod + mod) % mod;
+                    }
+                    for (int k = i; k < n; k++) 
+                    {
+                        swap(temp[i][k], temp[j][k]);
+                    }
+                    w = -w;
+                }
+            }
+            if (temp[i][i] == 0) return 0;
+            res = ((i128)res * temp[i][i]) % mod;
+        }
+        if (w == -1) res = (mod - res) % mod;
         return res;
     }
 
@@ -63,20 +122,6 @@ struct Matrix
         return os;
     }
 };
-
-Matrix fast_pow(Matrix base, i64 b) 
-{
-    assert(base.n == base.m);
-    Matrix res(base.n, base.n);
-    res.identity();
-    while (b) 
-    {
-        if (b & 1) res = res * base;
-        base = base * base;
-        b >>= 1;
-    }
-    return res;
-}
 // snippet-end:
 
 void solve()

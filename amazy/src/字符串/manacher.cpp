@@ -1,22 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
-using u32 = uint32_t;
 using i64 = int64_t;
-using u64 = uint64_t;
-using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
 
-const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
-
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](u64 l, u64 r) { return (l <= r ? uniform_int_distribution<u64>(l, r)(rng) : 0); };
-
-// snippet-begin:
 /*
+加#, abc -> #a#b#c#
 start = (i - p[i]) / 2;
 end = (i + p[i]) / 2 - 1 = start + p[i] - 1;
 [start, end] 代表原始字符串中以 (i) 或者 (i - 1 和 i) 为中心的回文串
@@ -43,22 +31,4 @@ vector<int> manacher(string &s)
     }
 
     return p;
-}
-// snippet-end
-
-void solve()
-{
-    
-}
-
-signed main()
-{
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
-    int T = 1;
-    // cin >> T;
-    while (T--)
-        solve();
-    return 0;
 }

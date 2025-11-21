@@ -26,7 +26,7 @@ struct NTT
         return res;
     }
 
-    i64 inv(i64 x) 
+    i64 inv(i64 x)
     {
         return fast_pow(x, mod - 2);
     }
@@ -239,7 +239,7 @@ struct NTT
     {
         assert(a.size() > 0 && a[0] != 0);
 
-        vector<i64> b = {inv(a[0], mod)};
+        vector<i64> b = {inv(a[0])};
 
         int k = 1;
         while (k < n)
@@ -286,14 +286,14 @@ struct NTT
         if (n == 0) return {};
         
         vector<i64> b(1);
-        b[0] = sqrt_mod(a[0], mod);
+        b[0] = sqrt_mod(a[0]);
         b[0] = min(b[0], mod - b[0]);
 
         assert(b[0] >= 0);
 
         vector<i64> inv_b(1);
-        inv_b[0] = inv(b[0], mod);
-        i64 inv2 = inv(2, mod);
+        inv_b[0] = (b[0]);
+        i64 inv2 = inv(2);
 
         int k = 1;
         while (k < n)

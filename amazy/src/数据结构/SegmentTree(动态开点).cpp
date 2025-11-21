@@ -1,20 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
-using u64 = uint64_t;
-using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
 
-const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
-const i64 INF = 1e18;
-const int inf = 1e9;
-
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
-
-// snippet-begin: SegmentTree, 动态开点
 #define ls (node->l)
 #define rs (node->r)
 
@@ -137,109 +125,35 @@ struct SegmentTree
 
 struct info
 {
-    i64 mx = -INF;
-    i64 mn = INF;
     i64 sum = 0;
-    i64 ssum = 0;
     int len = 0;
     
-    info () : mx(-INF), mn(INF), sum(0), ssum(0), len(0) {};
-    info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
+    info () : sum(0), len(0) {};
+    info (i64 val) : sum(val), len(1) {};
 };
 
 info operator+(const info &l, const info &r)
 {
     info res;
-    res.mx = max(l.mx, r.mx);
-    res.mn = min(l.mn, r.mn);
     res.sum = l.sum + r.sum;
-    res.ssum = l.ssum + r.ssum;
     res.len = l.len + r.len;
-
     return res;
 }
 
-// // 区间加
-// struct tagAdd
-// {
-//     i64 add = 0;
-
-//     tagAdd() : add(0) {}
-//     tagAdd(i64 _add) : add(_add) {}
-
-//     bool empty() const
-//     {
-//         return add == 0;
-//     }
-
-//     void apply(info &a) const 
-//     {
-//         i64 old = a.sum;
-
-//         a.mx += add;
-//         a.mn += add;
-//         a.sum += add * a.len;
-//         a.ssum += 2 * add * old + add * add * a.len;
-//     }
-
-//     void merge(const tagAdd &o)
-//     {
-//         if (o.empty())
-//             return;
-
-//         add += o.add;
-//     }
-// };
-
-// // 区间赋值
-// struct tagAssign
-// {
-//     bool has = false;
-//     i64 val = 0;
-
-//     tagAssign() : has(false), val(0) {};
-//     tagAssign(i64 _val) : has(true), val(_val) {};
-
-//     bool empty() const 
-//     {
-//         return !has;
-//     }
-
-//     void apply(info &a) const
-//     {
-//         a.mx = val;
-//         a.mn = val;
-//         a.sum = val * a.len;
-//         a.ssum = val * val * a.len;
-//     }
-
-//     void merge(const tagAssign &o)
-//     {
-//         if (!o.has)
-//             return;
-
-//         has = true;
-//         val = o.val;
-//     }
-// };
+// 区间加
+struct tagAdd
+{
+    i64 add = 0;
+    tagAdd() : add(0) {}
+    tagAdd(i64 _add) : add(_add) {}
+    bool empty() const { return add == 0; }
+    void apply(info &a) const { a.sum += add * a.len; }
+    void merge(const tagAdd &o)
+    {
+        if (o.empty()) return;
+        add += o.add;
+    }
+};
 
 #undef ls
 #undef rs
-// snippet-end:
-
-void solve()
-{
-    
-}
-
-int main()
-{
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
-    int T = 1;
-    // cin >> T;
-    while (T--)
-        solve();
-    return 0;
-}

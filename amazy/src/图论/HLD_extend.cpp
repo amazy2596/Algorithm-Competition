@@ -1,20 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
-using u64 = uint64_t;
-using f64 = long double;
 using i128 = __int128_t;
-using u128 = __uint128_t;
 
-const long double eps = 1e-12;
-const i64 mod = 1e9 + 7;
 const i64 INF = 1e18;
-const int inf = 1e9;
-
-mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
-auto rnd = [](i64 l, i64 r) { return (l <= r ? uniform_int_distribution<i64>(l, r)(rng) : 0); };
-
-// snippet-begin: HLD_extend
 #define ls (node * 2 + 1)
 #define rs (node * 2 + 2)
 
@@ -137,25 +126,18 @@ struct SegmentTree
 
 struct info
 {
-    i64 mx = -INF;
-    i64 mn = INF;
     i64 sum = 0;
-    i64 ssum = 0;
     int len = 0;
     
-    info () : mx(-INF), mn(INF), sum(0), ssum(0), len(0) {};
-    info (i64 val) : mx(val), mn(val), sum(val), ssum(val * val), len(1) {};
+    info () : sum(0), len(0) {};
+    info (i64 val) : sum(val), len(1) {};
 };
 
 info operator+(const info &l, const info &r)
 {
     info res;
-    res.mx = max(l.mx, r.mx);
-    res.mn = min(l.mn, r.mn);
     res.sum = l.sum + r.sum;
-    res.ssum = l.ssum + r.ssum;
     res.len = l.len + r.len;
-
     return res;
 }
 
@@ -163,63 +145,14 @@ info operator+(const info &l, const info &r)
 struct tagAdd
 {
     i64 add = 0;
-
     tagAdd() : add(0) {}
     tagAdd(i64 _add) : add(_add) {}
-
-    bool empty() const
-    {
-        return add == 0;
-    }
-
-    void apply(info &a) const 
-    {
-        i64 old = a.sum;
-
-        a.mx += add;
-        a.mn += add;
-        a.sum += add * a.len;
-        a.ssum += 2 * add * old + add * add * a.len;
-    }
-
+    bool empty() const { return add == 0; }
+    void apply(info &a) const { a.sum += add * a.len; }
     void merge(const tagAdd &o)
     {
-        if (o.empty())
-            return;
-
+        if (o.empty()) return;
         add += o.add;
-    }
-};
-
-// 区间赋值
-struct tagAssign
-{
-    bool has = false;
-    i64 val = 0;
-
-    tagAssign() : has(false), val(0) {};
-    tagAssign(i64 _val) : has(true), val(_val) {};
-
-    bool empty() const 
-    {
-        return !has;
-    }
-
-    void apply(info &a) const
-    {
-        a.mx = val;
-        a.mn = val;
-        a.sum = val * a.len;
-        a.ssum = val * val * a.len;
-    }
-
-    void merge(const tagAssign &o)
-    {
-        if (!o.has)
-            return;
-
-        has = true;
-        val = o.val;
     }
 };
 
@@ -239,6 +172,7 @@ struct HLD
     vector<int> fa;
     vector<int> deep;
     vector<int> siz;
+    vector<int> son;
 
     vector<int> dfn;
     vector<int> rev;
@@ -246,12 +180,13 @@ struct HLD
 
     SegmentTree<info, Tag> tree;
 
-    HLD(int _n, int _start = 1) : n(_n), start(_start), cap(n + start)
+    HLD(int _n, int _start = 1) : n(_n), start(_start), cap(n + start), id(_start)
     {
         adj.resize(cap);
         fa.resize(cap, -1);
         deep.resize(cap);
         siz.resize(cap);
+        son.resize(cap);
 
         dfn.resize(cap);
         rev.resize(cap);
@@ -260,7 +195,6 @@ struct HLD
 
     void build(int root)
     {
-        id = 0;
         dfs1(root, -1, 0);
         dfs2(root, root);
     }
@@ -269,7 +203,7 @@ struct HLD
     void init(vector<T> &input)
     {
         use_edge = 0;
-        vector<T> tmp(n, 0);
+        vector<T> tmp(cap, 0);
         for (int i = start; i < cap; i++)
             tmp[dfn[i]] = input[i];
         
@@ -280,7 +214,7 @@ struct HLD
     void init(vector<tuple<int, int, T>> &input)
     {
         use_edge = 1;
-        vector<T> tmp(n, 0);
+        vector<T> tmp(cap, 0);
         for (auto [u, v, w] : input)
         {
             if (deep[u] > deep[v])
@@ -308,8 +242,7 @@ struct HLD
             if (v == p)
                 continue;
             dfs1(v, u, d + 1);
-            if (siz[v] > siz[adj[u][0]])
-                swap(v, adj[u][0]);
+            if (siz[v] > siz[son[u]]) son[u] = v;
             siz[u] += siz[v];
         }
     }
@@ -319,9 +252,10 @@ struct HLD
         top[u] = t;
         dfn[u] = id++;
         rev[dfn[u]] = u;
+        if (son[u]) dfs2(son[u], t);
         for (auto v : adj[u])
         {
-            if (v == fa[u])
+            if (v == fa[u] || v == son[u])
                 continue;
             dfs2(v, v);
         }
@@ -412,21 +346,3 @@ struct HLD
         return tree.query(l + use_edge, r);
     }
 };
-// snippet-end
-
-void solve()
-{
-   
-}
-
-int main()
-{
-    // ios::sync_with_stdio(false);
-    // cout.tie(nullptr);
-    // cin.tie(nullptr);
-    int T = 1;
-    // cin >> T;
-    while (T--)
-        solve();
-    return 0;
-}

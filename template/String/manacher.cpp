@@ -5,6 +5,7 @@ using i128 = __int128_t;
 
 // snippet-begin:
 /*
+加#, abc -> #a#b#c#
 start = (i - p[i]) / 2;
 end = (i + p[i]) / 2 - 1 = start + p[i] - 1;
 [start, end] 代表原始字符串中以 (i) 或者 (i - 1 和 i) 为中心的回文串

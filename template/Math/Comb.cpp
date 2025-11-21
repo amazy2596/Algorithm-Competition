@@ -20,7 +20,7 @@ struct Comb
         for (int i = 1; i <= n; i++) 
             fact[i] = 1LL * fact[i - 1] * i % mod;
             
-        ifact[n] = fast_pow(fact[n], mod - 2);
+        ifact[n] = inv(fact[n]);
         for (int i = n - 1; i >= 0; i--) 
             ifact[i] = 1LL * ifact[i + 1] * (i + 1) % mod;
     }

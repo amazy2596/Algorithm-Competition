@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.1)  16 OCT 2025 17:23
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.1)  20 NOV 2025 23:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -984,13 +984,13 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 (xeCJK)                Try to use `\setCJKmonofont[<...>]{<...>}' to define
 (xeCJK)                it.
 
-(./src/数据结构/Chtholly.cpp)
+(./src/数据结构/SegmentTree.cpp
 
 
 
 
 
-[1] (./src/数据结构/DSU.cpp) (./src/数据结构/Fenwick.cpp
+[1]) (./src/数据结构/SegmentTree(动态开点).cpp
 
 
 
@@ -1002,61 +1002,61 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 
 
 
-[3]) (./src/数据结构/SegmentTree(动态开点).cpp
+[3]) (./src/数据结构/Fenwick(区间修改 + 区间查询).cpp
 
 
 
 
 
-[4]
+[4]) (./src/数据结构/Fenwick(单点修改 + 区间查询 + 第k小值).cpp) (./src/数据结构/DSU.cpp
 
 
 
 
 
-[5]
+[5]) (./src/数据结构/ST.cpp) (./src/数据结构/ODT.cpp
 
 
 
 
 
-[6]) (./src/数据结构/SegmentTree.cpp
+[6]) (./src/数据结构/treap.cpp
 
 
 
 
 
-[7]
+[7]) (./src/图论/LCA.cpp
 
 
 
 
 
-[8]) (./src/数据结构/SparseTable.cpp
+[8]) (./src/图论/HLD.cpp
 
 
 
 
 
-[9]) (./src/数据结构/treap.cpp
+[9]) (./src/图论/TarjanEBCC.cpp
 
 
 
 
 
-[10]) (./src/图论/HLD.cpp
+[10]) (./src/图论/TarjanSCC.cpp
 
 
 
 
 
-[11]
+[11]) (./src/图论/HLD_extend.cpp
 
 
 
 
 
-[12]) (./src/图论/HLD_extend.cpp
+[12]
 
 
 
@@ -1074,61 +1074,61 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 
 
 
-[15]
+[15]) (./src/图论/HopcroftKarp.cpp
 
 
 
 
 
-[16]
+[16]) (./src/数学/BigInt.cpp
 
 
 
 
 
-[17]) (./src/图论/HopcroftKarp.cpp
+[17]
 
 
 
 
 
-[18]) (./src/图论/LCA.cpp
+[18]) (./src/数学/Comb.cpp
 
 
 
 
 
-[19]
+[19]) (./src/数学/多项式/FFT.cpp
 
 
 
 
 
-[20]) (./src/图论/TarjanEBCC.cpp
+[20]) (./src/数学/多项式/FWT.cpp
 
 
 
 
 
-[21]) (./src/图论/TarjanSCC.cpp
+[21]
 
 
 
 
 
-[22]
+[22]) (./src/数学/多项式/MTT.cpp
 
 
 
 
 
-[23]) (./src/字符串/01tire.cpp
+[23]
 
 
 
 
 
-[24]) (./src/字符串/AhoCorasick.cpp
+[24]
 
 
 
@@ -1140,13 +1140,13 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 
 
 
-[26]) (./src/字符串/PAM.cpp
+[26]) (./src/数学/多项式/NTT.cpp
 
 
 
 
 
-[27]) (./src/字符串/StringHash.cpp
+[27]
 
 
 
@@ -1158,187 +1158,103 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 
 
 
-[29]) (./src/字符串/Z.cpp) (./src/字符串/manacher.cpp
+[29]) (./src/数学/数论/DuSieve.cpp
 
 
 
 
 
-[30]) (./src/字符串/trie.cpp
+[30]) (./src/数学/数论/LinearSieve.cpp
 
 
 
 
 
-[31]) (./src/数学/BigNum.cpp
+[31]
 
 
 
 
 
-[32]
+[32]) (./src/数学/数论/Minller.cpp) (./src/数学/数论/Pollard_Rho.cpp
 
 
 
 
 
-[33]
+[33]) (./src/数学/数论/fast_pow.cpp
 
 
 
 
 
-[34]
+[34]) (./src/数学/数论/sqrt_mod.cpp
 
 
 
 
 
-[35]
+[35]) (./src/数学/线性代数/LinearBasis.cpp
 
 
 
 
 
-[36]
+[36]) (./src/数学/线性代数/Matrix.cpp
 
 
 
 
 
-[37]
+[37]) (./src/字符串/01tire.cpp
 
 
 
 
 
-[38]
+[38]) (./src/字符串/trie.cpp) (./src/字符串/kmp.cpp)
 
 
 
 
 
-[39]) (./src/数学/Comb.cpp
+[39] (./src/字符串/Z.cpp) (./src/字符串/StringHash.cpp
 
 
 
 
 
-[40]
+[40]) (./src/字符串/AhoCorasick.cpp
 
 
 
 
 
-[41]) (./src/数学/FFT.cpp
+[41]) (./src/字符串/manacher.cpp
 
 
 
 
 
-[42]
+[42]) (./src/字符串/PAM.cpp
 
 
 
 
 
-[43]) (./src/数学/FWT.cpp
+[43]) (./src/附录/safe_hash.cpp
 
 
 
 
 
-[44]) (./src/数学/LinearBasis.cpp
+[44]) (./src/附录/日期公式.cpp) (./src/附录/命令行.cpp
 
 
 
 
 
-[45])
-
-
-
-
-
-[46] (./src/数学/LinearSieve.cpp
-
-
-
-
-
-[47]) (./src/数学/MTT.cpp
-
-
-
-
-
-[48]
-
-
-
-
-
-[49]
-
-
-
-
-
-[50]
-
-
-
-
-
-[51]
-
-
-
-
-
-[52]) (./src/数学/Matrix.cpp
-
-
-
-
-
-[53]) (./src/数学/NTT.cpp
-
-
-
-
-
-[54]
-
-
-
-
-
-[55]
-
-
-
-
-
-[56]
-
-
-
-
-
-[57]) (./src/数学/fast_pow.cpp) (./src/数学/sqrt_mod.cpp
-
-
-
-
-
-[58]
-
-
-
-
-
-[59]) (./src/附录/VSCode设置.tex) (./src/附录/互质的规律.tex
+[45]) (./src/附录/VSCode设置.tex) (./src/附录/互质的规律.tex
 Underfull \hbox (badness 10000) in paragraph at lines 21--23
 
  []
@@ -1349,8 +1265,8 @@ Underfull \hbox (badness 10000) in paragraph at lines 21--23
 
 
 
-[60]) (./src/附录/常见错因.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--76
+[46]) (./src/附录/常见错因.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--95
 
  []
 
@@ -1365,33 +1281,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
 
 
-[61]
+[47]
 
 
 
 
 
-[62]) (./src/附录/组合数学公式.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--82
-
- []
-
-(./src/附录/编译参数.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--84
+[48]) (./src/附录/组合数学公式.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--101
 
  []
 
-(./src/附录/运行脚本.tex (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-) (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
-File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
-
-
-
-
-
-[63]) (./src/附录/随机素数.tex))
+(./src/附录/随机素数.tex))
 Underfull \hbox (badness 10000) in paragraph at lines 1--195
 
  []
@@ -1402,21 +1303,27 @@ Underfull \hbox (badness 10000) in paragraph at lines 1--195
 
 
 
-[64] (./amazy.aux)
+[49]
+
+
+
+
+
+[50] (./amazy.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `amazy.out' has not changed.
-(rerunfilecheck)             Checksum: AF21219BF9BFD237AB2B1E7D0528C5DF;4163.
+(rerunfilecheck)             Checksum: D808443170806873B957B4CBEA605996;5276.
  ) 
 Here is how much of TeX's memory you used:
- 21339 strings out of 470395
- 425224 string characters out of 5486708
- 2230979 words of memory out of 5000000
- 49191 multiletter control sequences out of 15000+600000
- 638312 words of font info for 136 fonts, out of 8000000 for 9000
+ 21321 strings out of 470395
+ 425111 string characters out of 5486708
+ 2230331 words of memory out of 5000000
+ 49158 multiletter control sequences out of 15000+600000
+ 638304 words of font info for 135 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 93i,10n,95p,412b,2440s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,10n,95p,412b,2498s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on amazy.xdv (66 pages, 5058776 bytes).
+Output written on amazy.xdv (52 pages, 3749768 bytes).

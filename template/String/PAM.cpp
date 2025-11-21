@@ -3,9 +3,8 @@ using namespace std;
 using i64 = int64_t;
 using i128 = __int128_t;
 
-// snippet-begin:
 /**
- * @brief 回文自动机 (PAM - Palindromic Automaton)，也称回文树。
+ * @brief 回文自动机 (PAM)，也称回文树。
  *        用于在线性时间内处理字符串的所有回文子串信息。
  */
 struct PAM
@@ -20,6 +19,8 @@ struct PAM
         int len = 0;        // 当前节点代表的回文串的长度。
         int end = 0;        // 记录以当前节点代表的回文串为后缀的次数。调用 count() 后，变为在整个串中的出现次数。
         int num = 0;        // 当前节点代表的回文串所包含的回文后缀数量 (包括自身)。
+
+        node(int l = 0) : len(l) { nex.fill(0); }
     };
 
     vector<node> tree; // 使用 vector 存储所有节点。
@@ -32,13 +33,10 @@ struct PAM
      */
     PAM()
     {
-        tree.emplace_back(); // 0号节点
-        tree.emplace_back(); // 1号节点
-        tree[0].len = 0;
-        tree[1].len = -1;
-
+        tree.emplace_back(0); // 0号节点
+        tree.emplace_back(-1); // 1号节点
         tree[0].fail = 1; // 偶根的 fail 指向奇根
-        tree[1].fail = 1; // 奇根的 fail 指向自身（或偶根，视实现而定）
+        tree[1].fail = 0; // 奇根的 fail 指向自身（或偶根，视实现而定）
 
         s = " ";  // 字符串下标从1开始，s[0]为占位符
         last = 0; // 初始时，最长回文后缀是空串，对应0号节点
@@ -74,12 +72,13 @@ struct PAM
      * @param ch 要插入的字符。
      * @param i  字符在原字符串中的1-based索引。
      */
-    void insert(char ch, int i)
+    void insert(char ch)
     {
         s += ch;
+        int pos = s.size() - 1;
         int c = ch - 'a';
         // 找到能扩展成新回文串的、当前串的最长回文后缀节点 u
-        int u = getFail(last, i);
+        int u = getFail(last, pos);
 
         // 如果这个新回文串不存在
         if (!tree[u].nex[c])
@@ -88,9 +87,12 @@ struct PAM
 
             tree[v].len = tree[u].len + 2;
             // v 的 fail 指针是 u 的 fail 链上第一个能扩展成回文串的节点
-            tree[v].fail = tree[getFail(tree[u].fail, i)].nex[c];
+            if (tree[v].len == 1) {
+                tree[v].fail = 0;
+            } else {
+                tree[v].fail = tree[getFail(tree[u].fail, pos)].nex[c];
+            }
             tree[v].num = tree[tree[v].fail].num + 1;
-            
             tree[u].nex[c] = v;
         }
 

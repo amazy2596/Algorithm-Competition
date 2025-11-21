@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.1)  16 OCT 2025 17:22
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.9.1)  21 NOV 2025 00:44
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -959,7 +959,13 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 [1
 
-] (./woquneidi.toc)
+] (./woquneidi.toc
+
+
+
+
+
+[1])
 \tf@toc=\write4
 \openout4 = `woquneidi.toc'.
 
@@ -969,7 +975,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 
-[1] (./contents.tex (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+[2] (./contents.tex (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 ) (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
@@ -1044,127 +1050,133 @@ Package xeCJK Warning: Unknown CJK family `\CJKttdefault' is being ignored.
 
 
 
-[10] (./src/图论/bellmanfloyd.cpp) (./src/图论/dijk.cpp) (./src/图论/dinic求最大流.cpp
+[10] (./src/树上问题/LCA(倍增).cpp) (./src/树上问题/LCA.cpp
 
 
 
 
 
-[11]
+[11]) (./src/树上问题/树上启发式合并.cpp
 
 
 
 
 
-[12]) (./src/图论/kruskal.cpp) (./src/图论/prim.cpp
+[12]
 
 
 
 
 
-[13]) (./src/图论/tarjan割点.cpp
+[13]) (./src/树上问题/重链剖分.cpp)
 
 
 
 
 
-[14]) (./src/图论/tarjan求强连通分量.cpp
+[14] (./src/图论/bellmanfloyd.cpp) (./src/图论/dijk.cpp) (./src/图论/dinic求最大流.cpp
 
 
 
 
 
-[15]) (./src/图论/tarjan求边双连通分量.cpp
+[15]
 
 
 
 
 
-[16]
+[16]) (./src/图论/kruskal.cpp) (./src/图论/prim.cpp
 
 
 
 
 
-[17]) (./src/图论/匈牙利算法.cpp) (./src/图论/最大流最小费用.cpp
+[17]) (./src/图论/tarjan割点.cpp
 
 
 
 
 
-[18]) (./src/树上问题/LCA(倍增).cpp) (./src/树上问题/LCA.cpp
+[18]) (./src/图论/tarjan求强连通分量.cpp
 
 
 
 
 
-[19]
+[19]) (./src/图论/tarjan求边双连通分量.cpp
 
 
 
 
 
-[20]) (./src/树上问题/重链剖分.cpp) (./src/字符串/KMP.cpp
+[20]
 
 
 
 
 
-[21]) (./src/字符串/hash_string.cpp) (./src/字符串/trie.cpp
+[21]) (./src/图论/匈牙利算法.cpp) (./src/图论/最大流最小费用.cpp
 
 
 
 
 
-[22]) (./src/数学/exgcd.cpp) (./src/数学/millerRabin.cpp) (./src/数学/qmi.cpp)
+[22]) (./src/字符串/KMP.cpp) (./src/字符串/hash_string.cpp
 
 
 
 
 
-[23] (./src/数学/欧拉筛(和一个数质因数分解).cpp) (./src/数学/矩阵.cpp
+[23]) (./src/字符串/trie.cpp) (./src/数学/exgcd.cpp) (./src/数学/millerRabin.cpp
 
 
 
 
 
-[24]) (./src/数学/线性筛.cpp
+[24]) (./src/数学/qmi.cpp) (./src/数学/扩展中国剩余定理.cpp)
 
 
 
 
 
-[25]) (./src/数学/组合数.cpp) (./src/计算几何/凸包.cpp
+[25] (./src/数学/欧拉筛(和一个数质因数分解).cpp) (./src/数学/矩阵.cpp
 
 
 
 
 
-[26]
+[26]) (./src/数学/线性筛.cpp
 
 
 
 
 
-[27]) (./src/附录/VSCode设置.tex) (./src/附录/互质的规律.tex
-Underfull \hbox (badness 10000) in paragraph at lines 21--23
+[27]) (./src/数学/组合数.cpp) (./src/计算几何/凸包.cpp
 
- []
 
-) (./src/附录/常数表.tex
 
 
 
+[28]
 
 
-[28]) (./src/附录/常见错因.tex)
+
+
+
+[29]) (./src/杂项/常数表.tex) (./src/杂项/随机素数.tex)
 Underfull \hbox (badness 10000) in paragraph at lines 1--84
 
  []
 
-(./src/附录/斐波那契数列.tex) (./src/附录/算法.tex
-Underfull \hbox (badness 10000) in paragraph at lines 24--25
-[]\TU/MicrosoftYaHei(0)/m/n/9.03374 一 个 二 进 制 状 态\TU/lmr/m/n/9.03374 , \TU/MicrosoftYaHei(0)/m/n/9.03374 枚 举 他 的 所 有 子 集 状 态 \TU/Consolas(0)/m/n/9.03374 for(j = status; j > 0; j = (j - 1) &
+(./src/杂项/互质的规律.tex
+Underfull \hbox (badness 10000) in paragraph at lines 21--23
+
+ []
+
+) (./src/杂项/常见错因.tex)
+Underfull \hbox (badness 10000) in paragraph at lines 1--88
+
  []
 
 
@@ -1173,58 +1185,244 @@ Underfull \hbox (badness 10000) in paragraph at lines 24--25
 
 
 
-[29]
+[30] (./src/杂项/数论基础.tex) (./src/杂项/算法.tex
 
 
 
 
 
-[30]) (./src/附录/组合数学公式.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--90
+[31]
 
- []
 
-(./src/附录/编译参数.tex)
-Underfull \hbox (badness 10000) in paragraph at lines 1--92
 
- []
 
-(./src/附录/运行脚本.tex (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
+
+[32])
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+
+
+
+
+
+
+[33]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 2>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 2>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 2>
+[34]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 3>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 3>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 4>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 4>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 3>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 4>
+[35]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 5>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 5>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 6>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 6>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 5>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 6>
+[36]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 7>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 7>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 8>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 8>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 7>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 8>
+[37]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 9>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 9>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 10>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 10>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 9>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 10>
+[38]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 11>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 11>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 12>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 12>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 11>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 12>
+[39]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 13>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 13>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 14>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 14>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 13>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 14>
+[40]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 15>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 15>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 16>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 16>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 15>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 16>
+[41]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 17>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 17>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 18>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 18>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 17>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 18>
+[42]
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 19>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 19>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 1>
+
+
+
+
+
+
+File: src/杂项/组合数学.pdf Graphic file (type pdf)
+<use src/杂项/组合数学.pdf, page 19>
+[43] (./src/杂项/运行脚本.tex (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 ) (d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
-)
+)) (./src/杂项/VSCode设置.tex))
 
 
 
 
 
-[31]) (./src/附录/随机素数.tex))
-Underfull \hbox (badness 10000) in paragraph at lines 1--195
-
- []
-
-
-
-
-
-
-
-[32] (./woquneidi.aux)
+[44] (./woquneidi.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2022/08/05>
  ***********
 Package rerunfilecheck Info: File `woquneidi.out' has not changed.
-(rerunfilecheck)             Checksum: B328C96E85A7ACE436E16A3DA4899BCD;5156.
+(rerunfilecheck)             Checksum: F0ADBD041D2491A352AAB87BFA7D5DBE;7247.
  ) 
 Here is how much of TeX's memory you used:
- 21033 strings out of 470395
- 420278 string characters out of 5486708
- 2136312 words of memory out of 5000000
- 48875 multiletter control sequences out of 15000+600000
- 638312 words of font info for 136 fonts, out of 8000000 for 9000
+ 21121 strings out of 470395
+ 423814 string characters out of 5486708
+ 2115677 words of memory out of 5000000
+ 48967 multiletter control sequences out of 15000+600000
+ 635224 words of font info for 124 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 93i,10n,95p,420b,2448s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,18n,95p,414b,2462s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on woquneidi.xdv (34 pages, 2208700 bytes).
+Output written on woquneidi.xdv (47 pages, 2388204 bytes).

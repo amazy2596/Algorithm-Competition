@@ -1,0 +1,220 @@
+\subsubsection{出现的错误检查}
+
+\begin{itemize}
+    \item 超出范围 (int, int64)
+    \item 取模出现错误
+    \item 图可能有重边或者自环
+\end{itemize}
+
+\subsubsection{杂项（通用）}
+
+想不到的题考虑：
+
+\begin{enumerate}
+    \item 二分，二分答案，三分
+    \item DP
+    \item 离线
+    \item 倒推
+    \item 倍增
+    \item 建图
+\end{enumerate}
+
+分块、势能分析、矩阵加速。
+
+一个二进制状态，枚举它的所有子集：
+
+\[
+\text{for}(j = \text{status};\ j > 0;\ j = (j - 1) \& \text{status})
+\]
+
+中位数处理方法：
+
+\begin{itemize}
+    \item 二分 $\Rightarrow$ 转成 $+1,-1$ 判断
+    \item 动态维护：加入元素求中位数：对顶堆
+    \item 动态加入与删除：对顶 multiset
+\end{itemize}
+
+\subsubsection{DP}
+
+\begin{itemize}
+    \item 背包 DP
+    \item 区间 DP
+    \item DAG 图上的 DP
+    \item 树形 DP
+    \begin{itemize}
+        \item 直接 DFS
+        \item DFN 序（可求子树大小、判断节点是否在子树中）
+        \item 换根 DP
+        \item 基环树 DP
+    \end{itemize}
+    \item 状压 DP
+    \item 数位 DP
+\end{itemize}
+
+\subsubsection{搜索}
+
+\begin{itemize}
+    \item DFS，BFS
+    \item 有权图不适合 BFS；01-BFS 适用于边权 0/1
+    \item 双向 BFS：左右各搜一半再合并
+\end{itemize}
+
+\subsubsection{图论}
+
+\subsection*{拓扑排序}
+
+可处理：
+
+\begin{itemize}
+    \item 是否有环
+    \item 环的大小
+    \item 链的长度
+\end{itemize}
+
+\subsection*{Tarjan 缩点}
+
+\begin{itemize}
+    \item 边双联通：任意两点有两条边不相交路径
+    \item 点双联通：任意两点有两条内部点不相交路径
+\end{itemize}
+
+\subsubsection{树}
+
+\subsection*{倍增 LCA}
+
+\subsection*{树的重心}
+
+定义（等价）：
+
+\begin{enumerate}
+    \item 最大子树最小
+    \item 任意子树节点数 $\le \frac{n}{2}$
+    \item 所有点到该点的距离和最小
+\end{enumerate}
+
+性质：
+
+\begin{itemize}
+    \item 最多两个重心，且相邻
+    \item 加删叶子时重心最多移动一条边
+    \item 合并两棵树，新重心在原重心路径上
+    \item 正权树上最小距离和点为重心
+\end{itemize}
+
+\subsection*{树的直径}
+
+求法：
+
+\begin{enumerate}
+    \item 两次 DFS（正权）
+    \item 树形 DP（任意权）
+\end{enumerate}
+
+性质：
+
+\begin{itemize}
+    \item 多条直径有共同公共部分
+    \item 对任意节点，与其最远点集合中包含直径端点之一
+\end{itemize}
+
+\subsection*{树上差分}
+
+\begin{itemize}
+    \item 点差分
+    \item 边差分
+\end{itemize}
+
+\subsection*{其他}
+
+换根 DP、重链剖分、树上启发式合并。
+
+树上启发式合并特征：
+
+\begin{itemize}
+    \item 无修改操作
+    \item 可通过 DFS 收集信息一次性回答所有询问
+\end{itemize}
+
+\subsubsection{数学}
+
+\subsection*{数论}
+
+\begin{itemize}
+    \item 费马小定理
+    \item 欧拉定理 / 扩展欧拉定理
+    \item 威尔逊定理
+    \item 中国剩余定理
+    \item 欧拉函数
+    \item 莫比乌斯函数
+\end{itemize}
+
+\subsection*{组合数学}
+
+\begin{itemize}
+    \item 组合数（含卢卡斯定理）
+    \item 隔板法：$n$ 个相同元素分成 $k$ 组
+    \item 容斥原理
+    \item 卡特兰数：
+    \[
+    f(n)=C(2n,n)-C(2n,n-1)=\frac{C(2n,n)}{n+1}
+    \]
+\end{itemize}
+
+\subsection*{质数与因数分解}
+
+\begin{enumerate}
+    \item 小数：试除
+    \item 大数：Miller–Rabin
+    \item 区间多质数：欧拉筛 / 二次筛
+\end{enumerate}
+
+质因数分解：
+
+\begin{itemize}
+    \item 少量：试除 $O(\sqrt n)$
+    \item 多量：欧拉筛 + $\text{minp}$
+\end{itemize}
+
+其他：矩阵快速幂、整除分块、线性基、卢卡斯定理等。
+
+\subsection*{生成函数}
+
+普通生成函数：
+
+\[
+F(x)=\sum_{i\ge0} a_i x^i
+\]
+
+指数生成函数：
+
+\[
+F(x)=\sum_{i\ge0} a_i \frac{x^i}{i!}
+\]
+
+分别用于多重集的组合数、排列数问题。
+
+\subsubsection{字符串}
+
+\begin{itemize}
+    \item KMP
+    \item 字符串哈希
+    \item Trie
+\end{itemize}
+
+\subsubsection{数据结构}
+
+\begin{itemize}
+    \item 链表、栈、队列
+    \item 单调栈：求前驱/后继大/小元素
+    \item 单调队列：滑动窗口最值
+    \item 堆：对顶堆维护中位数
+    \item 并查集
+    \begin{itemize}
+        \item 扩展域并查集（敌友关系）
+        \item 带权并查集（维护距离/取模）
+    \end{itemize}
+    \item 线段树 (lazy tag、扫描线、动态开点等)
+    \item 树状数组（维护差分、kth、小于当前数数量等）
+    \item 波纹疾走树（区间第 k 小、频次查询）
+\end{itemize}

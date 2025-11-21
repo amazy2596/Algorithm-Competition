@@ -281,6 +281,18 @@ INPUT src/数据结构/线段树(未修改)（SegmentTree+Info 初始赋值+单�
 INPUT ./src/数据结构/线段树（SegmentTree+Info 初始赋值+单点修改+查找前驱后继）.cpp
 INPUT ./src/数据结构/线段树（SegmentTree+Info 初始赋值+单点修改+查找前驱后继）.cpp
 INPUT src/数据结构/线段树（SegmentTree+Info 初始赋值+单点修改+查找前驱后继）.cpp
+INPUT ./src/树上问题/LCA(倍增).cpp
+INPUT ./src/树上问题/LCA(倍增).cpp
+INPUT src/树上问题/LCA(倍增).cpp
+INPUT ./src/树上问题/LCA.cpp
+INPUT ./src/树上问题/LCA.cpp
+INPUT src/树上问题/LCA.cpp
+INPUT ./src/树上问题/树上启发式合并.cpp
+INPUT ./src/树上问题/树上启发式合并.cpp
+INPUT src/树上问题/树上启发式合并.cpp
+INPUT ./src/树上问题/重链剖分.cpp
+INPUT ./src/树上问题/重链剖分.cpp
+INPUT src/树上问题/重链剖分.cpp
 INPUT ./src/图论/bellmanfloyd.cpp
 INPUT ./src/图论/bellmanfloyd.cpp
 INPUT src/图论/bellmanfloyd.cpp
@@ -311,15 +323,6 @@ INPUT src/图论/匈牙利算法.cpp
 INPUT ./src/图论/最大流最小费用.cpp
 INPUT ./src/图论/最大流最小费用.cpp
 INPUT src/图论/最大流最小费用.cpp
-INPUT ./src/树上问题/LCA(倍增).cpp
-INPUT ./src/树上问题/LCA(倍增).cpp
-INPUT src/树上问题/LCA(倍增).cpp
-INPUT ./src/树上问题/LCA.cpp
-INPUT ./src/树上问题/LCA.cpp
-INPUT src/树上问题/LCA.cpp
-INPUT ./src/树上问题/重链剖分.cpp
-INPUT ./src/树上问题/重链剖分.cpp
-INPUT src/树上问题/重链剖分.cpp
 INPUT ./src/字符串/KMP.cpp
 INPUT ./src/字符串/KMP.cpp
 INPUT src/字符串/KMP.cpp
@@ -338,6 +341,9 @@ INPUT src/数学/millerRabin.cpp
 INPUT ./src/数学/qmi.cpp
 INPUT ./src/数学/qmi.cpp
 INPUT src/数学/qmi.cpp
+INPUT ./src/数学/扩展中国剩余定理.cpp
+INPUT ./src/数学/扩展中国剩余定理.cpp
+INPUT src/数学/扩展中国剩余定理.cpp
 INPUT ./src/数学/欧拉筛(和一个数质因数分解).cpp
 INPUT ./src/数学/欧拉筛(和一个数质因数分解).cpp
 INPUT src/数学/欧拉筛(和一个数质因数分解).cpp
@@ -353,15 +359,9 @@ INPUT src/数学/组合数.cpp
 INPUT ./src/计算几何/凸包.cpp
 INPUT ./src/计算几何/凸包.cpp
 INPUT src/计算几何/凸包.cpp
-INPUT ./src/附录/VSCode设置.tex
-INPUT ./src/附录/VSCode设置.tex
-INPUT src/附录/VSCode设置.tex
-INPUT ./src/附录/互质的规律.tex
-INPUT ./src/附录/互质的规律.tex
-INPUT src/附录/互质的规律.tex
-INPUT ./src/附录/常数表.tex
-INPUT ./src/附录/常数表.tex
-INPUT src/附录/常数表.tex
+INPUT ./src/杂项/常数表.tex
+INPUT ./src/杂项/常数表.tex
+INPUT src/杂项/常数表.tex
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi9.tfm
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi6.tfm
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy9.tfm
@@ -374,45 +374,220 @@ INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm7.tfm
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr9.tfm
 INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr6.tfm
-INPUT ./src/附录/常见错因.tex
-INPUT ./src/附录/常见错因.tex
-INPUT src/附录/常见错因.tex
-INPUT ./src/附录/斐波那契数列.tex
-INPUT ./src/附录/斐波那契数列.tex
-INPUT src/附录/斐波那契数列.tex
-INPUT ./src/附录/算法.tex
-INPUT ./src/附录/算法.tex
-INPUT src/附录/算法.tex
-INPUT ./src/附录/组合数学公式.tex
-INPUT ./src/附录/组合数学公式.tex
-INPUT src/附录/组合数学公式.tex
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi12.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmmi8.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmsy8.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmex10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/cmextra/cmex8.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msam10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/amsfonts/symbols/msbm10.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr12.tfm
-INPUT d:/My program/TinyTeX/texmf-dist/fonts/tfm/public/cm/cmr8.tfm
-INPUT ./src/附录/编译参数.tex
-INPUT ./src/附录/编译参数.tex
-INPUT src/附录/编译参数.tex
-INPUT ./src/附录/运行脚本.tex
-INPUT ./src/附录/运行脚本.tex
-INPUT src/附录/运行脚本.tex
+INPUT ./src/杂项/随机素数.tex
+INPUT ./src/杂项/随机素数.tex
+INPUT src/杂项/随机素数.tex
+INPUT ./src/杂项/互质的规律.tex
+INPUT ./src/杂项/互质的规律.tex
+INPUT src/杂项/互质的规律.tex
+INPUT ./src/杂项/常见错因.tex
+INPUT ./src/杂项/常见错因.tex
+INPUT src/杂项/常见错因.tex
+INPUT ./src/杂项/数论基础.tex
+INPUT ./src/杂项/数论基础.tex
+INPUT src/杂项/数论基础.tex
+INPUT ./src/杂项/算法.tex
+INPUT ./src/杂项/算法.tex
+INPUT src/杂项/算法.tex
+INPUT src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/组合数学.pdf
+INPUT ./src/杂项/运行脚本.tex
+INPUT ./src/杂项/运行脚本.tex
+INPUT src/杂项/运行脚本.tex
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT d:/My program/TinyTeX/texmf-dist/tex/latex/listings/lstlang1.sty
-INPUT ./src/附录/随机素数.tex
-INPUT ./src/附录/随机素数.tex
-INPUT src/附录/随机素数.tex
+INPUT ./src/杂项/VSCode设置.tex
+INPUT ./src/杂项/VSCode设置.tex
+INPUT src/杂项/VSCode设置.tex
 INPUT woquneidi.aux
 INPUT ./woquneidi.out
 INPUT ./woquneidi.out
