@@ -3,6 +3,7 @@ using namespace std;
 using i64 = int64_t;
 using i128 = __int128_t;
 
+// snippet-begin:
 /**
  * @brief 回文自动机 (PAM)，也称回文树。
  *        用于在线性时间内处理字符串的所有回文子串信息。
