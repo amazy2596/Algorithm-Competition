@@ -55,6 +55,7 @@ void solve()
         }
         cur += ch;
     }
+    if (cmp(cur, ans)) ans = cur;
 
     if (ans.empty()) cout << "-1\n";
     else cout << ans << "\n";
