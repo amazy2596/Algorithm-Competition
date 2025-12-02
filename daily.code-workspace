@@ -1,0 +1,19 @@
+{
+    "folders": [
+        {
+            "name": "program_2025-12-02",
+            "path": "/Users/amazy/Code/Algorithm-Competition/program_2025/program_12/program_02"
+        },
+        {
+            "name": "Template",
+            "path": "/Users/amazy/Code/Algorithm-Competition/template"
+        },
+        {
+            "name": "Test Case Generator",
+            "path": "/Users/amazy/Code/Test Case Generator"
+        }
+    ],
+    "settings": {
+        "window.title": "${rootName}"
+    }
+}
