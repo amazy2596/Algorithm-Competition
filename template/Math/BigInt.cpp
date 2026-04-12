@@ -11,7 +11,7 @@ ostream& operator<<(ostream &os, i128 n) {
     string s;
     while (n > 0) {
         s += char('0' + n % 10);
-        n /= 10;
+        n /= 10; 
     }
     reverse(s.begin(), s.end());
     return os << s;
