@@ -15,26 +15,42 @@ void solve()
         adj[v].push_back(u);
     }
 
-    auto dfs = [&](auto dfs, int u, int p, int d) -> int
+    vector<int> siz(n + 1), dp(n + 1);
+    auto dfs1 = [&](auto dfs1, int u, int p) -> void
     {
-        int res = d;
+        siz[u] = 1;
         for (auto v : adj[u])
         {
             if (v == p) continue;
-            res += dfs(dfs, v, u, d + 1);
+            dfs1(dfs1, v, u);
+            siz[u] += siz[v];
+            dp[u] += siz[v] + dp[v];
         }
-        return res;
     };
 
-    vector<pair<int, int>> ans(n + 1);
+    vector<int> ans(n + 1);
+    auto dfs2 = [&](auto dfs2, int u, int p) -> void
+    {
+        for (auto v : adj[u])
+        {
+            if (v == p) continue;
+            ans[v] = dp[v] + (ans[u] - (dp[v] + siz[v])) + (n - siz[v]);
+            dfs2(dfs2, v, u);
+        }
+    };
+    dfs1(dfs1, 1, 0);
+    ans[1] = dp[1];
+    dfs2(dfs2, 1, 0);
+
+    int mn = *min_element(ans.begin() + 1, ans.end());
     for (int i = 1; i <= n; i++)
     {
-        ans[i].first = dfs(dfs, i, 0, 0);
-        ans[i].second = i;
+        if (ans[i] == mn)
+        {
+            cout << i << " " << ans[i] << "\n";
+            break;
+        }
     }
-
-    sort(ans.begin() + 1, ans.end());
-    cout << ans[1].second << " " << ans[1].first << "\n";
 }
 
 int main()

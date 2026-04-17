@@ -7,50 +7,50 @@ void solve()
     int n;
     cin >> n;
     vector<vector<pair<int, int>>> adj(n + 1);
+    vector<int> d(n + 1);
     for (int i = 1; i <= n; i++)
     {
         int u, v;
         cin >> u >> v;
         adj[u].push_back({v, i});
         adj[v].push_back({u, i});
+        d[u]++, d[v]++;
     }
 
-    vector<int> vis(n + 1);
-    vector<int> nodes;
-    map<int, int> circle;
-    bool f = 1;
-    auto dfs = [&](auto dfs, int u, int p) -> bool
+    queue<int> q;
+    for (int i = 1; i <= n; i++)
     {
-        if (vis[u] && f)
+        if (d[i] == 1) 
         {
-            f = 0;
-            while (nodes.size() && nodes.back() != u)
-            {
-                circle[nodes.back()] = 1;
-                nodes.pop_back();
-            }
-            circle[u] = 1;
-            return true;
+            q.push(i);
+            d[i]--;
         }
-        vis[u] = 1;
-        nodes.push_back(u);
+    }
+
+    while (q.size())
+    {
+        auto u = q.front();
+        q.pop();
+
         for (auto [v, i] : adj[u])
         {
-            if (v == p) continue;
-            if (dfs(dfs, v, u)) return true;
+            if (--d[v] == 1)
+            {
+                q.push(v);
+                d[v]--;
+            }
         }
-
-        return false;
-    };
-    dfs(dfs, 1, 0);
+    }
 
     vector<int> cand;
-    for (auto [u, _] : circle)
+    for (int u = 1; u <= n; u++)
     {
         for (auto [v, i] : adj[u])
         {
-            if (circle.find(u) != circle.end() && circle.find(v) != circle.end())
+            if (d[u] > 0 && d[v] > 0)
+            {
                 cand.push_back(i);
+            }
         }
     }
     sort(cand.begin(), cand.end());
